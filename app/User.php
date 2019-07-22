@@ -11,7 +11,7 @@ class User extends Eloquent
 {
     protected $connection = 'mongodb';
     protected $collection = 'users';
-    protected $primarykey = 'id';
+    
     use Notifiable;
 
     /**
@@ -20,7 +20,7 @@ class User extends Eloquent
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password', 'fullname', 'about_me',
     ];
 
     /**
@@ -40,4 +40,12 @@ class User extends Eloquent
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function questions()
+    {
+        return $this->hasMany('App\Question');
+    }
+
+
+
 }
