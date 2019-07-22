@@ -26,7 +26,8 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label class="font-weight-bold">Email address:</label>
-                        <input id="email" name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input id="email" name="email" type="email" class="form-control" aria-describedby="emailHelp"
+                            placeholder="Enter email">
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold">Password:</label>
@@ -38,7 +39,8 @@
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold">Fullname:</label>
-                        <input name="fullname" type="text" class="form-control" aria-describedby="emailHelp" placeholder="your fullname">
+                        <input name="fullname" type="text" class="form-control" aria-describedby="emailHelp"
+                            placeholder="your fullname">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary w-100 font-weight-bold">Create
@@ -55,10 +57,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <script>
         $(function () {
+            jQuery.validator.addMethod("validword", function (value, element) {
+                return value>'0'&&value<'1' || value>'a'&&value<'z' || value>'A'&&value<'Z';
+            }, "Character or number please!");
+
             $('#registerform').validate({
                 rules: {
-                    name: {
+                    fullname: {
                         required: true,
+                        validword: true
                     },
                     email: {
                         required: true,
@@ -75,6 +82,7 @@
                     },
                     password: {
                         required: true,
+                        validword: true
                     },
                     confirm: {
                         required: true,
