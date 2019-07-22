@@ -15,4 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('signup','UserController@getSignUp');
+Route::get('signup','UserController@getSignUp')->name('getSignUp');
+Route::post('signup','UserController@postSignUp')->name('postSignUp');
+Route::get('validEmail','UserController@validEmail')->name('validEmail');

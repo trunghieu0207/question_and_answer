@@ -10,8 +10,7 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class User extends Eloquent
 {
     protected $connection = 'mongodb';
-    protected $collection = 'users';
-    protected $primarykey = 'id';
+    protected $collection = 'Users';
     use Notifiable;
 
     /**
@@ -20,7 +19,7 @@ class User extends Eloquent
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password','fullname','about_me'
     ];
 
     /**
