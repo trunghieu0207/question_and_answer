@@ -11,7 +11,7 @@ use Jenssegers\Mongodb\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     protected $connection = 'mongodb';
-    protected $collection = 'Users';
+    protected $collection = 'users';
     use Notifiable;
 
     /**
@@ -40,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function questions()
+    {
+        return $this->hasMany('App\Question');
+    }
+
+
+
 }

@@ -42,3 +42,4 @@ Route::get('logout',[
 	'uses' => 'Signin@logout'
 ]);
 
+Route::get('question','QuestionController@index');
