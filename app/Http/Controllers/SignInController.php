@@ -17,7 +17,11 @@ use App\Http\Requests\LoginRequest;
 class SignInController extends Controller
 {
     public function view(){
-    	return view('signin');
+        if(Auth::check()){
+    	   return redirect()->route('home-page');
+        } else {
+            return view('signin');
+        }
     }
     public function viewtest(){
         return view('test');
@@ -44,6 +48,7 @@ class SignInController extends Controller
     }
     public function logout(){
         Auth::logout();
-        return redirect()->route('sign-in');
+        Session()->flush();
+        return redirect()->route('home-page');
     }
 }
