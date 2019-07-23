@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home-page') }}"><b style="font-size:20px"><img
                     src="img/resource/logo2a.png" width="40px"> TechSolution</b></a>

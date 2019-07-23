@@ -58,15 +58,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <script>
         $(function () {
-            jQuery.validator.addMethod("validword", function (value, element) {
-                return this.optional(element) || /^\w+$/i.test(value);
-            }, "Invalid character!");
+            jQuery.validator.addMethod("validname", function (value, element) {
+                return this.optional(element) || /^[A-Za-z0-9_ ]+$/i.test(value);
+            }, "alphabet, number, underscore, spaces only.");
+
+            jQuery.validator.addMethod("validpass", function (value, element) {
+                return this.optional(element) || /^\S+$/i.test(value);
+            }, "password can't content space.");
 
             $('#registerform').validate({
                 rules: {
                     fullname: {
                         required: true,
-                        validword: true
+                        validname: true
                     },
                     email: {
                         required: true,
@@ -83,7 +87,7 @@
                     },
                     password: {
                         required: true,
-                        validword: true
+                        validpass: true,
                     },
                     confirm: {
                         required: true,
@@ -93,7 +97,7 @@
                 },
                 messages: {
                     fullname: {
-                        required: 'Please enter your fullname.'
+                        required: 'Please enter your fullname.',
                     },
                     email: {
                         required: 'Please enter your email.',
