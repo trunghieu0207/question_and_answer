@@ -17,7 +17,11 @@ use App\Http\Requests\LoginRequest;
 class SignInController extends Controller
 {
     public function view(){
-    	return view('signin');
+        if(Session()->has('id')){
+    	   return redirect()->route('home-page');
+        } else {
+            return view('signin');
+        }
     }
     public function viewtest(){
         return view('test');
