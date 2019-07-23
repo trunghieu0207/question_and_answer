@@ -11,5 +11,6 @@
 		<div class="alert alert-danger"> {{Session::get('id')}} </div>
 	@endif
 	<h2>Thanh cong</h2>
+	<button type="button" class="btn btn-primary"> <a href="{{url('logout')}} "> Logout</a></button>
 </body>
 </html>

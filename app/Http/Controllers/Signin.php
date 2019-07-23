@@ -41,4 +41,8 @@ class Signin extends Controller
         	// return view('page.signin');
         }
     }
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('sign-in');
+    }
 }

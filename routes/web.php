@@ -44,3 +44,8 @@ Route::group(['middleware' => 'checkSignIn'], function() {
 	'uses' => 'Signin@viewtest'
 	]);
 });
+
+Route::get('logout',[
+	'as'=>'log-out',
+	'uses' => 'Signin@logout'
+]);
