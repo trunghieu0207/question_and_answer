@@ -9,6 +9,6 @@ class HomeController extends Controller
 	public function index()
 	{
 		$questions = Question::all();
-		return view('home',compact('questions'));
+		return view('home',['questions' => $questions]);
 	}
 }
