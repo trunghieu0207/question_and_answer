@@ -33,7 +33,8 @@ class SignInController extends Controller
         $user = User::where('email', '=', $email)->first();
         if(Auth::attempt(['email'=>$email, 'password'=>$password]))
         {
-        	Session()->put('id',$user->_id);
+            Session()->put('id',$user->_id);
+            Session()->put('username',$user->fullname);
             return redirect()->route('home-page');
         }
         else

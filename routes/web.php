@@ -11,9 +11,8 @@
 |
 */
 
-
-
 Route::get('/','HomeController@index')->name('home-page');
+
 Route::get('signup','SignUpController@getSignUp')->name('getSignUp');
 Route::post('signup','SignUpController@postSignUp')->name('postSignUp');
 Route::get('validEmail','SignUpController@validEmail')->name('validEmail');

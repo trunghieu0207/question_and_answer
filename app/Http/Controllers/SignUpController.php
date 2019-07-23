@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use File;
 
 class SignUpController extends Controller
 {
@@ -19,9 +20,8 @@ class SignUpController extends Controller
 			$user->password=bcrypt($request->password);
 			$user->save();
 
-			//Auth::login($user);
-			//session()->put('_id',$user->_id);
-			//session()->put('username',$user->name);
+			File::copy("img\\resource\\default_avatar.png","img\\avatar\\".$user->_id);
+			
 			return redirect()->route('sign-in');
 		}
 		else return "This email has been used!";

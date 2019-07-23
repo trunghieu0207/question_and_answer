@@ -59,8 +59,8 @@
     <script>
         $(function () {
             jQuery.validator.addMethod("validword", function (value, element) {
-                return value>'0'&&value<'1' || value>'a'&&value<'z' || value>'A'&&value<'Z';
-            }, "Character or number please!");
+                return this.optional(element) || /^\w+$/i.test(value);
+            }, "Invalid character!");
 
             $('#registerform').validate({
                 rules: {
