@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 
-class UserController extends Controller
+class SignUpController extends Controller
 {
     public function getSignUp(){
         return view('signup');
@@ -22,7 +22,7 @@ class UserController extends Controller
 			//Auth::login($user);
 			//session()->put('_id',$user->_id);
 			//session()->put('username',$user->name);
-			return "success!";
+			return redirect()->route('sign-in');
 		}
 		else return "This email has been used!";
     }
@@ -33,4 +33,5 @@ class UserController extends Controller
 
 		return response()->json($result);
 	}
+
 }

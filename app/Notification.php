@@ -4,13 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
-
-class Answer extends Eloquent
+class Notification extends Eloquent
 {
     protected $connection = 'mongodb';
-    protected $collection = 'answers';
-    
-    protected $fillable = [
-        'content','user_id','question_id',
-    ];
+    protected $collection = 'notifications';
 }
