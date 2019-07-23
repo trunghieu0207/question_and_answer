@@ -11,35 +11,32 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 
-Route::get('signup','UserController@getSignUp')->name('getSignUp');
-Route::post('signup','UserController@postSignUp')->name('postSignUp');
-Route::get('validEmail','UserController@validEmail')->name('validEmail');
+Route::get('/','HomeController@index')->name('home-page');
+Route::get('signup','SignUpController@getSignUp')->name('getSignUp');
+Route::post('signup','SignUpController@postSignUp')->name('postSignUp');
+Route::get('validEmail','SignUpController@validEmail')->name('validEmail');
 
 Route::get('signin',[
 	'as' => 'sign-in',
-	'uses' => 'Signin@view'
+	'uses' => 'SignInController@view'
 ]);
 
 Route::post('signin',[
 	'as' => 'post-signin',
-	'uses' => 'Signin@postSignIn'
+	'uses' => 'SignInController@postSignIn'
 ]);
 
 Route::group(['middleware' => 'checkSignIn'], function() {
 	Route::get('profile',[
 	'as' => 'profile',
-	'uses' => 'Signin@viewtest'
+	'uses' => 'SignInController@viewtest'
 	]);
 });
 
 Route::get('logout',[
 	'as'=>'log-out',
-	'uses' => 'Signin@logout'
+	'uses' => 'SignInController@logout'
 ]);
 
-Route::get('question','QuestionController@index');

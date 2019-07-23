@@ -13,11 +13,12 @@
                 <div class="row">
                     <div class="col-1"></div>
                     <div class="col-3">
-                        <img src="{{ asset('img/resource/logo2a.png') }}" alt="" class="h-100 w-100">
+                        <a href="{{route('home-page')}}">
+                        <img src="{{ asset('img/resource/logo2a.png') }}" alt="" class="h-100 w-100"></a>
                     </div>
                     <div class="col-7 mt-3">
-                        <h4 class="font-weight-bold">Anything Register</h4>
-                        <small>There are no matter in the world you live!</small>
+                        <h4 class="font-weight-bold">TechSolution Register</h4>
+                        <small>There is no matter in the world you live!</small>
                     </div>
                 </div>
             </div>
@@ -35,19 +36,19 @@
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold">Confirm password:</label>
-                        <input name="confirm" type="password" class="form-control" placeholder="Password">
+                        <input name="confirm" type="password" class="form-control" placeholder="Confirm Password">
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold">Fullname:</label>
                         <input name="fullname" type="text" class="form-control" aria-describedby="emailHelp"
-                            placeholder="your fullname">
+                            placeholder="Your fullname">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary w-100 font-weight-bold">Create
                             account</button>
                     </div>
                     <div class="text-center">
-                        Already have an account? <a href="">login here</a>
+                        Already have an account? <a href="{{route('sign-in')}}">Login here</a>
                     </div>
                 </form>
             </div>
@@ -87,16 +88,17 @@
                     confirm: {
                         required: true,
                         equalTo: $('[name="password"]')
+                    
                     }
                 },
                 messages: {
-                    name: {
+                    fullname: {
                         required: 'Please enter your fullname.'
                     },
                     email: {
                         required: 'Please enter your email.',
-                        email: 'Your email is invalid!',
-                        remote: 'This email has been taken!'
+                        email: 'Your email is invalid.',
+                        remote: 'This email has been taken.'
                     },
                     password: {
                         required: 'Please enter your password.',

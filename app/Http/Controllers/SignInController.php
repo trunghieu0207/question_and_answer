@@ -14,13 +14,13 @@ use App\Http\Requests;
 use Validator;
 use App\Http\Requests\LoginRequest;
 
-class Signin extends Controller
+class SignInController extends Controller
 {
     public function view(){
-    	return view('page.signin');
+    	return view('signin');
     }
     public function viewtest(){
-        return view('page.test');
+        return view('test');
     }
 
     public function postSignIn(Request $request) {
@@ -30,7 +30,7 @@ class Signin extends Controller
         if(Auth::attempt(['email'=>$email, 'password'=>$password]))
         {
         	Session()->put('id',$user->_id);
-            return redirect()->route('profile');
+            return redirect()->route('home-page');
         }
         else
         {
