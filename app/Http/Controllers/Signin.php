@@ -35,7 +35,7 @@ class Signin extends Controller
         else
         {
             return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors([
-                'approve' => 'The email or password is incorrect',
+                'approve' => 'The email or password is incorrect.',
             ]);
          //    Session()->flash('error','The email or password is incorrect');
         	// return view('page.signin');
