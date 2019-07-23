@@ -17,7 +17,7 @@ use App\Http\Requests\LoginRequest;
 class SignInController extends Controller
 {
     public function view(){
-        if(Session()->has('id')){
+        if(Auth::check()){
     	   return redirect()->route('home-page');
         } else {
             return view('signin');
@@ -48,6 +48,7 @@ class SignInController extends Controller
     }
     public function logout(){
         Auth::logout();
-        return redirect()->route('sign-in');
+        Session()->forget('id');
+        return redirect()->route('home-page');
     }
 }
