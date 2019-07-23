@@ -16,9 +16,8 @@
                 </div>
             </div>
             <div class="card-body pr-5 pl-5 pb-5">
-                @foreach($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
+                
+                
                 <form id="registerform" action="{{route('post-signin')}}" method="post">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">    
                     <div class="form-group">
@@ -29,7 +28,12 @@
                         <label class="font-weight-bold">Password:</label>
                         <input name="password" type="password" class="form-control" placeholder="Password">
                     </div>
-                    
+                    <!-- @if (Session::has('error'))
+                        <div class="alert alert-danger"> {{Session::get('error')}} </div>
+                    @endif -->
+                    @if($errors->any())
+                        <div class="alert alert-danger">{{$errors->first()}}</div>
+                    @endif
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary w-100 font-weight-bold">Sign In</button>
                     </div>

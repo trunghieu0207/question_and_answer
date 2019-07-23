@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use Validator;
 use App\Http\Requests\LoginRequest;
+
 class Signin extends Controller
 {
     public function view(){
@@ -32,7 +33,11 @@ class Signin extends Controller
         }
         else
         {
-        	return view('page.signin');
+            return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors([
+                'approve' => 'The email or password is incorrect',
+            ]);
+         //    Session()->flash('error','The email or password is incorrect');
+        	// return view('page.signin');
         }
     }
 }
