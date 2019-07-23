@@ -48,7 +48,7 @@ class SignInController extends Controller
     }
     public function logout(){
         Auth::logout();
-        Session()->forget('id');
+        Session()->flush();
         return redirect()->route('home-page');
     }
 }
