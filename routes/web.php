@@ -37,3 +37,10 @@ Route::post('signin',[
 	'as' => 'post-signin',
 	'uses' => 'Signin@postSignIn'
 ]);
+
+Route::group(['middleware' => 'checkSignIn'], function() {
+	Route::get('profile',[
+	'as' => 'profile',
+	'uses' => 'Signin@viewtest'
+	]);
+});

@@ -18,15 +18,17 @@ class Signin extends Controller
     public function view(){
     	return view('page.signin');
     }
+    public function viewtest(){
+        return view('page.test');
+    }
 
     public function postSignIn(Request $request) {
         $email = $request->email;
         $password = $request->password;
-        
-        
+
         if(Auth::attempt(['email'=>$email, 'password'=>$password]))
         {
-        	return view('welcome');
+        	return redirect()->route('profile');
         }
         else
         {
