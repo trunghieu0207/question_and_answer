@@ -27,3 +27,13 @@ Route::get('test/{ten}',[
     'as'=>'ten',
     'uses'=>'Testcontroller@name'
 ]);
+
+Route::get('signin',[
+	'as' => 'sign-in',
+	'uses' => 'Signin@view'
+]);
+
+Route::post('signin',[
+	'as' => 'post-signin',
+	'uses' => 'Signin@postSignIn'
+]);
