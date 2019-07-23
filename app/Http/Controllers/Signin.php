@@ -26,10 +26,11 @@ class Signin extends Controller
     public function postSignIn(Request $request) {
         $email = $request->email;
         $password = $request->password;
-
+        $user = User::where('email', '=', $email)->first();
         if(Auth::attempt(['email'=>$email, 'password'=>$password]))
         {
-        	return redirect()->route('profile');
+        	Session()->put('id',$user->_id);
+            return redirect()->route('profile');
         }
         else
         {

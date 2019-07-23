@@ -7,6 +7,9 @@
 	<link rel="stylesheet" href="">
 </head>
 <body>
+	@if (Session::has('id'))
+		<div class="alert alert-danger"> {{Session::get('id')}} </div>
+	@endif
 	<h2>Thanh cong</h2>
 </body>
 </html>
