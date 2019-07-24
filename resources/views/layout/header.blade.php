@@ -14,6 +14,7 @@
         </form>
 
         @if(Auth::check())
+        <button class="btn btn-outline-secondary ml-2"><i class="fa fa-plus"></i></button>
         <div class="nav-item dropright">
             <a href="#" class="nav-link text-dark" id="notify" role="button" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
