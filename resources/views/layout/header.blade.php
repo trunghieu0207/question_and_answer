@@ -55,6 +55,14 @@
                     <i class="fa fa-cog mr-1"></i>
                     Profile
                 </a>
+                 <a class="dropdown-item" href="{{ route('profile') }}">
+                    <i class="fa fa-question mr-1"></i>
+                    Your questions
+                </a>
+                 <a class="dropdown-item" href="{{ route('profile') }}">
+                    <i class="fa fa-lightbulb-o mr-1"></i>
+                    Your answers
+                </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('log-out') }}">
                     <i class="fa fa-sign-out mr-1"></i>
