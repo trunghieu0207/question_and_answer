@@ -36,16 +36,28 @@
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold">Confirm password:</label>
-                        <input name="confirm" type="password" class="form-control" placeholder="Confirm Password">
+                        <input name="confirm" type="password" class="form-control" placeholder="Confirm password">
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold">Fullname:</label>
+                        <label class="font-weight-bold">Full name:</label>
                         <input name="fullname" type="text" class="form-control" aria-describedby="emailHelp"
-                            placeholder="Your fullname">
+                            placeholder="Your Fullname">
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary w-100 font-weight-bold">Create
-                            account</button>
+                        <div class="row">
+                            <div class="col-1"></div>
+                                <div class="col-9">
+                                    {!! app('captcha')->display() !!}
+                                    @if (count($errors)>0)
+                                            @foreach($errors->all() as $error)
+                                                <div class="alert alert-danger">{{ $error }}</div>
+                                            @endforeach
+                                    @endif
+                                </div>
+                        </div>    
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary w-100 font-weight-bold">Create account</button>
                     </div>
                     <div class="text-center">
                         Already have an account? <a href="{{route('sign-in')}}">Login here</a>
@@ -55,16 +67,17 @@
         </div>
     </div>
     @include('layout/js')
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <script>
         $(function () {
             jQuery.validator.addMethod("validname", function (value, element) {
                 return this.optional(element) || /^[A-Za-z0-9_ ]+$/i.test(value);
-            }, "alphabet, number, underscore, spaces only.");
+            }, "Alphabet, number, underscore, spaces only.");
 
             jQuery.validator.addMethod("validpass", function (value, element) {
                 return this.optional(element) || /^\S+$/i.test(value);
-            }, "password can't content space.");
+            }, "Password can't contain space.");
 
             $('#registerform').validate({
                 rules: {
