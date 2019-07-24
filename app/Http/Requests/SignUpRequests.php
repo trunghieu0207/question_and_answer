@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class SignUpRequests extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,17 +24,15 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' =>'required|email',
-            'password' => 'required'
+            'g-recaptcha-response' => 'required|captcha'
         ];
     }
 
      public function messages()
     {
         return [
-            'email.required'    => 'Please insert email',
-            'email.email'       => 'Email is not right',
-            'password.required' => 'Please insert password',
+            'g-recaptcha-response.required' => 'Please enter catpcha',
+            'g-recaptcha-response.captcha' => 'Please enter catpcha'
         ];
     }
 }

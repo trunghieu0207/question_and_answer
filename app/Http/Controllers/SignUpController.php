@@ -5,13 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use File;
+use Validator;
+use Redirect;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests\SignUpRequests;
 
 class SignUpController extends Controller
 {
     public function getSignUp(){
         return view('signup');
     }
-    public function postSignUp(Request $request){
+    public function postSignUp(SignUpRequests $request){
+
 		$user = User::where('email', '=', $request->email)->get();
 		if($user->count()==0){
 			$user = new User();
