@@ -36,12 +36,12 @@
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold">Confirm password:</label>
-                        <input name="confirm" type="password" class="form-control" placeholder="Confirm Password">
+                        <input name="confirm" type="password" class="form-control" placeholder="Confirm password">
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold">Fullname:</label>
+                        <label class="font-weight-bold">Full name:</label>
                         <input name="fullname" type="text" class="form-control" aria-describedby="emailHelp"
-                            placeholder="Your fullname">
+                            placeholder="Your Fullname">
                     </div>
                     <div class="form-group">
                         <div class="row">
@@ -73,11 +73,11 @@
         $(function () {
             jQuery.validator.addMethod("validname", function (value, element) {
                 return this.optional(element) || /^[A-Za-z0-9_ ]+$/i.test(value);
-            }, "alphabet, number, underscore, spaces only.");
+            }, "Alphabet, number, underscore, spaces only.");
 
             jQuery.validator.addMethod("validpass", function (value, element) {
                 return this.optional(element) || /^\S+$/i.test(value);
-            }, "password can't content space.");
+            }, "Password can't contain space.");
 
             $('#registerform').validate({
                 rules: {
