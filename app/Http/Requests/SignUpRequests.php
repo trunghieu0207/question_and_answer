@@ -31,8 +31,8 @@ class SignUpRequests extends FormRequest
      public function messages()
     {
         return [
-            'g-recaptcha-response.required' => 'Please enter catpcha',
-            'g-recaptcha-response.captcha' => 'Please enter catpcha'
+            'g-recaptcha-response.required' => 'Please check captcha',
+            'g-recaptcha-response.captcha' => 'Please check captcha'
         ];
     }
 }
