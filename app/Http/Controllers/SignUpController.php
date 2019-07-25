@@ -23,10 +23,8 @@ class SignUpController extends Controller
 			$user->fullname=$request->fullname;
 			$user->email=$request->email;
 			$user->password=bcrypt($request->password);
-			$user->save();
-
-			File::copy("img\\resource\\default_avatar.png","img\\avatar\\".$user->_id);
-			
+			$user->avatar = "default_avatar.png";
+			$user->save();			
 			return redirect()->route('sign-in');
 		}
 		else return "This email has been used!";
