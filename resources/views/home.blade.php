@@ -4,6 +4,13 @@
 	@include('layout.css')
 	<title>Homepage</title>
 	<link rel="stylesheet" href="{{asset('css/style.css')}}">
+	<style type="text/css" media="screen">
+		.pv-archiveText {
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+	</style>
 </head>
 <body style="background-image: linear-gradient(60deg, #64b3f4 0%, #c2e59c 100%); background-repeat: no-repeat; background-attachment: fixed;">
 	@include('layout.header')
@@ -23,34 +30,46 @@
 							<br>
 							
 							<div class="float-left"><h5>{{$question->title}}</h5></div>
-								<small class="float-right border rounded-pill text-primary bg-light p-2 font-weight-bold">{{$question->categories->name}}</small>
-								<br>
-								<br>
-								<p>{{$question->content}}</p>
-								<br>
-								<div class="row" style="width: 300px">
-									<div class="col-sm">
-										<i class="fa fa-thumbs-up"></i>
-										{{$question->total_like}}
-									</div>
-									<div class="col-sm">
-										<i class="fa fa-thumbs-down"></i>
-										{{$question->total_dislike}}
-									</div>
-									<div class="col-sm">
-										<i class="fa fa-reply"></i>
-										{{$question->total_answer}}
-									</div>
+							<small class="float-right border rounded-pill text-primary bg-light p-2 font-weight-bold">{{$question->categories->name}}</small>
+							<br>
+							<br>
+							<p class="pv-archiveText">{{$question->content}}</p>
+							<div class="row" style="width: 300px">
+								<div class="col-sm">
+									<i class="fa fa-thumbs-up"></i>
+									{{$question->total_like}}
+								</div>
+								<div class="col-sm">
+									<i class="fa fa-thumbs-down"></i>
+									{{$question->total_dislike}}
+								</div>
+								<div class="col-sm">
+									<i class="fa fa-reply"></i>
+									{{$question->total_answer}}
 								</div>
 							</div>
-							
 						</div>
-						<hr>
-						@endforeach
+
 					</div>
+					<hr>
+					@endforeach
 				</div>
 			</div>
-		</main>
-		@include('layout.js')
-	</body>
-	</html>
+		</div>
+	</main>
+	<script>
+		/*function truncateText(selector, maxLength) {
+			var element = document.querySelector(selector),
+			truncated = element.innerText;
+
+			if (truncated.length > maxLength) {
+				truncated = truncated.substr(0,maxLength) + '...';
+			}
+			return truncated;
+		}
+
+		document.querySelector('.content').innerText = truncateText('.content', 50);*/
+	</script>
+	@include('layout.js')
+</body>
+</html>

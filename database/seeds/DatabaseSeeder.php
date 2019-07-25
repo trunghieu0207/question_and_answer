@@ -74,7 +74,7 @@ class DatabaseSeeder extends Seeder
 
         $question3 = new Question();
         $question3->title='Generate fullstack application using yeoman fullstack';
-        $question->content="I want to generate a fullstack application and I was thinking of using a yeoman generator. I tried using the latest version of yeoman fullstack generator and I generated the project but I don't understand very well the structure of the project. I noticed that this project doesn't use bower and I don't know how to manage dependecies from other components. Can you explain to me how this project works? If you cannot explain this to me, I would like a project with bower so can you tell me which is the latest version of angular fullstack that still uses bower?.";
+        $question3->content="I want to generate a fullstack application and I was thinking of using a yeoman generator. I tried using the latest version of yeoman fullstack generator and I generated the project but I don't understand very well the structure of the project. I noticed that this project doesn't use bower and I don't know how to manage dependecies from other components. Can you explain to me how this project works? If you cannot explain this to me, I would like a project with bower so can you tell me which is the latest version of angular fullstack that still uses bower?.";
         $question3->user_id=$user->_id;
         $question3->category_id=$cat_fullstack->_id;
         $question3->total_like=0;
@@ -87,9 +87,9 @@ class DatabaseSeeder extends Seeder
         $question4->content="Is there a solid way to detect whether or not a user is using a mobile device in jQuery? Something similar to the CSS @media attribute? I would like to run a different script if the browser is on a handheld device. The jQuery $.browser function is not what I am looking for.";
         $question4->user_id=$user2->_id;
         $question4->category_id=$cat_mobile->_id;
-        $question->total_like=0;
-        $question->total_dislike=0;
-        $question->total_answer=0;
+        $question4->total_like=0;
+        $question4->total_dislike=0;
+        $question4->total_answer=0;
         $question4->save();
 
         $answer = new Answer();
