@@ -39,3 +39,7 @@ Route::get('logout',[
 	'uses' => 'SignInController@logout'
 ]);
 
+Route::get('test',function(){
+	return view('test');
+});
+

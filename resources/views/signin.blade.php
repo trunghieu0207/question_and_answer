@@ -14,11 +14,11 @@
             <div class="card-header">
                 <div class="row">
                     
-                    <div class="col-4">
+                    <div class="col-sm-4">
                         <a href="{{route('home-page')}}">
                         <img src="img/resource/logo2a.png" alt="" class="w-100" style="margin-top: 15px;margin-left:15px" ></a>
                     </div>
-                    <div class="col-8 mt-3">
+                    <div class="col-sm-8 mt-3">
                         <h4 class="font-weight-bold">Welcome to TechSolution</h4>
                         <small>Ask anything you want!</small>
                     </div>
