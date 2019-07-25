@@ -8,7 +8,7 @@
 </head>
 
 
-<body background="img/resource/sky.jpg" style="height: 100%">
+<body background="img/resource/sky.jpg" style="height: 100%;background-repeat: no-repeat;background-attachment: fixed;background-size: 100% 100%">
     <div class="container h-100 d-flex justify-content-center align-items-center">
         <div class="card shadow" style ="width:400px;">
             <div class="card-header">

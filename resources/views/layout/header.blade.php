@@ -8,10 +8,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="form-inline" action="https://www.google.com/search" method="get" target="_blank">
-                <input name="q" class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-dark my-2 my-sm-0 font-weight-bold" type="submit">
-                    <i class="fa fa-search"></i>
-                </button>
+                <div class="input-group mb-2">
+                    <input name="q" class="form-control" type="search" placeholder="Search">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-dark font-weight-bold" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
             </form>
 
             @if(Auth::check())

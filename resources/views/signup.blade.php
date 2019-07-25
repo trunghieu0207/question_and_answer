@@ -6,7 +6,7 @@
     <title>Register</title>
 </head>
 
-<body background="{{ asset('img/resource/sky.jpg') }}" style="height: 100%">
+<body background="{{ asset('img/resource/sky.jpg') }}" style="height: 100%;background-repeat: no-repeat;background-attachment: fixed;background-size: 100% 100%">
     <div class="d-flex justify-content-center align-items-center h-100">
         <div class="card shadow">
             <div class="card-header" style="width: 500px">
@@ -14,7 +14,7 @@
                     <div class="col-sm-1"></div>
                     <div class="col-sm-3">
                         <a href="{{route('home-page')}}">
-                            <img src="{{ asset('img/resource/logo2a.png') }}" alt="" class="h-100 w-100"></a>
+                        <img src="{{ asset('img/resource/logo2a.png') }}" alt="" class="h-100 w-100"></a>
                     </div>
                     <div class="col-sm-7 mt-3">
                         <h4 class="font-weight-bold">TechSolution Register</h4>
@@ -46,15 +46,15 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-1"></div>
-                            <div class="col-sm-9">
-                                {!! app('captcha')->display() !!}
-                                @if (count($errors)>0)
-                                @foreach($errors->all() as $error)
-                                <div class="alert alert-danger">{{ $error }}</div>
-                                @endforeach
-                                @endif
-                            </div>
-                        </div>
+                                <div class="col-sm-9">
+                                    {!! app('captcha')->display() !!}
+                                    @if (count($errors)>0)
+                                            @foreach($errors->all() as $error)
+                                                <div class="alert alert-danger">{{ $error }}</div>
+                                            @endforeach
+                                    @endif
+                                </div>
+                        </div>    
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary w-100 font-weight-bold">Create account</button>
@@ -72,7 +72,7 @@
     <script>
         $(function () {
             jQuery.validator.addMethod("validname", function (value, element) {
-                return this.optional(element) || /^[A-Za-z0-9_ ]+$/i.test(value);
+                return this.optional(element) || /^[\w ]+$/i.test(value);
             }, "Alphabet, number, underscore, spaces only.");
 
             jQuery.validator.addMethod("validpass", function (value, element) {
@@ -101,11 +101,13 @@
                     password: {
                         required: true,
                         validpass: true,
+                        maxlength:30,
+                        minlength:5
                     },
                     confirm: {
                         required: true,
                         equalTo: $('[name="password"]')
-
+                    
                     }
                 },
                 messages: {
@@ -119,6 +121,8 @@
                     },
                     password: {
                         required: 'Please enter your password.',
+                        maxlength:'Maximum character is 30',
+                        minlength:'Password must has at least 5 character.'
                     },
                     confirm: {
                         required: 'Please comfirm your password.',
