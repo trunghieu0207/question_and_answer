@@ -57,6 +57,9 @@ class DatabaseSeeder extends Seeder
         $question->content="How to use H2 database's integrated managment frontend? For operations such as create table, alter table, add column, and so on.";
         $question->user_id=$user->_id;
         $question->category_id=$cat_fontend->_id;
+        $question->total_like=0;
+        $question->total_dislike=0;
+        $question->total_answer=0;
         $question->save();
 
         $question2 = new Question();
@@ -64,6 +67,9 @@ class DatabaseSeeder extends Seeder
         $question2->content="I am working on realtime app (chat) & using angular and my backend is php(codeigniter restapi) for database in mongodb I hear somewhere that socket.io is best library for socket (use for real time) , and i see socket.io is mostly use with node.js , so may i need basic knowledge of node or any other feasible way to work with socket.io , angular and php.";
         $question2->user_id=$user2->_id;
         $question2->category_id=$cat_backend->_id;
+        $question2->total_like=0;
+        $question2->total_dislike=0;
+        $question2->total_answer=0;
         $question2->save();
 
         $question3 = new Question();
@@ -71,6 +77,9 @@ class DatabaseSeeder extends Seeder
         $question->content="I want to generate a fullstack application and I was thinking of using a yeoman generator. I tried using the latest version of yeoman fullstack generator and I generated the project but I don't understand very well the structure of the project. I noticed that this project doesn't use bower and I don't know how to manage dependecies from other components. Can you explain to me how this project works? If you cannot explain this to me, I would like a project with bower so can you tell me which is the latest version of angular fullstack that still uses bower?.";
         $question3->user_id=$user->_id;
         $question3->category_id=$cat_fullstack->_id;
+        $question3->total_like=0;
+        $question3->total_dislike=0;
+        $question3->total_answer=0;
         $question3->save();
 
         $question4 = new Question();
@@ -78,6 +87,9 @@ class DatabaseSeeder extends Seeder
         $question4->content="Is there a solid way to detect whether or not a user is using a mobile device in jQuery? Something similar to the CSS @media attribute? I would like to run a different script if the browser is on a handheld device. The jQuery $.browser function is not what I am looking for.";
         $question4->user_id=$user2->_id;
         $question4->category_id=$cat_mobile->_id;
+        $question->total_like=0;
+        $question->total_dislike=0;
+        $question->total_answer=0;
         $question4->save();
 
         $answer = new Answer();
