@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password','fullname','about_me'
+        'email', 'password','fullname','avatar','about_me'
     ];
 
     /**
@@ -41,6 +41,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    
+    public function questions() {
+        return $this->hasMany('App\Question','user_id','_id');
+    }
 
 }

@@ -26,7 +26,7 @@
 						@foreach($questions as $question)
 						<tr style="background-color: #E0F7FA">
 
-							<td id="title"><img src="img/avatar/{{$question->user_id}}" class="test rounded-circle align-middle">{{$question->title}}</td>
+							<td id="title"><img src="img/avatar/{{$question->user->avatar}}" class="test rounded-circle align-middle">{{$question->title}}</td>
 							
 							<td class="center-block text-center">{{$question->categories->name}}</td>
 							<td class="center-block text-center">915</td>
