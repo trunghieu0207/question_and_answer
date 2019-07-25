@@ -17,19 +17,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
         $user = new User();
-        $user->email='user1@mail.com';
-        $user->password=bcrypt(123456);
-        $user->fullname='User1';
-        $user->about_me='None';
+        $user->email = 'user1@mail.com';
+        $user->password = bcrypt(123456);
+        $user->fullname = 'User1';
+        $user->avatar = 'default_avatar.png';
+        $user->about_me = 'None';
         $user->save();
 
         $user2 = new User();
         $user2->email='user2@mail.com';
         $user2->password=bcrypt(123456);
         $user2->fullname='User2';
+        $user2->avatar = 'default_avatar.png';
         $user2->about_me='None';
         $user2->save();
+
+
 
         $cat_fontend = new Category();
         $cat_fontend->name='Frontend';
