@@ -9,6 +9,7 @@
 			white-space: nowrap;
 			text-overflow: ellipsis;
 			overflow: hidden;
+			width: 90%;
 		}
 	</style>
 </head>
