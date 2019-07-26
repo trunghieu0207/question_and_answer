@@ -12,7 +12,7 @@
 	<style type="text/css" media="screen">
 	</style>
 </head>
-<body style="background-image: linear-gradient(60deg, #64b3f4 0%, #c2e59c 100%); background-repeat: no-repeat; background-attachment: fixed;">
+<body class="main-background">
 
 @include('layout.header')
 

@@ -1,14 +1,9 @@
-@extends('layout.master')
-@section('title','Profile')
-@section('content')
-	<div class="container">
 		<div class="row">
-			<div class="col-sm-4 bg-primary">dd</div>
-			<div class="col-sm-8">
-				<div class="card-body" style="text-align: center;">
-					<h2 class="text-primary">PERSONAL INFORMATION</h2>	
+			<div class="col-sm-12">
+				<div class="" style="text-align: center;">
+					<h2 class="text-primary ">PERSONAL INFORMATION</h2>	
 				</div>
-				<hr class="my-1">
+				<hr class="my-3">
 				<div class="row">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
@@ -34,5 +29,3 @@
 				</div>
 			</div>
 		</div>
-	</div>
-@endsection

@@ -44,6 +44,6 @@ Route::get('test',function(){
 });
 
 Route::get('profile', function() {
-	return view('profile');
+	return view('layout.profile');
 });
 

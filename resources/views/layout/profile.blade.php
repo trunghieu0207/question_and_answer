@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="en" style="height: 100%">
-
-<head>
-    @include('layout.css')
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
-        rel="stylesheet" type="text/css" />
-    <title>Profile</title>
-</head>
-
-<body class="main-background">
-    @include('layout.header')
+@extends('layout.master')
+@section('title','Profile')
+@section('content')
     <div class="container">
         <div class="row">
-            <div class="col-sm-3  sidebar-sticky" style="margin-top: 31px">
+            <div class="col-sm-3  sidebar-sticky" style="margin-top: 47px">
                 <div class="card shadow bg-light">
                     <div class="card-body text-center">
-                        <img src="img\resource\default_avatar.png" width="200px">
+                        <img src="img\resource\default_avatar.png" class="avatar">
                         <h4 class="mt-2 text-primary font-weight-bold">Name?</h4>
                         <button class="badge badge-warning" data-toggle="modal" data-target="#exampleModal">change
                             avatar</button>
@@ -33,7 +23,7 @@
             <div class="col-sm-9 mt-5">
             <div class="card shadow bg-light">
                     <div class="card-body">
-                        your code here....
+                        @include('profile2')
                     </div>
                 </div>
             </div>
@@ -64,20 +54,4 @@
             </div>
         </div>
     </div>
-    @include('layout.js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
-    <script>
-        $('#fuMain').fileinput({
-            theme: 'fa',
-            allowedFileExtensions: ['png', 'jpg'],
-            //uploadUrl: '/upload_article_poster',
-            uploadAsync: false,
-            showUpload: false,
-            maxFileSize: 1024,
-            removeClass: 'btn btn-warning'
-        });
-    </script>
-</body>
-
-</html>
+@endsection
