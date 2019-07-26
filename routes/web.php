@@ -48,7 +48,7 @@ Route::get('profile', function() {
 	return view('profile');
 })->name('profile');
 
-Route::get('viewtopic',[
+Route::get('viewtopic/{id}',[
 	'as' => 'view-topic',
 	'uses' => 'ViewTopicController@view'
 ]);
