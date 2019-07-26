@@ -11,11 +11,11 @@
                         <button class="badge badge-warning" data-toggle="modal" data-target="#exampleModal">change
                             avatar</button>
                         <div class="nav flex-column nav-pills my-3 bg-white border">
-                            <button class="btn nav-link active">Personal infomation</button>
-                            <button class="btn nav-link">Change password</button>
-                            <button class="btn nav-link">Manage question</button>
-                            <button class="btn nav-link">Manage answer</button>
-                            <button class="btn nav-link">Sign out</button>
+                            <button class="btn nav-link @yield('status1')">Personal infomation</button>
+                            <button class="btn nav-link @yield('status2')">Change password</button>
+                            <button class="btn nav-link @yield('status3')">Manage question</button>
+                            <button class="btn nav-link @yield('status4')">Manage answer</button>
+                            <button class="btn nav-link @yield('status5')">Sign out</button>
                         </div>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
             <div class="col-sm-9 mt-5">
             <div class="card shadow bg-light">
                     <div class="card-body">
-                        @include('profile2')
+                       @yield('contentprofile')
                     </div>
                 </div>
             </div>

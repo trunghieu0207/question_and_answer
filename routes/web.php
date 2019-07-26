@@ -44,6 +44,10 @@ Route::get('test',function(){
 });
 
 Route::get('profile', function() {
-	return view('layout.profile');
+	return view('information');
+});
+
+Route::get('changepassword', function() {
+	return view('changepassword');
 });
 

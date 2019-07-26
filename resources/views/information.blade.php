@@ -1,3 +1,6 @@
+@extends('layout.profile')
+@section('status1','active')
+@section('contentprofile')
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="" style="text-align: center;">
@@ -29,3 +32,4 @@
 				</div>
 			</div>
 		</div>
+@endsection
