@@ -1,15 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home-page') }}"><b style="font-size:20px"><img
-                    src="img/resource/logo2a.png" width="40px"> TechSolution</b></a>
+                    src="{{ asset('img/resource/logo2a.png') }}" width="40px"> TechSolution</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="form-inline" action="https://www.google.com/search" method="get" target="_blank">
-                <div class="input-group mb-2">
-                    <input name="q" class="form-control" type="search" placeholder="Search">
+            <form class="form-inline" action="{{route('search_test')}}" method="get" target="_blank">
+                <div class="input-group">
+                    <input id="search" name="keyword" class="form-control" type="search" placeholder="Search">
+                    <div id="result_list" class="dropdown-menu">
+
+                    </div>
                     <div class="input-group-prepend">
                         <button class="btn btn-outline-dark font-weight-bold" type="submit">
                             <i class="fa fa-search"></i>
@@ -62,11 +65,11 @@
                         <i class="fa fa-cog" style="width:20px"></i>
                         Profile
                     </a>
-                    <a class="dropdown-item" href="{{ route('profile') }}">
+                    <a class="dropdown-item" href="{{ route('manage_question') }}">
                         <i class="fa fa-comments-o" style="width:20px"></i>
                         Your questions
                     </a>
-                    <a class="dropdown-item" href="{{ route('profile') }}">
+                    <a class="dropdown-item" href="{{ route('manage_answer') }}">
                         <i class="fa fa-lightbulb-o" style="width:20px"></i>
                         Your answers
                     </a>

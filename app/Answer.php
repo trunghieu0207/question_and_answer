@@ -13,4 +13,8 @@ class Answer extends Eloquent
     protected $fillable = [
         'content','user_id','question_id',
     ];
+
+    public function question() {
+    	return $this->belongsTo('App\question', 'question_id', '_id');
+    }
 }
