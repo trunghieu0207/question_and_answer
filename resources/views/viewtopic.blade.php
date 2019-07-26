@@ -40,19 +40,23 @@
 			</div>			
 		</div>
 	</div>
-
-    <div class="card shadow">
+	
+    <div class="card shadow" style="margin-top: 20px; margin-bottom: 20px;" >
 		
 		<div class="card-body">
 			<form>
-				<i class="fa fa-paperclip fa-lg float-right"></i>
-				<textarea id="MyID" rows="3"></textarea>
+				
+				<textarea id="MyID" rows="2"></textarea>
+				<i class="fa fa-paperclip fa-lg float-left"></i>
 				<button type="button" class="btn btn-primary float-right" >Submit</button>
 			</form>
 		</div>		
 	</div>
 
-	<div class="card shadow">
+	<div class="card shadow" style="margin-bottom: 20px; " >
+		<div class="card-header">
+			<h3>Answer</h3>
+		</div>
 		<div class="row px-3 pt-3">
 			<div class="col-sm-1"><img src="img/avatar/{{$question->user->avatar}}" class="test rounded-circle align-middle"></div>
 			<div class="col-sm-11">
