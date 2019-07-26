@@ -43,6 +43,7 @@ Route::get('test',function(){
 	return view('test');
 });
 
+
 Route::get('profile', function() {
 	return view('profile');
 })->name('profile');
@@ -51,3 +52,15 @@ Route::get('viewtopic',[
 	'as' => 'view-topic',
 	'uses' => 'ViewTopicController@view'
 ]);
+
+Route::get('addtopic',[
+	'as' => 'add-topic',
+	'uses' => 'QuestionController@create'
+]);
+
+Route::get('edittopic/{id}',[
+	'as' => 'edit-topic',
+	'uses' => 'HomeController@edit'
+]);
+
+
