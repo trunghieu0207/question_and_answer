@@ -42,16 +42,14 @@
 	</div>
 
     <div class="card shadow">
-		<div class="card-header">
-				<h3>Answer</h3>
-			</div>
-			<div class="card-body">
-				<form>
-					<i class="fa fa-paperclip fa-lg float-right"></i>
-					<textarea id="MyID" rows="3"></textarea>
-					<button type="button" class="btn btn-primary float-right" >Submit</button>
-				</form>
-			</div>		
+		
+		<div class="card-body">
+			<form>
+				<i class="fa fa-paperclip fa-lg float-right"></i>
+				<textarea id="MyID" rows="3"></textarea>
+				<button type="button" class="btn btn-primary float-right" >Submit</button>
+			</form>
+		</div>		
 	</div>
 
 	<div class="card shadow">
