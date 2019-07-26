@@ -8,10 +8,10 @@ use App\Answer;
 
 class ViewTopicController extends Controller
 {
-    public function view(){
-        $question = Question::first();
-        $answer = Answer::first();
+    public function view($id){
+        $question = Question::find($id);
+        $answers = Answer::where('question_id','like',$id)->get();
         //$question->first();
-        return view('viewtopic',compact('question'),compact('answer'));
+        return view('viewtopic',compact('question','answers'));
     }
 }

@@ -16,4 +16,8 @@ class Answer extends Eloquent
     public function user() {
     	return $this->belongsTo('App\User', 'user_id', '_id');
     }
+    public function questions() {
+    	
+    	return $this->belongsTo('App\Question', 'question_id', '_id');
+    }
 }

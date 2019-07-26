@@ -21,6 +21,10 @@ class Question extends Eloquent
     public function user() {
     	return $this->belongsTo('App\User', 'user_id', '_id');
     }
+
+    public function answers() {
+        return $this->hasMany('App\Question', 'question_id', '_id');
+    }
    
 }
 

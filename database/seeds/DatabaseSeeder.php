@@ -110,6 +110,12 @@ class DatabaseSeeder extends Seeder
         $answer3->question_id = $question3->_id;
         $answer3->save();
 
+        $answer4 = new Answer();
+        $answer4->content = "You don't need node.js if you don't want it. I wouldn't try mixing node and php.\nIf you want to use socket.io with php, take a look at elephant.io: http://elephant.io/#usage. I think it'll suit your needs.";
+        $answer4->user_id = $user2->_id;
+        $answer4->question_id = $question2->_id;
+        $answer4->save();
+
         $attachment = new Attachment();
         $attachment->name = "Myfile";
         $attachment->type = "zip";
@@ -130,5 +136,13 @@ class DatabaseSeeder extends Seeder
         $user_question_answer->post_id = $question->_id;
         $user_question_answer->action = "Like";
         $user_question_answer->post_type = "Question";
+        $user_question_answer->save();
+
+        $user_question_answer2 = new User_Question_Answer();
+        $user_question_answer2->user_id = $user->_id;
+        $user_question_answer2->post_id = $question->_id;
+        $user_question_answer2->action = "";
+        $user_question_answer2->post_type = "Answer";
+        $user_question_answer2->save();
     }
 }
