@@ -43,3 +43,13 @@ Route::get('test',function(){
 	return view('test');
 });
 
+Route::get('addtopic',[
+	'as' => 'add-topic',
+	'uses' => 'QuestionController@create'
+]);
+
+Route::get('edittopic/{id}',[
+	'as' => 'edit-topic',
+	'uses' => 'HomeController@edit'
+]);
+

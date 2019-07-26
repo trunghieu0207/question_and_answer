@@ -17,4 +17,15 @@ class HomeController extends Controller
 		}
 		return view('home',compact('questions'));
 	}
+
+	public function edit($id)
+	{
+		if(Auth::check()){
+			$question = Question::find($id);
+			return view('edittopic',compact('question','id'));
+		} else {
+			return view('signin');
+		}
+		
+	}
 }
