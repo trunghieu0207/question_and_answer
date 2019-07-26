@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	@include('layout.css')
-	<title>Homepage</title>
-	<link rel="stylesheet" href="{{asset('css/style.css')}}">
-	<style type="text/css" media="screen">
-		.pv-archiveText {
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			overflow: hidden;
-			width: 90%;
-		}
-	</style>
-</head>
-<body style="background-image: linear-gradient(60deg, #64b3f4 0%, #c2e59c 100%); background-repeat: no-repeat; background-attachment: fixed;">
-	@include('layout.header')
+@extends('master')
+@section('title','Homepage')
+@section('content')
 	<main>
 		<div class="container mt-5">
 			<div class="card shadow">
@@ -58,19 +44,4 @@
 			</div>
 		</div>
 	</main>
-	<script>
-		/*function truncateText(selector, maxLength) {
-			var element = document.querySelector(selector),
-			truncated = element.innerText;
-
-			if (truncated.length > maxLength) {
-				truncated = truncated.substr(0,maxLength) + '...';
-			}
-			return truncated;
-		}
-
-		document.querySelector('.content').innerText = truncateText('.content', 50);*/
-	</script>
-	@include('layout.js')
-</body>
-</html>
+@endsection

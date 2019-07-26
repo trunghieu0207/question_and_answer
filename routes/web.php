@@ -43,6 +43,16 @@ Route::get('test',function(){
 	return view('test');
 });
 
+
+Route::get('profile', function() {
+	return view('profile');
+})->name('profile');
+
+Route::get('viewtopic',[
+	'as' => 'view-topic',
+	'uses' => 'ViewTopicController@view'
+]);
+
 Route::get('addtopic',[
 	'as' => 'add-topic',
 	'uses' => 'QuestionController@create'
@@ -55,6 +65,5 @@ Route::get('edittopic/{id}',[
 	'uses' => 'HomeController@edit'
 ]);
 
-Route::get('fileupload', 'AttachmentController@fileUpload');
-Route::post('fileupload', 'AttachmentController@fileUploadPost')->name('fileUploadPost');
+
 

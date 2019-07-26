@@ -45,4 +45,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Question','user_id','_id');
     }
 
+    public function answers() {
+        return $this->hasMany('App\Question','user_id','_id');
+    }
+
 }
