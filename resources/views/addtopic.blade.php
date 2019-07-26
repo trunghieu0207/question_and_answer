@@ -35,17 +35,6 @@
 					</div>
 					<button type="submit" class="btn btn-primary float-right" >Create topic</button>
 				</form>
-				<form class="fileUpload" method="POST" action="{{ route('fileUploadPost') }}" enctype="multipart/form-data">
-					@csrf
-					<div class="form-group">
-						<input name="file" id="poster" type="file" class="form-control"><br/>
-						<div class="progress">
-							<div class="bar"></div >
-							<div class="percent">0%</div >
-						</div>
-						<input type="submit"  value="Submit" class="btn btn-success">
-					</div>
-				</form>    
 			</div>
 		</div>
 	</div>
@@ -56,36 +45,6 @@
 			element: document.getElementById("MyID") 
 		});
 
-		function validate(formData, jqForm, options) {
-			var form = jqForm[0];
-			if (!form.file.value) {
-				alert('File not found');
-				return false;
-			}
-		}
-
-		(function() {
-			var bar = $('.bar');
-			var percent = $('.percent');
-			var status = $('#status');
-
-			$('.fileUpload').ajaxForm({
-				beforeSubmit: validate,
-				beforeSend: function() {
-					status.empty();
-					var percentVal = '0%';
-					var posterValue = $('input[name=file]').fieldValue();
-					bar.width(percentVal)
-					percent.html(percentVal);
-				},
-				
-				complete: function(xhr) {
-					status.html(xhr.responseText);
-					alert('Uploaded Successfully');
-					window.location.href = "/addtopic";
-				}
-			});
-		})();
 	</script>
 </body>
 </html>

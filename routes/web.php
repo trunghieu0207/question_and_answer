@@ -62,8 +62,17 @@ Route::post('addtopic','QuestionController@store');
 
 Route::get('edittopic/{id}',[
 	'as' => 'edit-topic',
-	'uses' => 'HomeController@edit'
+	'uses' => 'QuestionController@edit'
 ]);
 
+Route::post('edittopic/{id}','QuestionController@update');
 
+Route::delete('{id}','QuestionController@destroy');
+
+Route::get('editanswer/{id}',[
+	'as' => 'edit-answer',
+	'uses' => 'AnswerController@edit'
+]);
+
+Route::post('editanswer/{id}','AnswerController@update');
 

@@ -6,9 +6,38 @@
 			<div class="col-sm-1"><img src="{{asset('img/avatar')}}/{{$question->user->avatar}}" class="test rounded-circle align-middle"></div>
 			<div class="col-sm-11">
 				<div class="font-weight-bold" style="color:#787878; font-size: 25px">{{$question->user->fullname}}
-					<i class="float-right fa fa-trash" aria-hidden="true" style="margin-right:10px; font-size: 120%; "></i>   
-					<i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i>
-				  	
+
+					<!-- <i class="float-right fa fa-trash" aria-hidden="true" style="margin-right:10px; font-size: 120%; "></i>    -->
+					<!-- Button HTML (to Trigger Modal) -->
+					@if($question->user_id==Session::get('id'))
+					<a href="#myModal" data-toggle="modal"><i class="float-right fa fa-trash" aria-hidden="true" style="margin-right:10px; font-size: 120%; "></i></a>
+
+					<!-- Modal HTML -->
+					<div id="myModal" class="modal fade" tabindex="-1">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Confirmation</h5>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+								<div class="modal-body">
+									<p>Are you sure you want to delete this topic?</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+									<form action="{{action('QuestionController@destroy', $question->id)}}" method="post">
+										@csrf
+										<input name="_method" type="hidden" value="DELETE">
+										<button type="submit" class="btn btn-danger">Delete</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<a href="{{asset('edittopic')}}/{{ $question->id }}"><i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>
+					@else
+					@endif
+
 				</div>	
 				<div>
 					<small class="text-muted" style="color:#5488c7;">
@@ -41,7 +70,7 @@
 		</div>
 	</div>
 	
-    <div class="card shadow" style="margin-top: 20px; margin-bottom: 20px;" >
+	<div class="card shadow" style="margin-top: 20px; margin-bottom: 20px;" >
 		
 		<div class="card-body">
 			<form>
@@ -70,7 +99,7 @@
 			</div>
 			<div class="col-sm-11">
 				<div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$answer->user->fullname}}   
-					<i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i>				 
+					<a href="{{asset('editanswer')}}/{{ $answer->id }}"><i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>		 
 				</div>	
 				<div>
 					<small class="text-muted" style="color:#5488c7;">

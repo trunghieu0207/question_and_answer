@@ -8,7 +8,7 @@ use App\Answer;
 
 class ViewTopicController extends Controller
 {
-    public function view($id){
+    public function view( Request $request, $id){
         $question = Question::find($id);
         $answers = Answer::where('question_id','like',$id)->get();
         //$question->first();

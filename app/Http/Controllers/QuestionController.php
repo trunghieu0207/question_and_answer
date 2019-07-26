@@ -62,6 +62,32 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    public function edit($id)
+    {
+    	if(Auth::check()){
+    		$categories = Category::all();
+    		$question = Question::find($id);
+    		return view('edittopic',compact('question','id','categories'));
+    	} else {
+    		return view('signin');
+    	}
+    }
 
+    public function update(Request $request, $id)
+    {
+    	$question = Question::find($id);
+    	$question->title = $request->get('title');
+    	$question->content = $request->get('content');
+    	$question->category_id = $request->get('category');
+    	$question->save();
+    	return redirect()->route('view-topic', ['id' => $id]);
+    }
 
+    public function destroy($id)
+    {
+    	$question = Question::find($id);
+    	$question->delete();
+    	return redirect('/');
+    }
 }
