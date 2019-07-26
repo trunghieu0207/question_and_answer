@@ -47,3 +47,7 @@ Route::get('profile', function() {
 	return view('profile');
 });
 
+Route::get('viewtopic',[
+	'as' => 'view-topic',
+	'uses' => 'ViewTopicController@view'
+]);
