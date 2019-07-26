@@ -13,7 +13,7 @@
 		}
 	</style>
 </head>
-<body style="background-image: linear-gradient(60deg, #64b3f4 0%, #c2e59c 100%); background-repeat: no-repeat; background-attachment: fixed;">
+<body class="main-background">
 	@include('layout.header')
 	<main>
 		<div class="container mt-5">
@@ -58,19 +58,6 @@
 			</div>
 		</div>
 	</main>
-	<script>
-		/*function truncateText(selector, maxLength) {
-			var element = document.querySelector(selector),
-			truncated = element.innerText;
-
-			if (truncated.length > maxLength) {
-				truncated = truncated.substr(0,maxLength) + '...';
-			}
-			return truncated;
-		}
-
-		document.querySelector('.content').innerText = truncateText('.content', 50);*/
-	</script>
 	@include('layout.js')
 </body>
 </html>

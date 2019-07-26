@@ -19,11 +19,11 @@
             </form>
 
             @if(Auth::check())
-            <button class="btn btn-outline-secondary ml-2"><i class="fa fa-plus"></i></button>
-            <div class="nav-item dropright">
+            <button class="btn btn-outline-secondary ml-2 mb-2" title="Ask question"><i class="fa fa-plus"></i></button>
+            <div class="nav-item dropright mb-2">
                 <a href="#" class="nav-link text-dark" id="notify" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-bell" style="font-size: 18px"></i>
+                    <i class="fa fa-bell" style="font-size: 20px"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="notify" style="width: 270px">
                     @if(!empty($notifications))
