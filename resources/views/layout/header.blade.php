@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home-page') }}"><b style="font-size:20px"><img
-                    src="img/resource/logo2a.png" width="40px"> TechSolution</b></a>
+                    src="{{ asset('img/resource/logo2a.png')}} " width="40px"> TechSolution</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -58,15 +58,15 @@
                     <i class="fa fa-user"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="setting">
-                    <a class="dropdown-item" href="{{ route('profile') }}">
+                    <a class="dropdown-item" href="profile/information/{{ Session::get('id') }}">
                         <i class="fa fa-cog" style="width:20px"></i>
                         Profile
                     </a>
-                    <a class="dropdown-item" href="{{ route('profile') }}">
+                    <a class="dropdown-item" href="#">
                         <i class="fa fa-comments-o" style="width:20px"></i>
                         Your questions
                     </a>
-                    <a class="dropdown-item" href="{{ route('profile') }}">
+                    <a class="dropdown-item" href="#">
                         <i class="fa fa-lightbulb-o" style="width:20px"></i>
                         Your answers
                     </a>
