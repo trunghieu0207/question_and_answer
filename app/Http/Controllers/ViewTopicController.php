@@ -35,6 +35,13 @@ class ViewTopicController extends Controller
     		$question->total_like += 1;
     		$question->save();
     	}
+    	else
+    	{
+    		$answer= Answer::find($post_id);
+    		$question=$answer->question_id;    		
+    		$answer->total_like += 1;
+    		$answer->save();
+    	}
     	$like=new User_Question_Answer();
 		$like->user_id=$user_id;
 		$like->post_id=$post_id;
@@ -42,9 +49,31 @@ class ViewTopicController extends Controller
 		$like->action="Like";
 		// $like->created_at= date('d/m/Y - H:i:s');
 		$like->save();
-		return redirect()->route('view-topic',compact('question'));
-
-        
+		return redirect()->route('view-topic',compact('question'));        
+    }
+    public function dislike($post_id,$post_type,$user_id)
+    {
+    	if ($post_type =='Question')
+    	{
+    		$question= Question::find($post_id);    		
+    		$question->total_dislike += 1;
+    		$question->save();
+    	}
+    	else
+    	{
+    		$answer= Answer::find($post_id);
+    		$question=$answer->question_id;       		
+    		$answer->total_dislike += 1;
+    		$answer->save();
+    	}
+    	$dislike=new User_Question_Answer();
+		$dislike->user_id=$user_id;
+		$dislike->post_id=$post_id;
+		$dislike->post_type=$post_type;
+		$dislike->action="Dislike";
+		// $like->created_at= date('d/m/Y - H:i:s');
+		$dislike->save();
+		return redirect()->route('view-topic',compact('question'));        
     }
 
 }

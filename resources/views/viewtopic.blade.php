@@ -30,7 +30,7 @@
 						{{$question->total_like}}
 					</div>
 					<div class="col-sm">
-						<a href="{{asset('like')}}/{{$question->_id}}/Question/{{Session::get('id')}}"></a><i class="fa fa-thumbs-down"></i>
+						<a href="{{asset('dislike')}}/{{$question->_id}}/Question/{{Session::get('id')}}"><i class="fa fa-thumbs-down"></i></a>
 						{{$question->total_dislike}}
 					</div>
 					<div class="col-sm">
@@ -91,11 +91,11 @@
 				<p>{{$best_answer->content}}</p>
 				<div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
 					<div class="col-sm-1">
-						<i class="fa fa-thumbs-up"></i>
+						<a href="{{asset('like')}}/{{$best_answer->_id}}/Answer/{{Session::get('id')}}"><i class="fa fa-thumbs-up"></i></a>
 						{{$best_answer->total_like}}
 					</div>
 					<div class="col-sm-1">
-						<i class="fa fa-thumbs-down"></i>
+						<a href="{{asset('dislike')}}/{{$best_answer->_id}}/Answer/{{Session::get('id')}}"><i class="fa fa-thumbs-down"></i></a>
 						{{$best_answer->total_dislike}}
 					</div>
 					@if (Session::get('id')==$question->user_id)
@@ -145,11 +145,11 @@
 					<p>{{$answer->content}}</p>
 					<div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
 						<div class="col-sm-1">
-							<i class="fa fa-thumbs-up"></i>
+							<a href="{{asset('like')}}/{{$answer->_id}}/Answer/{{Session::get('id')}}"><i class="fa fa-thumbs-up"></i></a>
 							{{$answer->total_like}}
 						</div>
 						<div class="col-sm-1">
-							<i class="fa fa-thumbs-down"></i>
+							<a href="{{asset('dislike')}}/{{$answer->_id}}/Answer/{{Session::get('id')}}"><i class="fa fa-thumbs-down"></i></a>
 							{{$answer->total_dislike}}
 						</div>
 						@if (Session::get('id')==$question->user_id)

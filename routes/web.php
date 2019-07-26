@@ -73,4 +73,9 @@ Route::get('like/{post_id}/{post_type}/{user_id}',[
 	'uses' => 'ViewTopicController@like'
 ]);
 
+Route::get('dislike/{post_id}/{post_type}/{user_id}',[
+	'as' => 'dislike',
+	'uses' => 'ViewTopicController@dislike'
+]);
+
 
