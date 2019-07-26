@@ -13,7 +13,7 @@
 	</style>
 </head>
 <body style="background-image: linear-gradient(60deg, #64b3f4 0%, #c2e59c 100%); background-repeat: no-repeat; background-attachment: fixed;">
-	
+
 @include('layout.header')
 
 @yield('content')
