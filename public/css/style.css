@@ -43,7 +43,7 @@
 
 @media only screen and (max-width: 800px) {
 	.test {
-		width: 40px;
+		width: 40px !important;
 		height: 40px ;
 		display: inline-block;
 		margin-right: 20px;
@@ -53,5 +53,23 @@
 @media only screen and (max-width: 1200px) {
 	.avatar{
 	width: 150px;
+	}
+}
+@media only screen and (max-width: 990px) {
+	.avatar{
+		width: 120px;
+	}
+}
+
+@media (max-width: 576px){
+	.col-sm-3 {
+	    flex: none !important;
+	    max-width: none !important;
+	}
+}
+@media (max-width: 770px){
+	.col-sm-3 {
+	    flex: none !important;
+	    max-width: none !important;
 	}
 }

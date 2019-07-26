@@ -42,7 +42,7 @@
             <div class="col-sm-9 mt-5">
             <div class="card shadow bg-light">
                     <div class="card-body">
-                        @yield('profile')
+                       @yield('contentprofile')
                     </div>
                 </div>
             </div>

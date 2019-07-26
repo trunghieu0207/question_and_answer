@@ -50,3 +50,19 @@ Route::get('search_test',[
 	'as' => 'search_test',
 	'uses' => 'HomeController@search_test'
 ]);
+<<<<<<< HEAD
+=======
+
+Route::get('test',function(){
+	return view('test');
+});
+
+Route::get('profile', function() {
+	return view('information');
+});
+
+Route::get('changepassword', function() {
+	return view('changepassword');
+});
+
+>>>>>>> 20773e1a67515779ee935db2a2750f74481451b0
