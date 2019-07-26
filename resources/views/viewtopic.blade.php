@@ -19,9 +19,7 @@
 			</div>
 			<div class="col-sm-12 d-flex justify-content-sm-between">
 				<h3>{{$question->title}}</h3>
-				<span class="badge badge-info" style="height: 20px">{{$question->categories->name}}</span>
-				
-				
+				<span class="badge badge-info" style="height: 20px">{{$question->categories->name}}</span>	
 			</div>
 			<div class="col-sm-12">			
 				<p>{{$question->content}}</p>
@@ -39,18 +37,29 @@
 						{{$question->total_answer}}
 					</div>
 				</div>
-			</div>
-
-			
+			</div>			
 		</div>
 	</div>
+
+    <div class="card shadow">
+		<div class="card-header">
+				<h3>Answer</h3>
+			</div>
+			<div class="card-body">
+				<form>
+					<i class="fa fa-paperclip fa-lg float-right"></i>
+					<textarea id="MyID" rows="3"></textarea>
+					<button type="button" class="btn btn-primary float-right" >Submit</button>
+				</form>
+			</div>		
+	</div>
+
 	<div class="card shadow">
 		<div class="row px-3 pt-3">
 			<div class="col-sm-1"><img src="img/avatar/{{$question->user->avatar}}" class="test rounded-circle align-middle"></div>
 			<div class="col-sm-11">
 				<div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$answer->user->fullname}}   
-					<i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%%"></i>
-				  	
+					<i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%%"></i>				 
 				</div>	
 				<div>
 					<small class="text-muted" style="color:#5488c7;">
@@ -70,15 +79,19 @@
 					<div class="col-sm-10 d-flex justify-content-sm-end">
 						<button type="button" class="float-right btn btn-success">Best Answer</button>
 					</div>
-					
-				</div>
-				
+				</div>	
 			</div>
-		</div>
-			
-		
-			
+		</div>		
 	</div>
+
 </div>
+@include('layout.js')
+<script type="text/javascript">
+	
+	var simplemde = new SimpleMDE({ 
+		element: document.getElementById("MyID") 
+	});
+
+</script>
 
 @endsection

@@ -45,7 +45,7 @@ Route::get('test',function(){
 
 Route::get('profile', function() {
 	return view('profile');
-});
+})->name('profile');
 
 Route::get('viewtopic',[
 	'as' => 'view-topic',
