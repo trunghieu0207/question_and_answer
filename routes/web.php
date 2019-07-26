@@ -11,10 +11,39 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/','HomeController@index')->name('home-page');
+
+Route::get('signup','SignUpController@getSignUp')->name('getSignUp');
+Route::post('signup','SignUpController@postSignUp')->name('postSignUp');
+Route::get('validEmail','SignUpController@validEmail')->name('validEmail');
+
+Route::get('signin',[
+	'as' => 'sign-in',
+	'uses' => 'SignInController@view'
+]);
+
+Route::post('signin',[
+	'as' => 'post-signin',
+	'uses' => 'SignInController@postSignIn'
+]);
+
+Route::group(['middleware' => 'checkSignIn'], function() {
+	Route::get('profile',[
+	'as' => 'profile',
+	'uses' => 'SignInController@viewtest'
+	]);
 });
 
-Route::get('signup','UserController@getSignUp')->name('getSignUp');
-Route::post('signup','UserController@postSignUp')->name('postSignUp');
-Route::get('validEmail','UserController@validEmail')->name('validEmail');
+Route::get('logout',[
+	'as'=>'log-out',
+	'uses' => 'SignInController@logout'
+]);
+
+Route::get('test',function(){
+	return view('test');
+});
+
+Route::get('profile', function() {
+	return view('profile');
+});
+

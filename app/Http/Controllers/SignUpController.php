@@ -4,25 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use File;
+use Validator;
+use Redirect;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests\SignUpRequests;
 
-class UserController extends Controller
+class SignUpController extends Controller
 {
     public function getSignUp(){
         return view('signup');
     }
-    public function postSignUp(Request $request){
+    public function postSignUp(SignUpRequests $request){
+
 		$user = User::where('email', '=', $request->email)->get();
 		if($user->count()==0){
 			$user = new User();
 			$user->fullname=$request->fullname;
 			$user->email=$request->email;
 			$user->password=bcrypt($request->password);
-			$user->save();
-
-			//Auth::login($user);
-			//session()->put('_id',$user->_id);
-			//session()->put('username',$user->name);
-			return "success!";
+			$user->avatar = "default_avatar.png";
+			$user->save();			
+			return redirect()->route('sign-in');
 		}
 		else return "This email has been used!";
     }
@@ -33,4 +36,5 @@ class UserController extends Controller
 
 		return response()->json($result);
 	}
+
 }

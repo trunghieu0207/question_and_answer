@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+use Jenssegers\Mongodb\Auth\User as Authenticatable;
 
-class User extends Eloquent
+
+class User extends Authenticatable
 {
     protected $connection = 'mongodb';
-    protected $collection = 'Users';
+    protected $collection = 'users';
     use Notifiable;
 
     /**
@@ -19,7 +20,7 @@ class User extends Eloquent
      * @var array
      */
     protected $fillable = [
-        'email', 'password','fullname','about_me'
+        'email', 'password','fullname','avatar','about_me'
     ];
 
     /**
@@ -39,4 +40,9 @@ class User extends Eloquent
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function questions() {
+        return $this->hasMany('App\Question','user_id','_id');
+    }
+
 }
