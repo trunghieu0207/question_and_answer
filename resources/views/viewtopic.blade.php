@@ -63,9 +63,11 @@
 				<img src="{{asset('img/avatar')}}/{{$answer->user->avatar}}" class="test rounded-circle align-middle">
 				<br>
 				<br>
-				<div class="d-flex" style="justify-content :center; align-items:center;  font-size:200%; color:#66ad1f">
-					<i class="fa fa-check" aria-hidden="true"></i>
-				</div>
+				@if ($question->best_answer_id == $answer->_id)
+					<div class="d-flex" style="justify-content :center; align-items:center;  font-size:200%; color:#66ad1f">
+						<i class="fa fa-check" aria-hidden="true"></i>
+					</div>
+				@endif
 				
 			</div>
 			<div class="col-sm-11">
@@ -89,7 +91,7 @@
 						{{$answer->total_dislike}}
 					</div>
 					<div class="col-sm-10 d-flex justify-content-sm-end">
-						<button type="button" class="float-right btn btn-success">Best Answer</button>
+						<a href="{{asset('bestanswer')}}/{{$answer->_id}}"><button type="button" class="float-right btn btn-success">Best Answer</button></a>
 					</div>
 				</div>	
 			</div>

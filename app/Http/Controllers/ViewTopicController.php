@@ -14,4 +14,13 @@ class ViewTopicController extends Controller
         //$question->first();
         return view('viewtopic',compact('question','answers'));
     }
+    public function bestAnswer($id_answer){
+    	$answer = Answer::find($id_answer);
+    	$id_question=$answer->question_id;
+        $question = Question::find($id_question);
+        $question->best_answer_id = $id_answer;
+        $question->save();
+        return redirect()->route('view-topic',compact('question','answer'));
+        
+    }
 }

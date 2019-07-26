@@ -63,4 +63,9 @@ Route::get('edittopic/{id}',[
 	'uses' => 'HomeController@edit'
 ]);
 
+Route::get('bestanswer/{id}',[
+	'as' => 'best-answer',
+	'uses' => 'ViewTopicController@bestAnswer'
+]);
+
 
