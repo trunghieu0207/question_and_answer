@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
 	public function index()
 	{
-		$questions = Question::all();
+		$questions = Question::orderBy('created_at', 'desc')->get();
 		if(Auth::check()){
 			$notifications = Notification::where('user_id','=',session('id'))->get();
 			return view('home',compact('questions','notifications'));
@@ -26,6 +26,5 @@ class HomeController extends Controller
 		} else {
 			return view('signin');
 		}
-		
 	}
 }

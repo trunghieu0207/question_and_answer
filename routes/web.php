@@ -48,8 +48,13 @@ Route::get('addtopic',[
 	'uses' => 'QuestionController@create'
 ]);
 
+Route::post('addtopic','QuestionController@store');
+
 Route::get('edittopic/{id}',[
 	'as' => 'edit-topic',
 	'uses' => 'HomeController@edit'
 ]);
+
+Route::get('fileupload', 'AttachmentController@fileUpload');
+Route::post('fileupload', 'AttachmentController@fileUploadPost')->name('fileUploadPost');
 

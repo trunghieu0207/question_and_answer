@@ -10,7 +10,7 @@ class Question extends Eloquent
     protected $connection = 'mongodb';
     protected $collection = 'questions';
     protected $fillable = [
-        'title','content','user_id','best_answer','category_id'
+        'title','content','user_id','best_answer','category_id','total_like','total_dislike','total_answer'
     ];
 
     public function categories()
