@@ -68,4 +68,9 @@ Route::get('bestanswer/{id}',[
 	'uses' => 'ViewTopicController@bestAnswer'
 ]);
 
+Route::get('like/{post_id}/{post_type}/{user_id}',[
+	'as' => 'like',
+	'uses' => 'ViewTopicController@like'
+]);
+
 
