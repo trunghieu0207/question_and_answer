@@ -34,60 +34,31 @@ class QuestionController extends Controller
 		return redirect('/');
 	}
 
-	  /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-	  public function fileUpload()
-	  {
-	  	return view('addtopic');
-	  }
+	public function edit($id)
+	{
+		if(Auth::check()){
+			$categories = Category::all();
+			$question = Question::find($id);
+			return view('edittopic',compact('question','id','categories'));
+		} else {
+			return view('signin');
+		}
+	}
 
-	  public function fileUploadPost(Request $request, $id)
-	  {
-	  	$request->validate([
-	  		'file' => 'required',
-	  	]);
+	public function update(Request $request, $id)
+	{
+		$question = Question::find($id);
+		$question->title = $request->get('title');
+		$question->content = $request->get('content');
+		$question->category_id = $request->get('category');
+		$question->save();
+		return redirect()->route('view-topic', ['id' => $id]);
+	}
 
-	  	$fileName = time().'.'.request()->file->getClientOriginalExtension();
-	  	request()->file->move(storage_path('app'), $fileName);
-
-	  	return response()->json(['success'=>'You have successfully upload file.']);
-
-	  }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    
-    public function edit($id)
-    {
-    	if(Auth::check()){
-    		$categories = Category::all();
-    		$question = Question::find($id);
-    		return view('edittopic',compact('question','id','categories'));
-    	} else {
-    		return view('signin');
-    	}
-    }
-
-    public function update(Request $request, $id)
-    {
-    	$question = Question::find($id);
-    	$question->title = $request->get('title');
-    	$question->content = $request->get('content');
-    	$question->category_id = $request->get('category');
-    	$question->save();
-    	return redirect()->route('view-topic', ['id' => $id]);
-    }
-
-    public function destroy($id)
-    {
-    	$question = Question::find($id);
-    	$question->delete();
-    	return redirect('/');
-    }
+	public function destroy($id)
+	{
+		$question = Question::find($id);
+		$question->delete();
+		return redirect('/');
+	}
 }
