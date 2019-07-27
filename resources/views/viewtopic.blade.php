@@ -99,7 +99,9 @@
 			</div>
 			<div class="col-sm-11">
 				<div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$answer->user->fullname}}   
-					<a href="{{asset('editanswer')}}/{{ $answer->id }}"><i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>		 
+					@if($answer->user_id==Session::get('id'))
+					<a href="{{asset('editanswer')}}/{{ $answer->id }}"><i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>@else
+					@endif
 				</div>	
 				<div>
 					<small class="text-muted" style="color:#5488c7;">
@@ -117,9 +119,13 @@
 						<i class="fa fa-thumbs-down"></i>
 						{{$answer->total_dislike}}
 					</div>
+					@if($answer->user_id!=Session::get('id'))
 					<div class="col-sm-10 d-flex justify-content-sm-end">
 						<button type="button" class="float-right btn btn-success">Best Answer</button>
 					</div>
+					@else
+					@endif
+					
 				</div>	
 			</div>
 			@endforeach

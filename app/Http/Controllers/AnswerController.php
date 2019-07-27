@@ -13,7 +13,7 @@ class AnswerController extends Controller
 		if(Auth::check()){
 			$answer = Answer::find($id);
 			$question = Question::where('_id', '=',$answer->question_id)->get();
-			return view('editanswer',compact('question'));
+			return view('editanswer',compact('answer','id','question'));
 		} else {
 			return view('signin');
 		}
@@ -23,7 +23,7 @@ class AnswerController extends Controller
 	{
 		$answer = Answer::find($id);
 		$answer->content = $request->get('content');
-		$question->save();
-		return redirect()->route('view-topic', ['id' => $id]);
+		$answer->save();
+		return redirect()->route('view-topic', ['id' => $answer->question_id]);
 	}
 }
