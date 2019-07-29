@@ -15,6 +15,10 @@ class AnswerController extends Controller
 		$answer->content = $request->get('content');
 		$answer->user_id = session('id');
 		$answer->question_id = $request->get('question_id');
+		$id_question=$answer->question_id;
+        $question = Question::find($id_question);
+        $question->total_answer+=1;
+        $question->save();
 		$answer->save();
 		return redirect()->route('view-topic', ['id' => $answer->question_id]);
 	}
