@@ -28,19 +28,18 @@ class ViewTopicController extends Controller
     }
     public function like($post_id,$post_type,$user_id)
     {
-    	if(Auth::check())
-        {
+    	$user_liked=User_Question_Answer::find($user_id);
+        if ($user_liked==null){
             if ($post_type =='Question')
             {
-                $question= Question::find($post_id);
-                
+                $question= Question::find($post_id);    
                 $question->total_like += 1;
                 $question->save();
             }
             else
             {
                 $answer= Answer::find($post_id);
-                $question=$answer->question_id;         
+                $question=$answer->question_id;        
                 $answer->total_like += 1;
                 $answer->save();
             }
@@ -50,14 +49,37 @@ class ViewTopicController extends Controller
             $like->post_type=$post_type;
             $like->action="Like";
             $like->save();
-            return redirect()->route('view-topic',compact('question'));
-        } 
-        else {
-            return view('signin');
+        }
+        else
+        {
+            if ($post_type =='Question')
+            {
+                $question= Question::find($post_id);    
+                $question->total_like += 1;
+                $question->save();
+            }
+            else
+            {
+                $answer= Answer::find($post_id);
+                $question=$answer->question_id;        
+                $answer->total_like += 1;
+                $answer->save();
+            }
+            $like=new User_Question_Answer();
+            $like->user_id=$user_id;
+            $like->post_id=$post_id;
+            $like->post_type=$post_type;
+            $like->action="Like";
+            $like->save();
+
         }
         
+        return redirect()->route('view-topic',compact('question'));
+    } 
+        
+        
 		        
-    }
+    
     public function dislike($post_id,$post_type,$user_id)
     {
     	if ($post_type =='Question')
