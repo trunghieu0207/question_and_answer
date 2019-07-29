@@ -5,6 +5,9 @@
             src="{{ asset('img/resource/logo2a.png') }}" width="40px"> TechSolution</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -80,6 +83,7 @@
                     <i class="fa fa-sign-out" style="width:20px"></i>
                     Logout
                 </a>
+
             </div>
         </div>
         @else

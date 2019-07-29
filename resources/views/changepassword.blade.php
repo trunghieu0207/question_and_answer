@@ -10,7 +10,14 @@
 				<div class="row">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
-					<form action="" method="post">
+						@if(Session::has('message'))
+							<div class="alert alert-success">{{ Session::get('message') }}</div>
+						@endif
+						@if(Session::has('error'))
+							<div class="alert alert-danger">{{ Session::get('error') }}</div>
+						@endif
+					<form action="{{ route('postchange-password') }}" method="post" id="changepass">
+						<input type="hidden" name="_token" value="{{csrf_token()}}">
 						<div class="form-group">
 					    	<label for="curentpassword" class="font-weight-bold">Curent password</label>
 					    	<input type="password" class="form-control"  name="curentpassword">
