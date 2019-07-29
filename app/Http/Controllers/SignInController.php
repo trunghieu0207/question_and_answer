@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use Validator;
 use App\Http\Requests\LoginRequest;
+use App\Notification;
 
 class SignInController extends Controller
 {
@@ -36,6 +37,8 @@ class SignInController extends Controller
             Session()->put('id',$user->_id);
             Session()->put('username',$user->fullname);
             Session()->put('avatar','img\avatar\\'.$user->avatar);
+            $notifications = Notification::where('user_id','=',$user->_id)->get();
+            Session()->put('notifications',$notifications);
             return redirect()->route('home-page');
         }
         else

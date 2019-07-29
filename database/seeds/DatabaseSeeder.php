@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
         $question->category_id=$cat_fontend->_id;
         $question->total_like=0;
         $question->total_dislike=0;
-        $question->total_answer=0;
+        $question->total_answer=1;
         $question->save();
 
         $question2 = new Question();
@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
         $question2->category_id=$cat_backend->_id;
         $question2->total_like=0;
         $question2->total_dislike=0;
-        $question2->total_answer=0;
+        $question2->total_answer=2;
         $question2->save();
 
         $question3 = new Question();
@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
         $question3->category_id=$cat_fullstack->_id;
         $question3->total_like=0;
         $question3->total_dislike=0;
-        $question3->total_answer=0;
+        $question3->total_answer=1;
         $question3->save();
 
         $question4 = new Question();
@@ -101,6 +101,8 @@ class DatabaseSeeder extends Seeder
         $answer->attachment_path="public/files/Myfile.zip";
         $answer->user_id = $user->_id;
         $answer->question_id = $question->_id;
+        $answer->total_like=0;
+        $answer->total_dislike=0;
         $answer->save();
 
         $answer2 = new Answer();
@@ -108,6 +110,8 @@ class DatabaseSeeder extends Seeder
         $answer2->attachment_path="public/files/Myfile.zip";
         $answer2->user_id = $user2->_id;
         $answer2->question_id = $question2->_id;
+        $answer2->total_like=0;
+        $answer2->total_dislike=0;
         $answer2->save();
 
         $answer3 = new Answer();
@@ -115,6 +119,8 @@ class DatabaseSeeder extends Seeder
         $answer3->attachment_path="public/files/Myfile.zip";
         $answer3->user_id = $user->_id;
         $answer3->question_id = $question3->_id;
+        $answer3->total_like=0;
+        $answer3->total_dislike=0;
         $answer3->save();
 
         $answer4 = new Answer();
@@ -122,6 +128,8 @@ class DatabaseSeeder extends Seeder
         $answer4->attachment_path="public/files/Myfile.zip";
         $answer4->user_id = $user2->_id;
         $answer4->question_id = $question2->_id;
+        $answer4->total_like=0;
+        $answer4->total_dislike=0;
         $answer4->save();
 
         $notification = new Notification();
@@ -131,6 +139,6 @@ class DatabaseSeeder extends Seeder
         $notification->postable_type= "Question";
         $notification->save();
 
-        
+
     }
 }
