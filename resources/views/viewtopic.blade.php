@@ -50,8 +50,9 @@
 				<h3>{{$question->title}}</h3>
 				<span class="badge badge-info" style="height: 20px">{{$question->category->name}}</span>	
 			</div>
-			<div class="col-sm-12">			
-				<p>{{$question->content}}</p>
+			<div class="col-sm-12">
+				<p id="plain_content" hidden>{{$question->content}}</p>			
+				<p id="content_markdown"></p>
 				<div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
 					<div class="col-sm">
 						@if (Auth::check())
@@ -76,7 +77,6 @@
 	<div class="card shadow" style="margin-top: 20px;" >
 		<div class="card-body">
 			<form>
-
 				<textarea id="MyID" rows="2"></textarea>
 				<i class="fa fa-paperclip fa-lg float-left"></i>
 				<button type="button" class="btn btn-primary float-right" >Submit</button>
@@ -201,9 +201,11 @@
 <script type="text/javascript">
 
 	var simplemde = new SimpleMDE({ 
-		element: document.getElementById("MyID") 
+		element: document.getElementById("MyID"),
+		
 	});
-
+	var renderedHTML = simplemde.options.previewRender($('#plain_content').text());
+	$('#content_markdown').html(renderedHTML);
 </script>
 
 @endsection
