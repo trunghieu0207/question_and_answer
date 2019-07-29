@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     @include('layout.css')
     @yield('css')
@@ -9,7 +8,6 @@
     <style type="text/css" media="screen">
     </style>
 </head>
-
 <body class="main-background">
 
     @include('layout.header')
