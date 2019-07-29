@@ -54,11 +54,14 @@
 				<p>{{$question->content}}</p>
 				<div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
 					<div class="col-sm">
-						<i class="fa fa-thumbs-up"></i>
-						{{$question->total_like}}
+						@if (Auth::check())
+						<a href="{{asset('like')}}/{{$question->_id}}/Question/{{Session::get('id')}}"><i class="fa fa-thumbs-up"></i></a>					{{$question->total_like}}
+						@else
+						<a href="{{route('sign-in')}}"><i class="fa fa-thumbs-up"></i></a>{{$question->total_like}}
+						@endif
 					</div>
 					<div class="col-sm">
-						<i class="fa fa-thumbs-down"></i>
+						<a href="{{asset('dislike')}}/{{$question->_id}}/Question/{{Session::get('id')}}"><i class="fa fa-thumbs-down"></i></a>
 						{{$question->total_dislike}}
 					</div>
 					<div class="col-sm">
@@ -69,33 +72,37 @@
 			</div>			
 		</div>
 	</div>
-	
-	<div class="card shadow" style="margin-top: 20px; margin-bottom: 20px;" >
-		
+	@if (Auth::check())
+	<div class="card shadow" style="margin-top: 20px;" >
 		<div class="card-body">
 			<form>
-				
+
 				<textarea id="MyID" rows="2"></textarea>
 				<i class="fa fa-paperclip fa-lg float-left"></i>
 				<button type="button" class="btn btn-primary float-right" >Submit</button>
 			</form>
 		</div>		
 	</div>
+	@endif
 
-	<div class="card shadow" style="margin-bottom: 20px; " >
+	<div class="card shadow" style="margin-top: 20px; margin-bottom: 20px; " >
 		<div class="card-header">
 			<h3>Answer</h3>
 		</div>
+		<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+		@if ($best_answer!=null)
 		<div class="row px-3 pt-3">
-			@foreach($answers as $answer)
+
 			<div class="col-sm-1">
-				<img src="{{asset('img/avatar')}}/{{$answer->user->avatar}}" class="test rounded-circle align-middle">
+				<img src="{{asset('img/avatar')}}/{{$best_answer->user->avatar}}" class="test rounded-circle align-middle">
 				<br>
 				<br>
+
 				<div class="d-flex" style="justify-content :center; align-items:center;  font-size:200%; color:#66ad1f">
 					<i class="fa fa-check" aria-hidden="true"></i>
 				</div>
-				
+
+
 			</div>
 			<div class="col-sm-11">
 				<div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$answer->user->fullname}}   
@@ -103,6 +110,63 @@
 					<a href="{{asset('editanswer')}}/{{ $answer->id }}"><i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>@else
 					@endif
 				</div>	
+
+				<div>
+					<small class="text-muted" style="color:#5488c7;">
+						<i class="fa fa-calendar" aria-hidden="true"> </i> {{$best_answer->created_at}} 
+					</small>	
+				</div>
+				<br>
+				<p>{{$best_answer->content}}</p>
+				<div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
+					<div class="col-sm-1">
+						<a href="{{asset('like')}}/{{$best_answer->_id}}/Answer/{{Session::get('id')}}"><i class="fa fa-thumbs-up"></i></a>
+						{{$best_answer->total_like}}
+					</div>
+					<div class="col-sm-1">
+						<a href="{{asset('dislike')}}/{{$best_answer->_id}}/Answer/{{Session::get('id')}}"><i class="fa fa-thumbs-down"></i></a>
+						{{$best_answer->total_dislike}}
+					</div>
+					@if (Session::get('id')==$question->user_id)
+					<div class="col-sm-10 d-flex justify-content-sm-end">
+						<a href="{{asset('bestanswer')}}/{{$best_answer->_id}}"><button type="button" class="float-right btn btn-success">Best Answer</button></a>
+					</div>
+					@else
+					@endif
+					
+				</div>	
+			</div>			
+		</div>	
+		<hr>
+		@endif
+
+
+
+		<!-- //------------------------------------------------------------------------------------------------------------------- -->
+		@foreach($answers as $answer)
+		@if (($best_answer==null) or (($best_answer!=null)and($answer->_id!=$best_answer->_id)))
+
+		<div class="row px-3 pt-3">
+
+			<div class="col-sm-1">
+				<img src="{{asset('img/avatar')}}/{{$answer->user->avatar}}" class="test rounded-circle align-middle">
+				<br>
+				<br>
+				@if ($question->best_answer_id == $answer->_id)
+				<div class="d-flex" style="justify-content :center; align-items:center;  font-size:200%; color:#66ad1f">
+					<i class="fa fa-check" aria-hidden="true"></i>
+				</div>
+				@endif
+
+			</div>
+			<div class="col-sm-11">
+
+				<div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$answer->user->fullname}} 
+					@if (Session::get('id')==$answer->user_id)  
+					<i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i>	
+					@endif				 
+				</div>
+
 				<div>
 					<small class="text-muted" style="color:#5488c7;">
 						<i class="fa fa-calendar" aria-hidden="true"> </i> {{$answer->created_at}} 
@@ -112,30 +176,30 @@
 				<p>{{$answer->content}}</p>
 				<div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
 					<div class="col-sm-1">
-						<i class="fa fa-thumbs-up"></i>
+						<a href="{{asset('like')}}/{{$answer->_id}}/Answer/{{Session::get('id')}}"><i class="fa fa-thumbs-up"></i></a>
 						{{$answer->total_like}}
 					</div>
 					<div class="col-sm-1">
-						<i class="fa fa-thumbs-down"></i>
+						<a href="{{asset('dislike')}}/{{$answer->_id}}/Answer/{{Session::get('id')}}"><i class="fa fa-thumbs-down"></i></a>
 						{{$answer->total_dislike}}
 					</div>
-					@if($answer->user_id!=Session::get('id'))
+					@if (Session::get('id')==$question->user_id)
 					<div class="col-sm-10 d-flex justify-content-sm-end">
-						<button type="button" class="float-right btn btn-success">Best Answer</button>
+						<a href="{{asset('bestanswer')}}/{{$answer->_id}}"><button type="button" class="float-right btn btn-success">Best Answer</button></a>
 					</div>
-					@else
 					@endif
-					
 				</div>	
-			</div>
-			@endforeach
-		</div>		
+			</div>			
+		</div>	
+		<hr>
+		@endif
+		@endforeach	
 	</div>
 
 </div>
 @include('layout.js')
 <script type="text/javascript">
-	
+
 	var simplemde = new SimpleMDE({ 
 		element: document.getElementById("MyID") 
 	});

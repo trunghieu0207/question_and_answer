@@ -1,6 +1,7 @@
 @extends('layout.master')
 @section('title','Homepage')
 @section('content')
+
 <main>
 	<div class="container mt-5">
 		<div class="card shadow">
@@ -34,6 +35,7 @@
 							<div class="col-sm">
 								<i class="fa fa-reply"></i>
 								{{$question->total_answer}}
+
 							</div>
 						</div>
 					</div>

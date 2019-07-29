@@ -78,6 +78,7 @@ Route::get('edittopic/{id}',[
 	'uses' => 'QuestionController@edit'
 ]);
 
+
 Route::post('edittopic/{id}','QuestionController@update');
 
 Route::post('deletetopic','QuestionController@destroy')->name('delete-topic');
@@ -94,5 +95,21 @@ Route::post('editanswer/{id}','AnswerController@update');
 Route::get('changepassword', function() {
 	return view('changepassword');
 });
+
+Route::get('bestanswer/{id}',[
+	'as' => 'best-answer',
+	'uses' => 'ViewTopicController@bestAnswer'
+]);
+
+Route::get('like/{post_id}/{post_type}/{user_id}',[
+	'as' => 'like',
+	'uses' => 'ViewTopicController@like'
+]);
+
+Route::get('dislike/{post_id}/{post_type}/{user_id}',[
+	'as' => 'dislike',
+	'uses' => 'ViewTopicController@dislike'
+]);
+
 
 
