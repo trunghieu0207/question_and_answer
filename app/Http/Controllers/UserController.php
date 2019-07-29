@@ -7,9 +7,11 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
-	public function getInformation ($id) {
+	public function getInformation () {
+		$id = Session()->get('id');
 		$user = User::find($id);
-		return view('information',compact('user'));
+		$active_personal_info = true;
+		return view('information',compact('user','active_personal_info'));
 	}
 	public function postInformation (Request $request) {
 
@@ -22,9 +24,11 @@ class UserController extends Controller
 		return redirect()->back();
 	}
 
-	public function getChangepassword ($id) {
+	public function getChangepassword () {
+		$id = Session()->get('id');
 		$user = User::find($id);
-		return view('changepassword',compact('user'));
+		$active_change_pass = true;
+		return view('changepassword',compact('user','active_change_pass'));
 	}
 
 	public function postChangepassword(Request $request) {

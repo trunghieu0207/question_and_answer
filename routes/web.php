@@ -37,11 +37,10 @@ Route::post('signin',[
 ]);
 
 
-Route::prefix('profile')->group(function () {
-    Route::middleware(['checkSignIn'])->group(function () {
 
-
-       	Route::get('information/{id}', [
+Route::middleware(['checkSignIn'])->group(function () {
+    Route::prefix('profile')->group(function () {
+       	Route::get('information', [
 			'as' => 'information',
 			'uses' => 'UserController@getInformation'
 		]);
@@ -50,7 +49,7 @@ Route::prefix('profile')->group(function () {
 			'as' => 'post-information',
 			'uses' => 'UserController@postInformation'
 		]);
-       	Route::get('changepassword/{id}', [
+       	Route::get('changepassword', [
 			'as' => 'change-password',
 			'uses' => 'UserController@getChangepassword'
 		]);

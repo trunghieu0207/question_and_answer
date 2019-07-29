@@ -66,7 +66,7 @@
                 <i class="fa fa-user"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="setting">
-                <a class="dropdown-item" href="{{ route('profile') }}">
+                <a class="dropdown-item" href="{{ route('information') }}">
                     <i class="fa fa-cog" style="width:20px"></i>
                     Profile
                 </a>
