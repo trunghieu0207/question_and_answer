@@ -23,6 +23,12 @@
     var renderedHTML = simplemde.options.previewRender($('#plain_content').text());
 	$('#content_markdown').html(renderedHTML);
 
+	var renderedHTMLAnswer = simplemde.options.previewRender($('#plain_contentanswer').text());
+	$('#contentanswer_markdown').html(renderedHTMLAnswer);
+
+	var renderedHTMLBestAnswer = simplemde.options.previewRender($('#plain_contentbestanswer').text());
+	$('#contentbestanswer_markdown').html(renderedHTMLBestAnswer);
+
 </script>
 
 @endsection
@@ -159,7 +165,9 @@
                     </small>
                 </div>
                 <br>
-                <p>{{$best_answer->content}}</p>
+                
+                <p id="plain_contentbestanswer" hidden>{{$best_answer->content}}</p>			
+                <p id="contentbestanswer_markdown"></p>
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-sm-1">
                         <a href="{{asset('like')}}/{{$best_answer->_id}}/Answer/{{Session::get('id')}}"><i
@@ -219,7 +227,8 @@
                     </small>
                 </div>
                 <br>
-                <p>{{$answer->content}}</p>
+                <p id="plain_contentanswer" hidden>{{$answer->content}}</p>			
+				<p id="contentanswer_markdown"></p>
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-sm-1">
                         <a href="{{asset('like')}}/{{$answer->_id}}/Answer/{{Session::get('id')}}"><i
