@@ -26,8 +26,11 @@
 				<p>{{$question->content}}</p>
 				<div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
 					<div class="col-sm">
-						<a href="{{asset('like')}}/{{$question->_id}}/Question/{{Session::get('id')}}"><i class="fa fa-thumbs-up"></i></a>
-						{{$question->total_like}}
+						@if (Auth::check())
+						<a href="{{asset('like')}}/{{$question->_id}}/Question/{{Session::get('id')}}"><i class="fa fa-thumbs-up"></i></a>					{{$question->total_like}}
+						@else
+						<a href="{{route('sign-in')}}"><i class="fa fa-thumbs-up"></i></a>{{$question->total_like}}
+						@endif
 					</div>
 					<div class="col-sm">
 						<a href="{{asset('dislike')}}/{{$question->_id}}/Question/{{Session::get('id')}}"><i class="fa fa-thumbs-down"></i></a>
