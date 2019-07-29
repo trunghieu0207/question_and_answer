@@ -86,9 +86,9 @@ rel="stylesheet" type="text/css" />
 									@if (Auth::check())
 									<a href="{{asset('like')}}/{{$question->_id}}/Question/{{Session::get('id')}}"><i
 										class="fa fa-thumbs-up"></i></a> {{$question->total_like}}
-										@else
-										<a href="{{route('sign-in')}}"><i class="fa fa-thumbs-up"></i></a>{{$question->total_like}}
-										@endif
+									@else
+									<a href="{{route('sign-in')}}"><i class="fa fa-thumbs-up"></i></a>{{$question->total_like}}
+									@endif
 									</div>
 									<div class="col-sm">
 										<a href="{{asset('dislike')}}/{{$question->_id}}/Question/{{Session::get('id')}}"><i
@@ -181,8 +181,8 @@ rel="stylesheet" type="text/css" />
 													</div>
 													@if (Session::get('id')==$question->user_id)
 													<div class="col-sm-10 d-flex justify-content-sm-end">
-														<a href="{{asset('bestanswer')}}/{{$best_answer->_id}}"><button type="button"
-															class="float-right btn btn-success">Best Answer</button></a>
+														<a href="{{asset('removebestanswer')}}/{{$best_answer->_id}}"><button type="button"
+															class="float-right btn btn-warning">Remove Best Answer</button></a>
 														</div>
 														@else
 														@endif

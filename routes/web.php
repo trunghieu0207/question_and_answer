@@ -128,6 +128,11 @@ Route::middleware(['checkSignIn'])->group(function () {
 		'uses' => 'ViewTopicController@bestAnswer'
 	]);
 
+	Route::get('removebestanswer/{id}',[
+		'as' => 'remove-best-answer',
+		'uses' => 'ViewTopicController@removeBestAnswer'
+	]);
+
 	Route::get('like/{post_id}/{post_type}/{user_id}',[
 		'as' => 'like',
 		'uses' => 'ViewTopicController@like'
