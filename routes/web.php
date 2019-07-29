@@ -125,9 +125,6 @@ Route::post('editanswer/{id}','AnswerController@update');
 
 
 
-
-
-
 Route::get('bestanswer/{id}',[
 	'as' => 'best-answer',
 	'uses' => 'ViewTopicController@bestAnswer'

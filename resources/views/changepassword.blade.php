@@ -19,7 +19,7 @@
 					<form action="{{ route('postchange-password') }}" method="post" id="changepass">
 						<input type="hidden" name="_token" value="{{csrf_token()}}">
 						<div class="form-group">
-					    	<label for="curentpassword" class="font-weight-bold">Curent password</label>
+					    	<label for="curentpassword" class="font-weight-bold">Current password</label>
 					    	<input type="password" class="form-control"  name="curentpassword">
 						</div>
 						<div class="form-group">
