@@ -10,11 +10,29 @@ class HomeController extends Controller
 {
 	public function index()
 	{
-		$questions = Question::all();
+		$questions = Question::orderBy('created_at', 'desc')->get();
 		if(Auth::check()){
 			$notifications = Notification::where('user_id','=',session('id'))->get();
 			return view('home',compact('questions','notifications'));
 		}
 		return view('home',compact('questions'));
 	}
+
+	public function search(Request $request){
+		$full_text_search = Question::whereRaw(array('$text'=>array('$search'=> $request->keyword)))->get();
+		$normal_search = Question::where('title','like',"%$request->keyword%")->get();
+
+		$questions = $full_text_search->merge($normal_search);
+		if($questions->count()<=0) return "";
+		foreach($questions as $question){
+			//{{ route(\'view-topic\',[\'id\'=>'.$question->_id.']) }}
+			echo '<a href="/viewtopic/'.$question->_id.'" class="dropdown-item"><small>'.$question->title.'</small></a>';
+		}
+	}
+	public function search_test(Request $request){
+		$questions = Question::whereRaw(array('$text'=>array('$search'=> $request->keyword)))->get();
+		if($questions->count()>0) return $questions;
+		else return 'None.';
+	}
+
 }

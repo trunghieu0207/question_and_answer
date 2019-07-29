@@ -8,7 +8,7 @@
 </head>
 
 
-<body background="img/resource/sky.jpg" style="height: 100%;background-repeat: no-repeat;background-attachment: fixed;background-size: 100% 100%">
+<body background="../img/resource/sky.jpg" style="height: 100%;background-repeat: no-repeat;background-attachment: fixed;background-size: 100% 100%">
     <div class="container h-100 d-flex justify-content-center align-items-center">
         <div class="card shadow" style ="width:400px;">
             <div class="card-header">
@@ -16,7 +16,7 @@
                     
                     <div class="col-sm-4">
                         <a href="{{route('home-page')}}">
-                        <img src="img/resource/logo2a.png" alt="" class="w-100" style="margin-top: 15px;margin-left:15px" ></a>
+                        <img src="../img/resource/logo2a.png" alt="" class="w-100" style="margin-top: 15px;margin-left:15px" ></a>
                     </div>
                     <div class="col-sm-8 mt-3">
                         <h4 class="font-weight-bold">Welcome to TechSolution</h4>

@@ -22,24 +22,94 @@ Route::get('signin',[
 	'uses' => 'SignInController@view'
 ]);
 
+Route::get('search',[
+	'as' => 'search',
+	'uses' => 'HomeController@search'
+]);
+
 Route::post('signin',[
 	'as' => 'post-signin',
 	'uses' => 'SignInController@postSignIn'
 ]);
 
 Route::group(['middleware' => 'checkSignIn'], function() {
-	Route::get('profile',[
-	'as' => 'profile',
-	'uses' => 'SignInController@viewtest'
+	Route::get('logout',[
+		'as'=>'log-out',
+		'uses' => 'SignInController@logout'
 	]);
+	Route::get('profile', function() {
+		return 'not code yet!';
+	})->name('profile');
+	Route::get('profile/manage_question', 'ProfileController@index_manage_question')->name('manage_question');
+	Route::get('profile/manage_answer', 'ProfileController@index_manage_answer')->name('manage_answer');
+	Route::post('profile/remove_question', 'ProfileController@remove_question')->name('remove_question');
+	Route::post('profile/change_avatar', 'ProfileController@change_avatar')->name('change_avatar');
 });
 
-Route::get('logout',[
-	'as'=>'log-out',
-	'uses' => 'SignInController@logout'
+Route::get('search_test',[
+	'as' => 'search_test',
+	'uses' => 'HomeController@search_test'
 ]);
 
 Route::get('test',function(){
 	return view('layout.profile');
 });
+
+
+Route::get('profile', function() {
+
+	return redirect()->route('manage_question');
+})->name('profile');
+
+Route::get('viewtopic/{id}',[
+	'as' => 'view-topic',
+	'uses' => 'ViewTopicController@view'
+]);
+
+Route::get('addtopic',[
+	'as' => 'add-topic',
+	'uses' => 'QuestionController@create'
+]);
+
+Route::post('addtopic','QuestionController@store');
+
+Route::get('edittopic/{id}',[
+	'as' => 'edit-topic',
+	'uses' => 'QuestionController@edit'
+]);
+
+
+Route::post('edittopic/{id}','QuestionController@update');
+
+Route::post('deletetopic','QuestionController@destroy')->name('delete-topic');
+
+Route::get('editanswer/{id}',[
+	'as' => 'edit-answer',
+	'uses' => 'AnswerController@edit'
+]);
+
+
+Route::post('editanswer/{id}','AnswerController@update');
+
+
+Route::get('changepassword', function() {
+	return view('changepassword');
+});
+
+Route::get('bestanswer/{id}',[
+	'as' => 'best-answer',
+	'uses' => 'ViewTopicController@bestAnswer'
+]);
+
+Route::get('like/{post_id}/{post_type}/{user_id}',[
+	'as' => 'like',
+	'uses' => 'ViewTopicController@like'
+]);
+
+Route::get('dislike/{post_id}/{post_type}/{user_id}',[
+	'as' => 'dislike',
+	'uses' => 'ViewTopicController@dislike'
+]);
+
+
 

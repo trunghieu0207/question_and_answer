@@ -10,10 +10,10 @@ class Question extends Eloquent
     protected $connection = 'mongodb';
     protected $collection = 'questions';
     protected $fillable = [
-        'title','content','user_id','best_answer','category_id'
+        'title','content','user_id','best_answer','category_id','total_like','total_dislike','total_answer'
     ];
 
-    public function categories()
+    public function category()
     {
     	return $this->belongsTo('App\Category','category_id','_id');
     }
@@ -21,6 +21,10 @@ class Question extends Eloquent
     public function user() {
     	return $this->belongsTo('App\User', 'user_id', '_id');
     }
-   
+
+    public function answers() {
+
+    	return $this->hasMany('App\Answer', 'question_id', '_id');
+    }
 }
 
