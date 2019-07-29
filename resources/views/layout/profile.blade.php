@@ -1,11 +1,31 @@
 @extends('layout.master')
 @section('title','Profile')
+@section('css')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
+        rel="stylesheet" type="text/css" />
+@endsection
+@section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+	<script>
+        $('#fuMain').fileinput({
+            theme: 'fa',
+            allowedFileExtensions: ['png', 'jpg'],
+            //uploadUrl: '/upload_article_poster',
+            uploadAsync: false,
+            showUpload: false,
+            maxFileSize: 1024,
+            removeClass: 'btn btn-warning'
+        });
+		</script>
+@endsection
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-sm-3  sidebar-sticky" style="margin-top: 47px">
                 <div class="card shadow bg-light">
                     <div class="card-body text-center">
+<<<<<<< HEAD
                         <img src="{{ asset('img\resource')}}\{{ $user->avatar }}" class="avatar">
                         <h4 class="mt-2 text-primary font-weight-bold">{{ $user->fullname }}</h4>
                         <button class="badge badge-warning" data-toggle="modal" data-target="#exampleModal">change
@@ -16,6 +36,18 @@
                             <a class="btn nav-link @yield('status3')">Manage question</a>
                             <a class="btn nav-link @yield('status4')">Manage answer</a>
                             <a class="btn nav-link @yield('status5')">Sign out</a>
+=======
+                        <img src="{{ asset(session('avatar')) }}" class="avatar">
+                        <h4 class="mt-2 text-primary font-weight-bold">Name?</h4>
+                        <button class="badge btn btn-warning" data-toggle="modal" data-target="#exampleModal">change
+                            avatar</button>
+                        <div class="nav flex-column nav-pills my-3 bg-white border">
+                            <button class="btn nav-link @if(!empty($active_personal_info)) active @endif">Personal infomation</button>
+                            <button class="btn nav-link @if(!empty($active_change_pass)) active @endif">Change password</button>
+                            <a href="{{ route('manage_question') }}" class="btn nav-link @if(!empty($active_manage_question)) active @endif">Manage question</a>
+                            <a href="{{ route('manage_answer') }}" class="btn nav-link @if(!empty($active_manage_answer)) active @endif">Manage answer</a>
+                            <a href="{{ route('log-out') }}" class="btn nav-link">Sign out</a>
+>>>>>>> 0c65e0dc4ef1f87f15bdb4b42841df8521da25a0
                         </div>
                     </div>
                 </div>
@@ -36,7 +68,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="{{route('change_avatar')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="card">
                         <div class="card-header d-flex justify-content-between bg-primary">
@@ -45,7 +77,7 @@
                         </div>
                         <div class="card-body">
                             <div class="file-loading">
-                                <input required id="fuMain" name="wallpaper" type="file">
+                                <input required id="fuMain" name="avatar" type="file">
                             </div>
                         </div>
                     </div>

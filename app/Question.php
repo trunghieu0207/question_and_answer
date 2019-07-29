@@ -13,7 +13,7 @@ class Question extends Eloquent
         'title','content','user_id','best_answer','category_id'
     ];
 
-    public function categories()
+    public function category()
     {
     	return $this->belongsTo('App\Category','category_id','_id');
     }
@@ -21,6 +21,9 @@ class Question extends Eloquent
     public function user() {
     	return $this->belongsTo('App\User', 'user_id', '_id');
     }
-   
+
+    public function answers() {
+    	return $this->hasMany('App\Answer', 'question_id', '_id');
+    }
 }
 

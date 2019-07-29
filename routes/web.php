@@ -22,11 +22,17 @@ Route::get('signin',[
 	'uses' => 'SignInController@view'
 ]);
 
+Route::get('search',[
+	'as' => 'search',
+	'uses' => 'HomeController@search'
+]);
+
 Route::post('signin',[
 	'as' => 'post-signin',
 	'uses' => 'SignInController@postSignIn'
 ]);
 
+<<<<<<< HEAD
 Route::prefix('profile')->group(function () {
     Route::middleware(['checkSignIn'])->group(function () {
        	Route::get('information/{id}', [
@@ -55,7 +61,28 @@ Route::prefix('profile')->group(function () {
 Route::get('logout',[
 	'as'=>'log-out',
 	'uses' => 'SignInController@logout'
+=======
+Route::group(['middleware' => 'checkSignIn'], function() {
+	Route::get('logout',[
+		'as'=>'log-out',
+		'uses' => 'SignInController@logout'
+	]);
+	Route::get('profile', function() {
+		return 'not code yet!';
+	})->name('profile');
+	Route::get('profile/manage_question', 'ProfileController@index_manage_question')->name('manage_question');
+	Route::get('profile/manage_answer', 'ProfileController@index_manage_answer')->name('manage_answer');
+	Route::post('profile/remove_question', 'ProfileController@remove_question')->name('remove_question');
+	Route::post('profile/change_avatar', 'ProfileController@change_avatar')->name('change_avatar');
+});
+
+Route::get('search_test',[
+	'as' => 'search_test',
+	'uses' => 'HomeController@search_test'
+>>>>>>> 0c65e0dc4ef1f87f15bdb4b42841df8521da25a0
 ]);
+<<<<<<< HEAD
+=======
 
 Route::get('test',function(){
 	return view('test');
@@ -65,3 +92,4 @@ Route::get('test',function(){
 
 
 
+>>>>>>> 20773e1a67515779ee935db2a2750f74481451b0

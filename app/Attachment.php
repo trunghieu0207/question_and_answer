@@ -8,4 +8,8 @@ class Attachment extends Eloquent
 {
     protected $connection = 'mongodb';
     protected $collection = 'attachments';
+
+    protected $fillable = [
+        'name','type','path'
+    ];
 }
