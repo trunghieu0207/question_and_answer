@@ -25,7 +25,7 @@ class HomeController extends Controller
 		$questions = $full_text_search->merge($normal_search);
 		if($questions->count()<=0) return "";
 		foreach($questions as $question){
-			echo '<a class="dropdown-item" href="#"><small>'.$question->title.'</small></a>';
+			echo '<a href="viewtopic/'.$question->_id.'" class="dropdown-item"><small>'.$question->title.'</small></a>';
 		}
 	}
 	public function search_test(Request $request){
