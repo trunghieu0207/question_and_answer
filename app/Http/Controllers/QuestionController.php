@@ -39,7 +39,11 @@ class QuestionController extends Controller
 		if(Auth::check()){
 			$categories = Category::all();
 			$question = Question::find($id);
-			return view('edittopic',compact('question','id','categories'));
+			if(empty($question)){
+				return redirect()->route('home-page');
+			} else {
+				return view('edittopic',compact('question','id','categories'));
+			}
 		} else {
 			return view('signin');
 		}

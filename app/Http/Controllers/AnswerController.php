@@ -27,8 +27,12 @@ class AnswerController extends Controller
 	{
 		if(Auth::check()){
 			$answer = Answer::find($id);
-			$question = Question::where('_id', '=',$answer->question_id)->get();
-			return view('editanswer',compact('answer','id','question'));
+			if(empty($answer)) {
+				return redirect()->route('home-page');
+			} else{
+				$question = Question::where('_id', '=',$answer->question_id)->get();
+				return view('editanswer',compact('answer','id','question'));
+			}
 		} else {
 			return view('signin');
 		}
