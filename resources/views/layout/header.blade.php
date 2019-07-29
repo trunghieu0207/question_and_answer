@@ -12,9 +12,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="form-inline" action="{{route('search_test')}}" method="get" target="_blank">
+            <form id="searchform" class="form-inline" action="{{route('submit_search')}}" method="get">
                 <div class="input-group">
-                    <input id="search" name="keyword" class="form-control" type="search" placeholder="Search">
+                    <input required id="search" name="keyword" class="form-control" type="search" placeholder="Search" title="enter your keyword">
                     <div id="result_list" class="dropdown-menu">
 
                     </div>
@@ -34,8 +34,8 @@
                 <i class="fa fa-bell" style="font-size: 18px"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="notify" style="width: 270px">
-                @if(!empty($notifications))
-                @foreach($notifications as $notification)
+                @if(!empty(session('notifications')))
+                @foreach(session('notifications') as $notification)
                 <div class="row">
                     <div class="col-sm-10">
                         <div class=" ml-2">
@@ -70,11 +70,11 @@
                     <i class="fa fa-cog" style="width:20px"></i>
                     Profile
                 </a>
-                <a class="dropdown-item" href="{{ route('profile') }}">
+                <a class="dropdown-item" href="{{ route('manage_question') }}">
                     <i class="fa fa-comments-o" style="width:20px"></i>
                     Your questions
                 </a>
-                <a class="dropdown-item" href="{{ route('profile') }}">
+                <a class="dropdown-item" href="{{ route('manage_answer') }}">
                     <i class="fa fa-lightbulb-o" style="width:20px"></i>
                     Your answers
                 </a>

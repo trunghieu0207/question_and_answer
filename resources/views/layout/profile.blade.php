@@ -25,17 +25,16 @@
             <div class="col-sm-3  sidebar-sticky" style="margin-top: 47px">
                 <div class="card shadow bg-light">
                     <div class="card-body text-center">
-                        <img src="{{ asset('img\resource')}}\{{ $user->avatar }}" class="avatar">
-                        <h4 class="mt-2 text-primary font-weight-bold">{{ $user->fullname }}</h4>
-                        <button class="badge badge-warning" data-toggle="modal" data-target="#exampleModal">change
+                        <img src="{{ asset(session('avatar')) }}" class="avatar">
+                        <h4 class="mt-2 text-primary font-weight-bold">{{ session('username') }}</h4>
+                        <button class="badge btn btn-warning" data-toggle="modal" data-target="#exampleModal">change
                             avatar</button>
                         <div class="nav flex-column nav-pills my-3 bg-white border">
-                            <a class="btn nav-link @yield('status1')" href="{{ asset('profile/information') }}/{{ Session::get('id') }}">Personal infomation</a>
-                            <a class="btn nav-link @yield('status2')" href="{{ asset('profile/changepassword')}}/{{ Session::get('id')}}">Change password</a>
-                            <a class="btn nav-link @yield('status3')">Manage question</a>
-                            <a class="btn nav-link @yield('status4')">Manage answer</a>
-                            <a class="btn nav-link @yield('status5')">Sign out</a>
-
+                            <button class="btn nav-link @if(!empty($active_personal_info)) active @endif">Personal infomation</button>
+                            <button class="btn nav-link @if(!empty($active_change_pass)) active @endif">Change password</button>
+                            <a href="{{ route('manage_question') }}" class="btn nav-link @if(!empty($active_manage_question)) active @endif">Manage question</a>
+                            <a href="{{ route('manage_answer') }}" class="btn nav-link @if(!empty($active_manage_answer)) active @endif">Manage answer</a>
+                            <a href="{{ route('log-out') }}" class="btn nav-link">Sign out</a>
                         </div>
                     </div>
                 </div>
