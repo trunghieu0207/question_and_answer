@@ -131,18 +131,6 @@ class DatabaseSeeder extends Seeder
         $notification->postable_type= "Question";
         $notification->save();
 
-        $user_question_answer = new User_Question_Answer();
-        $user_question_answer->user_id = $user->_id;
-        $user_question_answer->post_id = $question->_id;
-        $user_question_answer->action = "Like";
-        $user_question_answer->post_type = "Question";
-        $user_question_answer->save();
-
-        $user_question_answer2 = new User_Question_Answer();
-        $user_question_answer2->user_id = $user->_id;
-        $user_question_answer2->post_id = $question->_id;
-        $user_question_answer2->action = "";
-        $user_question_answer2->post_type = "Answer";
-        $user_question_answer2->save();
+        
     }
 }

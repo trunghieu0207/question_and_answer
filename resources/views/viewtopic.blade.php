@@ -34,7 +34,7 @@
 							</div>
 						</div>
 					</div>
-					<a href="{{asset('edittopic')}}/{{ $question->id }}"><i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>
+					<a href="{{asset('edittopic')}}/{{ $question->id }}" style="color: gray"><i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>
 					@else
 					@endif
 
