@@ -87,7 +87,8 @@
                 <span class="badge badge-info" style="height: 20px">{{$question->category->name}}</span>
             </div>
             <div class="col-sm-12">
-                <p>{{$question->content}}</p>
+                 <p id="plain_content" hidden>{{$question->content}}</p>			
+                <p id="content_markdown"></p>
                 <div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
                     <div class="col-sm">
                         @if (Auth::check())
