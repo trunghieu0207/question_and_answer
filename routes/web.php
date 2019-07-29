@@ -137,6 +137,11 @@ Route::middleware(['checkSignIn'])->group(function () {
 		'as' => 'like',
 		'uses' => 'ViewTopicController@like'
 	]);
+	Route::get('checklike/{post_id}/{post_type}/{user_id}',[
+		'as' => 'check-like',
+		'uses' => 'ViewTopicController@checkLike'
+	]);
+
 
 	Route::get('dislike/{post_id}/{post_type}/{user_id}',[
 		'as' => 'dislike',

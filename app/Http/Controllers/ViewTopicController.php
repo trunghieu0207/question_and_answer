@@ -49,9 +49,9 @@ class ViewTopicController extends Controller
         
     }
     
-    public function checkLike($user_id)
+    public function checkLike($post_id,$post_type,$user_id)
     {
-        $user_liked=User_Question_Answer::where('user_id','like',$user_id)->where('post_id', 'like', $post_id)->where('action', 'like', "Like")->get();
+        $user_liked=User_Question_Answer::where('user_id','like',$user_id)->where('post_id', 'like', $post_id)->where('action', 'like', "Like")->where('post_type', 'like', $post_type)->get();
         if ($user_liked->count()==0) return False;
         else return True;
     }
