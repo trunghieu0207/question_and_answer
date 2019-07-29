@@ -1,4 +1,4 @@
-@extends('layout.profile')
+	@extends('layout.profile')
 @section('status1','active')
 @section('contentprofile')
 		<div class="row">
