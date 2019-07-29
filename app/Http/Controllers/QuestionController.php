@@ -32,9 +32,23 @@ class QuestionController extends Controller
 
 	public function edit($id)
 	{
+
 		$categories = Category::all();
 		$question = Question::find($id);
 		return view('edittopic',compact('question','id','categories'));
+
+		if(Auth::check()){
+			$categories = Category::all();
+			$question = Question::find($id);
+			if(empty($question)){
+				return redirect()->route('home-page');
+			} else {
+				return view('edittopic',compact('question','id','categories'));
+			}
+		} else {
+			return view('signin');
+		}
+
 	}
 
 	public function update(Request $request, $id)

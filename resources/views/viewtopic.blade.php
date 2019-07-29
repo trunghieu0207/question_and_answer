@@ -77,23 +77,31 @@ rel="stylesheet" type="text/css" />
 							<h3>{{$question->title}}</h3>
 							<span class="badge badge-info" style="height: 20px">{{$question->category->name}}</span>
 						</div>
-						<div class="col-sm-12">		
+						<div class="col-sm-12" style="margin-left: 10px">		
 							<p>
 								{!! $question->content !!}
 							</p>
 							<div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
 								<div class="col-sm">
 									@if (Auth::check())
-									<a href="{{asset('like')}}/{{$question->_id}}/Question/{{Session::get('id')}}"><i
+									
+									<a href="{{asset('like')}}/{{$question->_id}}/Question/{{Session::get('id')}}" ><i
 										class="fa fa-thumbs-up"></i></a> {{$question->total_like}}
-										@else
-										<a href="{{route('sign-in')}}"><i class="fa fa-thumbs-up"></i></a>{{$question->total_like}}
-										@endif
+									@else
+									<a href="{{route('sign-in')}} "style="color:#787878"><i class="fa fa-thumbs-up"></i></a> {{$question->total_like}}
+									@endif
 									</div>
 									<div class="col-sm">
+										@if (Auth::check())
 										<a href="{{asset('dislike')}}/{{$question->_id}}/Question/{{Session::get('id')}}"><i
 											class="fa fa-thumbs-down"></i></a>
 											{{$question->total_dislike}}
+										@else
+										<a href="{{route('sign-in')}}"style="color:#787878"><i
+											class="fa fa-thumbs-down"></i></a>
+											{{$question->total_dislike}}
+										@endif
+
 										</div>
 										<div class="col-sm">
 											<i class="fa fa-reply"></i>
@@ -170,19 +178,32 @@ rel="stylesheet" type="text/css" />
 										</p>
 										<div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
 											<div class="col-sm-1">
+												@if(Auth::check())
+
 												<a href="{{asset('like')}}/{{$best_answer->_id}}/Answer/{{Session::get('id')}}"><i
 													class="fa fa-thumbs-up"></i></a>
 													{{$best_answer->total_like}}
+												@else
+												<a href="{{route('sign-in')}}"><i
+													class="fa fa-thumbs-up" style="color:#787878"></i></a>
+													{{$best_answer->total_like}}
+												@endif
 												</div>
 												<div class="col-sm-1">
+													@if(Auth::check())
 													<a href="{{asset('dislike')}}/{{$best_answer->_id}}/Answer/{{Session::get('id')}}"><i
 														class="fa fa-thumbs-down"></i></a>
 														{{$best_answer->total_dislike}}
+													@else
+													<a href="{{route('sign-in')}}"><i
+														class="fa fa-thumbs-down" style="color:#787878"></i></a>
+														{{$best_answer->total_dislike}}
+													@endif
 													</div>
 													@if (Session::get('id')==$question->user_id)
 													<div class="col-sm-10 d-flex justify-content-sm-end">
-														<a href="{{asset('bestanswer')}}/{{$best_answer->_id}}"><button type="button"
-															class="float-right btn btn-success">Best Answer</button></a>
+														<a href="{{asset('removebestanswer')}}/{{$best_answer->_id}}"><button type="button"
+															class="float-right btn btn-warning">Remove Best Answer</button></a>
 														</div>
 														@else
 														@endif
@@ -233,14 +254,26 @@ rel="stylesheet" type="text/css" />
 														</p>
 														<div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
 															<div class="col-sm-1">
-																<a href="{{asset('like')}}/{{$answer->_id}}/Answer/{{Session::get('id')}}"><i
+																@if(Auth::check())
+																	<a href="{{asset('like')}}/{{$answer->_id}}/Answer/{{Session::get('id')}}" ><i
 																	class="fa fa-thumbs-up"></i></a>
 																	{{$answer->total_like}}
+																@else
+																	<a href="{{ route('sign-in') }} " style="color:#787878"><i
+																	class="fa fa-thumbs-up"></i></a>
+																	{{$answer->total_like}}
+																@endif
 																</div>
 																<div class="col-sm-1">
+																	@if(Auth::check())
 																	<a href="{{asset('dislike')}}/{{$answer->_id}}/Answer/{{Session::get('id')}}"><i
 																		class="fa fa-thumbs-down"></i></a>
 																		{{$answer->total_dislike}}
+																	@else
+																		<a href="{{ route('sign-in') }}"style="color:#787878"><i
+																		class="fa fa-thumbs-down"></i></a>
+																		{{$answer->total_dislike}}
+																	@endif
 																	</div>
 																	@if (Session::get('id')==$question->user_id)
 																	<div class="col-sm-10 d-flex justify-content-sm-end">

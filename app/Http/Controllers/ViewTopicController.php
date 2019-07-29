@@ -13,19 +13,26 @@ class ViewTopicController extends Controller
     public function view($id)
     {
         $question = Question::find($id);
-        $answers = Answer::where('question_id','like',$id)->get();
-        $best_answer=null;
-        
-        $parsedown = new \Parsedown();
-        $question->content = $parsedown->text($question->content);
-        foreach ($answers as $answer) {
-            $answer->content = $parsedown->text($answer->content);
+        if(empty($question)){
+           return redirect()->route('home-page');
+        } else {
+            $answers = Answer::where('question_id','like',$id)->get();
+            $best_answer=null;
+            $question->total_answer = $answers->count();
+            $question->save(); 
+            $parsedown = new \Parsedown();
+            $question->content = $parsedown->text($question->content);
+            foreach ($answers as $answer) {
+                $answer->content = $parsedown->text($answer->content);
+            }
+            if(!empty($question->best_answer_id)) {
+                $best_answer= Answer::find($question->best_answer_id);
+                $best_answer->content = $parsedown->text($best_answer->content);
+            }
+            return view('viewtopic',compact('question','answers','best_answer'));
         }
-        if(!empty($question->best_answer_id)) {
-            $best_answer= Answer::find($question->best_answer_id);
-            $best_answer->content = $parsedown->text($best_answer->content);
-        }
-        return view('viewtopic',compact('question','answers','best_answer'));
+       
+        return view('viewtopic',compact('question'));
     }
     public function bestAnswer($id_answer)
     {
@@ -37,10 +44,20 @@ class ViewTopicController extends Controller
         return redirect()->route('view-topic',compact('question'));
         
     }
-    
-    public function checkLike($user_id)
+    public function removeBestAnswer($id_answer)
     {
-        $user_liked=User_Question_Answer::where('user_id','like',$user_id)->where('post_id', 'like', $post_id)->where('action', 'like', "Like")->get();
+        $answer = Answer::find($id_answer);
+        $id_question=$answer->question_id;
+        $question = Question::find($id_question);
+        $question->best_answer_id = null;
+        $question->save();
+        return redirect()->route('view-topic',compact('question'));
+        
+    }
+    
+    public function checkLike($post_id,$post_type,$user_id)
+    {
+        $user_liked=User_Question_Answer::where('user_id','like',$user_id)->where('post_id', 'like', $post_id)->where('action', 'like', "Like")->where('post_type', 'like', $post_type)->get();
         if ($user_liked->count()==0) return False;
         else return True;
     }
