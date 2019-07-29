@@ -8,6 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 class AnswerController extends Controller
 {
+
+	public function store(Request $request)
+	{
+		$answer = new Answer();
+		$answer->content = $request->get('content');
+		$answer->user_id = session('id');
+		$answer->question_id = $request->get('question_id');
+		$answer->save();
+		return redirect()->route('view-topic', ['id' => $answer->question_id]);
+	}
+
 	public function edit($id)
 	{
 		if(Auth::check()){

@@ -101,6 +101,7 @@ Route::get('addtopic',[
 
 Route::post('addtopic','QuestionController@store');
 
+
 Route::get('edittopic/{id}',[
 	'as' => 'edit-topic',
 	'uses' => 'QuestionController@edit'
@@ -159,6 +160,8 @@ Route::get('edittopic/{id}',[
 Route::post('edittopic/{id}','QuestionController@update');
 
 Route::post('deletetopic','QuestionController@destroy')->name('delete-topic');
+
+Route::post('addanswer','AnswerController@store')->name('add-answer');
 
 Route::get('editanswer/{id}',[
 	'as' => 'edit-answer',
