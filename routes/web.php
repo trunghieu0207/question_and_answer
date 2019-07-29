@@ -44,10 +44,19 @@ Route::get('search_test',[
 Route::get('profile', function() {
 	return redirect()->route('sign-in');
 });
+
 Route::get('viewtopic/{id}',[
 		'as' => 'view-topic',
 		'uses' => 'ViewTopicController@view'
-	]);
+]);
+
+Route::get('viewtopic', function() {
+	return redirect()->route('sign-in');
+});
+
+Route::get('edittopic', function() {
+	return redirect()->route('sign-in');
+});
 
 /*Start middleware check sigin*/
 Route::middleware(['checkSignIn'])->group(function () {

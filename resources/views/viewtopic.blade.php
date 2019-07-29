@@ -233,14 +233,26 @@ rel="stylesheet" type="text/css" />
 														</p>
 														<div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
 															<div class="col-sm-1">
-																<a href="{{asset('like')}}/{{$answer->_id}}/Answer/{{Session::get('id')}}"><i
+																@if(Auth::check())
+																	<a href="{{asset('like')}}/{{$answer->_id}}/Answer/{{Session::get('id')}}"><i
 																	class="fa fa-thumbs-up"></i></a>
 																	{{$answer->total_like}}
+																@else
+																	<a href="{{ route('sign-in') }}"><i
+																	class="fa fa-thumbs-up"></i></a>
+																	{{$answer->total_like}}
+																@endif
 																</div>
 																<div class="col-sm-1">
+																	@if(Auth::check())
 																	<a href="{{asset('dislike')}}/{{$answer->_id}}/Answer/{{Session::get('id')}}"><i
 																		class="fa fa-thumbs-down"></i></a>
 																		{{$answer->total_dislike}}
+																	@else
+																		<a href="{{ route('sign-in') }}"><i
+																		class="fa fa-thumbs-down"></i></a>
+																		{{$answer->total_dislike}}
+																	@endif
 																	</div>
 																	@if (Session::get('id')==$question->user_id)
 																	<div class="col-sm-10 d-flex justify-content-sm-end">
