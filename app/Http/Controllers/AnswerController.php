@@ -5,6 +5,7 @@ use App\Answer;
 use Illuminate\Http\Request;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
+use File;
 
 class AnswerController extends Controller
 {
@@ -18,7 +19,12 @@ class AnswerController extends Controller
 		$id_question=$answer->question_id;
         $question = Question::find($id_question);
         $question->total_answer+=1;
-        $question->save();
+		$question->save();
+		$answer->attachment_path = null;
+		if($request->hasFile('attachment')) {
+			$answer->attachment_path = $request->attachment->getClientOriginalName();
+			$request->attachment->move('files\\', $request->attachment->getClientOriginalName());
+		}
 		$answer->save();
 		return redirect()->route('view-topic', ['id' => $answer->question_id]);
 	}
@@ -42,6 +48,12 @@ class AnswerController extends Controller
 	{
 		$answer = Answer::find($id);
 		$answer->content = $request->get('content');
+		$answer->attachment_path = null;
+		if($request->hasFile('attachment')) {
+			File::delete('files\\'.$answer->attachment_path);
+			$answer->attachment_path = $request->attachment->getClientOriginalName();
+			$request->attachment->move('files\\', $request->attachment->getClientOriginalName());
+		}
 		$answer->save();
 		return redirect()->route('view-topic', ['id' => $answer->question_id]);
 	}
