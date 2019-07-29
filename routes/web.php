@@ -36,8 +36,20 @@ Route::post('signin',[
 	'uses' => 'SignInController@postSignIn'
 ]);
 
+Route::get('search_test',[
+	'as' => 'search_test',
+	'uses' => 'HomeController@search_test'
+]);
 
+Route::get('profile', function() {
+	return redirect()->route('sign-in');
+});
+Route::get('viewtopic/{id}',[
+		'as' => 'view-topic',
+		'uses' => 'ViewTopicController@view'
+	]);
 
+/*Start middleware check sigin*/
 Route::middleware(['checkSignIn'])->group(function () {
     Route::prefix('profile')->group(function () {
        	Route::get('information', [
@@ -66,74 +78,13 @@ Route::middleware(['checkSignIn'])->group(function () {
 
     });
 
+
     Route::get('logout',[
 		'as'=>'log-out',
 		'uses' => 'SignInController@logout'
 	]);
 
-	Route::get('profile', function() {
-		return redirect()->route('information');
-	})->name('profile');
-	Route::get('profile/manage_question', 'ProfileController@index_manage_question')->name('manage_question');
-	Route::get('profile/manage_answer', 'ProfileController@index_manage_answer')->name('manage_answer');
-	Route::post('profile/remove_question', 'ProfileController@remove_question')->name('remove_question');
-	Route::post('profile/change_avatar', 'ProfileController@change_avatar')->name('change_avatar');
-});
-
-Route::get('search_test',[
-	'as' => 'search_test',
-	'uses' => 'HomeController@search_test'
-]);
-
-Route::get('viewtopic/{id}',[
-	'as' => 'view-topic',
-	'uses' => 'ViewTopicController@view'
-]);
-
-Route::get('addtopic',[
-	'as' => 'add-topic',
-	'uses' => 'QuestionController@create'
-]);
-
-Route::post('addtopic','QuestionController@store');
-
-
-Route::get('edittopic/{id}',[
-	'as' => 'edit-topic',
-	'uses' => 'QuestionController@edit'
-]);
-
-
-Route::post('edittopic/{id}','QuestionController@update');
-
-Route::post('deletetopic','QuestionController@destroy')->name('delete-topic');
-
-Route::get('editanswer/{id}',[
-	'as' => 'edit-answer',
-	'uses' => 'AnswerController@edit'
-]);
-
-
-Route::post('editanswer/{id}','AnswerController@update');
-
-
-
-Route::get('bestanswer/{id}',[
-	'as' => 'best-answer',
-	'uses' => 'ViewTopicController@bestAnswer'
-]);
-
-Route::get('like/{post_id}/{post_type}/{user_id}',[
-	'as' => 'like',
-	'uses' => 'ViewTopicController@like'
-]);
-
-Route::get('dislike/{post_id}/{post_type}/{user_id}',[
-	'as' => 'dislike',
-	'uses' => 'ViewTopicController@dislike'
-]);
-
-
+	
 
 	Route::get('addtopic',[
 		'as' => 'add-topic',
@@ -141,11 +92,6 @@ Route::get('dislike/{post_id}/{post_type}/{user_id}',[
 	]);
 
 	Route::post('addtopic','QuestionController@store');
-	Route::get('viewtopic/{id}',[
-		'as' => 'view-topic',
-		'uses' => 'ViewTopicController@view'
-	]);
-
 
 
 	Route::get('edittopic/{id}',[
@@ -154,16 +100,7 @@ Route::get('dislike/{post_id}/{post_type}/{user_id}',[
 	]);
 
 
-
-Route::post('addanswer','AnswerController@store')->name('add-answer');
-
-Route::get('editanswer/{id}',[
-	'as' => 'edit-answer',
-	'uses' => 'AnswerController@edit'
-]);
-
 	Route::post('edittopic/{id}','QuestionController@update');
-
 
 	Route::post('deletetopic','QuestionController@destroy')->name('delete-topic');
 
@@ -175,6 +112,7 @@ Route::get('editanswer/{id}',[
 
 	Route::post('editanswer/{id}','AnswerController@update');
 
+	Route::post('addanswer','AnswerController@store')->name('add-answer');
 
 	Route::get('bestanswer/{id}',[
 		'as' => 'best-answer',
@@ -195,3 +133,9 @@ Route::get('editanswer/{id}',[
 		'as' => 'dislike',
 		'uses' => 'ViewTopicController@dislike'
 	]);
+
+
+});
+
+/*End middleware check sign in*/
+
