@@ -88,7 +88,7 @@ rel="stylesheet" type="text/css" />
 									<a href="{{asset('like')}}/{{$question->_id}}/Question/{{Session::get('id')}}" ><i
 										class="fa fa-thumbs-up"></i></a> {{$question->total_like}}
 									@else
-									<a href="{{route('sign-in')}} "style="color:#787878"><i class="fa fa-thumbs-up"></i></a>{{$question->total_like}}
+									<a href="{{route('sign-in')}} "style="color:#787878"><i class="fa fa-thumbs-up"></i></a> {{$question->total_like}}
 									@endif
 									</div>
 									<div class="col-sm">
