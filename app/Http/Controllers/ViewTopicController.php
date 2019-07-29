@@ -14,7 +14,17 @@ class ViewTopicController extends Controller
     {
         $question = Question::find($id);
         $answers = Answer::where('question_id','like',$id)->get();
-        $best_answer= Answer::find($question->best_answer_id);
+        $best_answer=null;
+        
+        $parsedown = new \Parsedown();
+        $question->content = $parsedown->text($question->content);
+        foreach ($answers as $answer) {
+            $answer->content = $parsedown->text($answer->content);
+        }
+        if(!empty($question->best_answer_id)) {
+            $best_answer= Answer::find($question->best_answer_id);
+            $best_answer->content = $parsedown->text($best_answer->content);
+        }
         return view('viewtopic',compact('question','answers','best_answer'));
     }
     public function bestAnswer($id_answer)

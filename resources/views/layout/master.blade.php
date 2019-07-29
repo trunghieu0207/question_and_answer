@@ -2,6 +2,7 @@
 <html>
 <head>
     @include('layout.css')
+
     @yield('css')
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
@@ -15,7 +16,6 @@
     @yield('content')
 
     @include('layout.js')
-
     @yield('js')
 
     <script>

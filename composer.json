@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.1.3",
         "anhskohbo/no-captcha": "^3.0",
+        "erusev/parsedown": "^1.7",
         "fideloper/proxy": "^4.0",
         "jenssegers/mongodb": "^3.5",
         "laravel/framework": "5.8.*",

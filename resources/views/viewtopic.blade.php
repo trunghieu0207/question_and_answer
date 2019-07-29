@@ -20,17 +20,8 @@ rel="stylesheet" type="text/css" />
 	var simplemde = new SimpleMDE({
 		element: document.getElementById("MyID")
 	});
-	var renderedHTML = simplemde.options.previewRender($('#plain_content').text());
-	$('#content_markdown').html(renderedHTML);
-
-	var renderedHTMLAnswer = simplemde.options.previewRender($('#plain_contentanswer').text());
-	$('#contentanswer_markdown').html(renderedHTMLAnswer);
-
-	var renderedHTMLBestAnswer = simplemde.options.previewRender($('#plain_contentbestanswer').text());
-	$('#contentbestanswer_markdown').html(renderedHTMLBestAnswer);
 
 </script>
-
 @endsection
 @section('content')
 <div class="container mt-5">
@@ -86,9 +77,10 @@ rel="stylesheet" type="text/css" />
 							<h3>{{$question->title}}</h3>
 							<span class="badge badge-info" style="height: 20px">{{$question->category->name}}</span>
 						</div>
-						<div class="col-sm-12">
-							<p id="plain_content" hidden>{{$question->content}}</p>			
-							<p id="content_markdown"></p>
+						<div class="col-sm-12">		
+							<p>
+								{!! $question->content !!}
+							</p>
 							<div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
 								<div class="col-sm">
 									@if (Auth::check())
@@ -172,8 +164,10 @@ rel="stylesheet" type="text/css" />
 										</div>
 										<br>
 
-										<p id="plain_contentbestanswer" hidden>{{$best_answer->content}}</p>			
-										<p id="contentbestanswer_markdown"></p>
+										
+										<p>
+											{!! $best_answer->content !!}
+										</p>
 										<div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
 											<div class="col-sm-1">
 												<a href="{{asset('like')}}/{{$best_answer->_id}}/Answer/{{Session::get('id')}}"><i
@@ -233,8 +227,10 @@ rel="stylesheet" type="text/css" />
 															</small>
 														</div>
 														<br>
-														<p id="plain_contentanswer" hidden>{{$answer->content}}</p>			
-														<p id="contentanswer_markdown"></p>
+														
+														<p>
+															{!! $answer->content !!}
+														</p>
 														<div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
 															<div class="col-sm-1">
 																<a href="{{asset('like')}}/{{$answer->_id}}/Answer/{{Session::get('id')}}"><i

@@ -64,6 +64,7 @@ class ProfileController extends Controller
         $user->fullname = $request->fullname;
         $user->about_me = $request->aboutme;
         $user->save();
+        Session()->put('username',$request->fullname);
         Session()->flash('message', 'Complete!');
         return redirect()->back();
     }
