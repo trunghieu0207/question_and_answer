@@ -74,3 +74,60 @@
         </div>
     </div>
 @endsection
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script>
+        $(function () {
+            jQuery.validator.addMethod("validname", function (value, element) {
+                return this.optional(element) || /^[\w ]+$/i.test(value);
+            }, "Alphabet, number, underscore, spaces only.");
+
+            jQuery.validator.addMethod("validpass", function (value, element) {
+                return this.optional(element) || /^\S+$/i.test(value);
+            }, "Password can't contain space.");
+
+            $('#changepass').validate({
+                rules: {
+                    curentpassword: {
+                        required: true,
+                        validpass: true,
+                    },
+                    newpassword: {
+                        required: true,
+                        validpass: true,
+                        maxlength:30,
+                        minlength:5
+                    },
+                    confirmpass: {
+                        required: true,
+                        equalTo: $('[name="newpassword"]')
+                    
+                    }
+                },
+                messages: {
+                    curentpassword: {
+                        required: 'Please enter your curent password.',
+                    },
+                    newpassword: {
+                        required: 'Please enter your password.',
+                        maxlength:'Maximum character is 30',
+                        minlength:'Password must has at least 5 character.'
+                    },
+                    confirmpass: {
+                        required: 'Please comfirm your password.',
+                        equalTo: "Your password isn't matched."
+                    }
+                },
+                errorElement: 'small',
+                errorClass: 'help-block text-danger mt-2',
+                validClass: 'is-valid',
+                highlight: function (e) {
+                    $(e).removeClass('is-valid').addClass('is-invalid');
+                },
+                unhighlight: function (e) {
+                    $(e).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
+        })
+    </script>
+@endsection

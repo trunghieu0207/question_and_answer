@@ -36,6 +36,37 @@ Route::post('signin',[
 	'uses' => 'SignInController@postSignIn'
 ]);
 
+
+Route::prefix('profile')->group(function () {
+    Route::middleware(['checkSignIn'])->group(function () {
+       	Route::get('information/{id}', [
+			'as' => 'information',
+			'uses' => 'UserController@getInformation'
+		]);
+
+       	Route::post('postInformation', [
+			'as' => 'post-information',
+			'uses' => 'UserController@postInformation'
+		]);
+       	Route::get('changepassword/{id}', [
+			'as' => 'change-password',
+			'uses' => 'UserController@getChangepassword'
+		]);
+
+		Route::post('postchangepassword', [
+			'as' => 'postchange-password',
+			'uses' => 'UserController@postChangepassword'
+		]);
+    });
+
+});
+
+
+Route::get('logout',[
+	'as'=>'log-out',
+	'uses' => 'SignInController@logout'
+]);
+
 Route::group(['middleware' => 'checkSignIn'], function() {
 	Route::get('logout',[
 		'as'=>'log-out',
@@ -98,8 +129,3 @@ Route::group(['middleware' => 'checkSignIn'], function() {
 		'uses' => 'ViewTopicController@dislike'
 	]);
 });
-
-
-
-
-
