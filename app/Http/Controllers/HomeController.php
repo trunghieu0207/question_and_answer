@@ -18,5 +18,20 @@ class HomeController extends Controller
 		return view('home',compact('questions'));
 	}
 
-	
+	public function search(Request $request){
+		$full_text_search = Question::whereRaw(array('$text'=>array('$search'=> $request->keyword)))->get();
+		$normal_search = Question::where('title','like',"%$request->keyword%")->get();
+
+		$questions = $full_text_search->merge($normal_search);
+		if($questions->count()<=0) return "";
+		foreach($questions as $question){
+			echo '<a class="dropdown-item" href="#"><small>'.$question->title.'</small></a>';
+		}
+	}
+	public function search_test(Request $request){
+		$questions = Question::whereRaw(array('$text'=>array('$search'=> $request->keyword)))->get();
+		if($questions->count()>0) return $questions;
+		else return 'None.';
+	}
+
 }
