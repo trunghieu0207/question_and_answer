@@ -44,6 +44,10 @@ Route::get('search_test',[
 Route::get('profile', function() {
 	return redirect()->route('sign-in');
 });
+Route::get('viewtopic/{id}',[
+		'as' => 'view-topic',
+		'uses' => 'ViewTopicController@view'
+	]);
 
 /*Start middleware check sigin*/
 Route::middleware(['checkSignIn'])->group(function () {
@@ -79,10 +83,8 @@ Route::middleware(['checkSignIn'])->group(function () {
 		'as'=>'log-out',
 		'uses' => 'SignInController@logout'
 	]);
-	Route::get('viewtopic/{id}',[
-		'as' => 'view-topic',
-		'uses' => 'ViewTopicController@view'
-	]);
+
+	
 
 	Route::get('addtopic',[
 		'as' => 'add-topic',
@@ -110,7 +112,7 @@ Route::middleware(['checkSignIn'])->group(function () {
 
 	Route::post('editanswer/{id}','AnswerController@update');
 
-
+	Route::post('addanswer','AnswerController@store')->name('add-answer');
 
 	Route::get('bestanswer/{id}',[
 		'as' => 'best-answer',
@@ -130,5 +132,5 @@ Route::middleware(['checkSignIn'])->group(function () {
 
 });
 
-/*end Middleware check sign in*/
+/*End middleware check sign in*/
 
