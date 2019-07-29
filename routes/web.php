@@ -81,8 +81,6 @@ Route::get('search_test',[
 	'uses' => 'HomeController@search_test'
 >>>>>>> 0c65e0dc4ef1f87f15bdb4b42841df8521da25a0
 ]);
-<<<<<<< HEAD
-=======
 
 Route::get('test',function(){
 	return view('test');
@@ -92,4 +90,3 @@ Route::get('test',function(){
 
 
 
->>>>>>> 20773e1a67515779ee935db2a2750f74481451b0
