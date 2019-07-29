@@ -15,9 +15,9 @@
 						<small class="font-weight-bold" style="color:#5488c7;">{{$question->user->fullname}}</small>
 						<small class="text-muted" style="color:#5488c7;">{{$question->created_at}}</small>
 						<br>
-						
+
 						<div class="float-left"><a href="viewtopic/{{ $question->id }}"><h5>{{$question->title}}</h5></a></div>
-						<small class="float-right border rounded-pill text-primary bg-light p-2 font-weight-bold">{{$question->categories->name}}</small>
+						<small class="float-right border rounded-pill text-primary bg-light p-2 font-weight-bold">{{$question->category->name}}</small>
 
 						<br>
 						<br>

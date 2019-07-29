@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layout.master')
 @section('content')
 <div class="container mt-5">
 	<div class="card shadow">
@@ -18,7 +18,7 @@
 			</div>
 			<div class="col-sm-12 d-flex justify-content-sm-between">
 				<h3>{{$val->title}}</h3>
-				<span class="badge badge-info" style="height: 20px">{{$val->categories->name}}</span>	
+				<span class="badge badge-info" style="height: 20px">{{$val->category->name}}</span>	
 			</div>
 			<div class="col-sm-12">			
 				<p>{{$val->content}}</p>

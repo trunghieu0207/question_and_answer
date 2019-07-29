@@ -55,9 +55,9 @@ class QuestionController extends Controller
 		return redirect()->route('view-topic', ['id' => $id]);
 	}
 
-	public function destroy($id)
+	public function destroy(Request $request)
 	{
-		$question = Question::find($id);
+		$question = Question::find($request->id);
 		$question->delete();
 		return redirect('/');
 	}

@@ -19,7 +19,7 @@
             </th>
             <td><span class="badge badge-info">{{$question->category->name}}</span></td>
             <td class="text-right">
-                <button class="btn btn-sm btn-outline-dark" title="Edit question"><i class="fa fa-pencil"></i></button>
+                <a href="{{asset('edittopic')}}/{{ $question->id }}" class="btn btn-sm btn-outline-dark" title="Edit question"><i class="fa fa-pencil"></i></a>
                 <button tag="{{$question->_id}}" onclick="confirmRemove(this)" class="btn btn-sm btn-outline-danger" title="Remove question"><i
                         class="fa fa-trash"></i></button>
             </td>

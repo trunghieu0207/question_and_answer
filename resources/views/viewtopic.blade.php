@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layout.master')
 @section('content')
 <div class="container mt-5">
 	<div class="card shadow">
@@ -25,9 +25,9 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-									<form action="{{action('QuestionController@destroy', $question->id)}}" method="post">
+									<form action="{{route('delete-topic')}}" method="post">
 										@csrf
-										<input name="_method" type="hidden" value="DELETE">
+										<input type="text" name="id" value="{{$question->id}}" hidden>
 										<button type="submit" class="btn btn-danger">Delete</button>
 									</form>
 								</div>
@@ -48,7 +48,7 @@
 			</div>
 			<div class="col-sm-12 d-flex justify-content-sm-between">
 				<h3>{{$question->title}}</h3>
-				<span class="badge badge-info" style="height: 20px">{{$question->categories->name}}</span>	
+				<span class="badge badge-info" style="height: 20px">{{$question->category->name}}</span>	
 			</div>
 			<div class="col-sm-12">			
 				<p>{{$question->content}}</p>

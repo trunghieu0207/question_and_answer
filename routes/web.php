@@ -58,7 +58,7 @@ Route::get('test',function(){
 
 Route::get('profile', function() {
 
-	return view('profile');
+	return redirect()->route('manage_question');
 })->name('profile');
 
 Route::get('viewtopic/{id}',[
@@ -80,12 +80,13 @@ Route::get('edittopic/{id}',[
 
 Route::post('edittopic/{id}','QuestionController@update');
 
-Route::delete('{id}','QuestionController@destroy');
+Route::post('deletetopic','QuestionController@destroy')->name('delete-topic');
 
 Route::get('editanswer/{id}',[
 	'as' => 'edit-answer',
 	'uses' => 'AnswerController@edit'
 ]);
+
 
 Route::post('editanswer/{id}','AnswerController@update');
 

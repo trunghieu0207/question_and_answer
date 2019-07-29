@@ -20,5 +20,5 @@ class Answer extends Eloquent
     public function question() {
     	
     	return $this->belongsTo('App\Question', 'question_id', '_id');
- 
+    }
 }
