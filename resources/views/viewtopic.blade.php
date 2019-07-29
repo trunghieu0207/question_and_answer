@@ -105,9 +105,9 @@
 
 			</div>
 			<div class="col-sm-11">
-				<div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$answer->user->fullname}}   
-					@if($answer->user_id==Session::get('id'))
-					<a href="{{asset('editanswer')}}/{{ $answer->id }}"><i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>@else
+				<div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$best_answer->user->fullname}}   
+					@if($best_answer->user_id==Session::get('id'))
+					<a href="{{asset('editanswer')}}/{{ $best_answer->id }}"><i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>@else
 					@endif
 				</div>	
 
@@ -133,7 +133,7 @@
 					</div>
 					@else
 					@endif
-					
+
 				</div>	
 			</div>			
 		</div>	
@@ -163,7 +163,7 @@
 
 				<div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$answer->user->fullname}} 
 					@if (Session::get('id')==$answer->user_id)  
-					<i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i>	
+					<a href="{{asset('editanswer')}}/{{ $answer->id }}"><i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i>	</a>
 					@endif				 
 				</div>
 
