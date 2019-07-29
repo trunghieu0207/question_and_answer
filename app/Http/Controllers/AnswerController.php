@@ -21,13 +21,9 @@ class AnswerController extends Controller
 
 	public function edit($id)
 	{
-		if(Auth::check()){
-			$answer = Answer::find($id);
-			$question = Question::where('_id', '=',$answer->question_id)->get();
-			return view('editanswer',compact('answer','id','question'));
-		} else {
-			return view('signin');
-		}
+		$answer = Answer::find($id);
+		$question = Question::where('_id', '=',$answer->question_id)->get();
+		return view('editanswer',compact('answer','id','question'));
 	}
 
 	public function update(Request $request, $id)
