@@ -18,7 +18,7 @@
 					@csrf
 					<div class="form-group">
 						<h5>Topic title</h5>
-						<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Subject of your topic" name="title" value="{{$question->title}}" required>
+						<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Subject of your topic (limit of 100 characters)" maxlength="100" name="title" value="{{$question->title}}" required>
 						<div class="valid-feedback">Valid.</div>
 						<div class="invalid-feedback">Please enter the topic title!</div>
 					</div>
@@ -62,6 +62,10 @@
 			if(simplemde.value()=="")
 			{
 				document.getElementById("required_content").innerHTML="Please enter the content!";
+			}
+			else
+			{
+				document.getElementById("required_content").innerHTML="";
 			}
 		}
 

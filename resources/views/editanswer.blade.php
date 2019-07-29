@@ -46,9 +46,12 @@
 		<div class="card-body">
 			<form method="post" action="{{action('AnswerController@update', $id)}}">
 				@csrf
-				<textarea id="MyID" rows="2" name="content">{{$answer->content}}</textarea>
-				<i class="fa fa-paperclip fa-lg float-left"></i>
-				<button type="submit" class="btn btn-primary float-right" >Save changes</button>
+				<div class="form-group">
+					<textarea id="MyID" rows="2" name="content">{{$answer->content}}</textarea>
+					<div id="required_content" style="font-size: 14px;color: red;"></div>
+					<i class="fa fa-paperclip fa-lg float-left"></i>
+				</div>
+				<button type="submit" class="btn btn-primary float-right" onclick="CheckContent()">Save changes</button>
 			</form>
 		</div>		
 	</div>
@@ -61,6 +64,16 @@
 		element: document.getElementById("MyID") 
 	});
 
+	function CheckContent()
+	{
+		if(simplemde.value()=="")
+		{
+			document.getElementById("required_content").innerHTML="Please enter the content!";
+		}
+		else
+		{
+			document.getElementById("required_content").innerHTML="";
+		}
+	}
 </script>
-
 @endsection

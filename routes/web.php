@@ -76,3 +76,5 @@ Route::get('editanswer/{id}',[
 
 Route::post('editanswer/{id}','AnswerController@update');
 
+
+
