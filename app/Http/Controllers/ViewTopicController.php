@@ -15,7 +15,8 @@ class ViewTopicController extends Controller
         $question = Question::find($id);
         $answers = Answer::where('question_id','like',$id)->get();
         $best_answer=null;
-        
+        $question->total_answer = $answers->count();
+        $question->save(); 
         $parsedown = new \Parsedown();
         $question->content = $parsedown->text($question->content);
         foreach ($answers as $answer) {
@@ -33,6 +34,16 @@ class ViewTopicController extends Controller
     	$id_question=$answer->question_id;
         $question = Question::find($id_question);
         $question->best_answer_id = $id_answer;
+        $question->save();
+        return redirect()->route('view-topic',compact('question'));
+        
+    }
+    public function removeBestAnswer($id_answer)
+    {
+        $answer = Answer::find($id_answer);
+        $id_question=$answer->question_id;
+        $question = Question::find($id_question);
+        $question->best_answer_id = null;
         $question->save();
         return redirect()->route('view-topic',compact('question'));
         
