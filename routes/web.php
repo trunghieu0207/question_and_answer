@@ -42,39 +42,35 @@ Route::middleware(['checkSignIn'])->group(function () {
     Route::prefix('profile')->group(function () {
        	Route::get('information', [
 			'as' => 'information',
-			'uses' => 'UserController@getInformation'
+			'uses' => 'ProfileController@getInformation'
 		]);
 
        	Route::post('postInformation', [
 			'as' => 'post-information',
-			'uses' => 'UserController@postInformation'
+			'uses' => 'ProfileController@postInformation'
 		]);
        	Route::get('changepassword', [
 			'as' => 'change-password',
-			'uses' => 'UserController@getChangepassword'
+			'uses' => 'ProfileController@getChangepassword'
 		]);
 
 		Route::post('postchangepassword', [
 			'as' => 'postchange-password',
-			'uses' => 'UserController@postChangepassword'
+			'uses' => 'ProfileController@postChangepassword'
 		]);
 
+		Route::get('manage_question', 'ProfileController@index_manage_question')->name('manage_question');
+		Route::get('manage_answer', 'ProfileController@index_manage_answer')->name('manage_answer');
+		Route::post('remove_question', 'ProfileController@remove_question')->name('remove_question');
+		Route::post('change_avatar', 'ProfileController@change_avatar')->name('change_avatar');
 
     });
 
-});
-
-
-Route::get('logout',[
-	'as'=>'log-out',
-	'uses' => 'SignInController@logout'
-]);
-
-Route::group(['middleware' => 'checkSignIn'], function() {
-	Route::get('logout',[
+    Route::get('logout',[
 		'as'=>'log-out',
 		'uses' => 'SignInController@logout'
 	]);
+
 	Route::get('profile', function() {
 		return redirect()->route('information');
 	})->name('profile');
@@ -139,27 +135,25 @@ Route::get('dislike/{post_id}/{post_type}/{user_id}',[
 
 
 
-Route::get('viewtopic/{id}',[
-	'as' => 'view-topic',
-	'uses' => 'ViewTopicController@view'
-]);
+	Route::get('addtopic',[
+		'as' => 'add-topic',
+		'uses' => 'QuestionController@create'
+	]);
 
-Route::get('addtopic',[
-	'as' => 'add-topic',
-	'uses' => 'QuestionController@create'
-]);
-
-Route::post('addtopic','QuestionController@store');
-
-Route::get('edittopic/{id}',[
-	'as' => 'edit-topic',
-	'uses' => 'QuestionController@edit'
-]);
+	Route::post('addtopic','QuestionController@store');
+	Route::get('viewtopic/{id}',[
+		'as' => 'view-topic',
+		'uses' => 'ViewTopicController@view'
+	]);
 
 
-Route::post('edittopic/{id}','QuestionController@update');
 
-Route::post('deletetopic','QuestionController@destroy')->name('delete-topic');
+	Route::get('edittopic/{id}',[
+		'as' => 'edit-topic',
+		'uses' => 'QuestionController@edit'
+	]);
+
+
 
 Route::post('addanswer','AnswerController@store')->name('add-answer');
 
@@ -168,26 +162,31 @@ Route::get('editanswer/{id}',[
 	'uses' => 'AnswerController@edit'
 ]);
 
+	Route::post('edittopic/{id}','QuestionController@update');
 
-Route::post('editanswer/{id}','AnswerController@update');
+
+	Route::post('deletetopic','QuestionController@destroy')->name('delete-topic');
+
+	Route::get('editanswer/{id}',[
+		'as' => 'edit-answer',
+		'uses' => 'AnswerController@edit'
+	]);
 
 
-Route::get('changepassword', function() {
-	return view('changepassword');
-});
+	Route::post('editanswer/{id}','AnswerController@update');
 
-Route::get('bestanswer/{id}',[
-	'as' => 'best-answer',
-	'uses' => 'ViewTopicController@bestAnswer'
-]);
 
-Route::get('like/{post_id}/{post_type}/{user_id}',[
-	'as' => 'like',
-	'uses' => 'ViewTopicController@like'
-]);
+	Route::get('bestanswer/{id}',[
+		'as' => 'best-answer',
+		'uses' => 'ViewTopicController@bestAnswer'
+	]);
 
-Route::get('dislike/{post_id}/{post_type}/{user_id}',[
-	'as' => 'dislike',
-	'uses' => 'ViewTopicController@dislike'
-]);
+	Route::get('like/{post_id}/{post_type}/{user_id}',[
+		'as' => 'like',
+		'uses' => 'ViewTopicController@like'
+	]);
 
+	Route::get('dislike/{post_id}/{post_type}/{user_id}',[
+		'as' => 'dislike',
+		'uses' => 'ViewTopicController@dislike'
+	]);

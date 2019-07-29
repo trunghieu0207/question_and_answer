@@ -14,7 +14,7 @@
             //uploadUrl: '/upload_article_poster',
             uploadAsync: false,
             showUpload: false,
-            maxFileSize: 1024,
+            maxFileSize: 5120,
             removeClass: 'btn btn-warning'
         });
 		</script>
@@ -22,7 +22,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-sm-3  sidebar-sticky" style="margin-top: 47px">
+            <div class="col-sm-3  sidebar-sticky" style="margin-top: 32px">
                 <div class="card shadow bg-light">
                     <div class="card-body text-center">
                         <img src="{{ asset(session('avatar')) }}" class="avatar">
