@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
         $question->category_id=$cat_fontend->_id;
         $question->total_like=0;
         $question->total_dislike=0;
-        $question->total_answer=0;
+        $question->total_answer=1;
         $question->save();
 
         $question2 = new Question();
@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
         $question2->category_id=$cat_backend->_id;
         $question2->total_like=0;
         $question2->total_dislike=0;
-        $question2->total_answer=0;
+        $question2->total_answer=2;
         $question2->save();
 
         $question3 = new Question();
@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
         $question3->category_id=$cat_fullstack->_id;
         $question3->total_like=0;
         $question3->total_dislike=0;
-        $question3->total_answer=0;
+        $question3->total_answer=1;
         $question3->save();
 
         $question4 = new Question();
@@ -145,12 +145,5 @@ class DatabaseSeeder extends Seeder
         $user_question_answer->action = "Like";
         $user_question_answer->post_type = "Question";
         $user_question_answer->save();
-
-        $user_question_answer2 = new User_Question_Answer();
-        $user_question_answer2->user_id = $user->_id;
-        $user_question_answer2->post_id = $question->_id;
-        $user_question_answer2->action = "";
-        $user_question_answer2->post_type = "Answer";
-        $user_question_answer2->save();
     }
 }
