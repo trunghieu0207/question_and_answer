@@ -27,53 +27,144 @@ class ViewTopicController extends Controller
         return redirect()->route('view-topic',compact('question'));
         
     }
+    
+    public function checkLike($user_id)
+    {
+        $user_liked=User_Question_Answer::where('user_id','like',$user_id)->where('post_id', 'like', $post_id)->where('action', 'like', "Like")->get();
+        if ($user_liked->count()==0) return False;
+        else return True;
+    }
+
     public function like($post_id,$post_type,$user_id)
     {
-     if ($post_type =='Question')
-     {
-        $question= Question::find($post_id);
 
-        $question->total_like += 1;
-        $question->save();
+    	$user_liked=User_Question_Answer::where('user_id','like',$user_id)->where('post_id', 'like', $post_id)->where('action', 'like', "Like")->get();
+        $user_disliked=User_Question_Answer::where('user_id','like',$user_id)->where('post_id', 'like', $post_id)->where('action', 'like',"Dislike" )->get();
+        if ($user_liked->count()==0){
+            if ($post_type =='Question')
+            {
+                $question= Question::find($post_id);    
+                $question->total_like += 1;
+                $question->save();
+            }
+            else
+            {
+                $answer= Answer::find($post_id);
+                $question=$answer->question_id;        
+                $answer->total_like += 1;
+                $answer->save();
+            }
+            $like=new User_Question_Answer();
+            $like->user_id=$user_id;
+            $like->post_id=$post_id;
+            $like->post_type=$post_type;
+            $like->action="Like";
+            $like->save();
+            if ($user_disliked->count()!=0)
+            {   
+                if ($post_type =='Question')
+                {         
+                    $question->total_dislike -= 1;
+                    $question->save();
+                }
+                else
+                {            
+                    $answer->total_dislike -= 1;
+                    $answer->save();
+                }
+                foreach($user_disliked as $undislike){                
+                    $undislike->delete();
+                }
+            }
+        }
+        else
+        {
+            if ($post_type =='Question')
+            {
+                $question= Question::find($post_id);    
+                $question->total_like -= 1;
+                $question->save();
+            }
+            else
+            {   
+                $answer= Answer::find($post_id);
+                $question=$answer->question_id;        
+                $answer->total_like -= 1;
+                $answer->save();
+            }
+            foreach($user_liked as $unlike){                
+                $unlike->delete();
+            }
+
+        }
+        
+        return redirect()->route('view-topic',compact('question'));
     }
-    else
+
+		      
+    public function dislike($post_id,$post_type,$user_id)
     {
-        $answer= Answer::find($post_id);
-        $question=$answer->question_id;         
-        $answer->total_like += 1;
-        $answer->save();
+        $user_liked=User_Question_Answer::where('user_id','like',$user_id)->where('post_id', 'like', $post_id)->where('action', 'like', "Like")->get();
+        $user_disliked=User_Question_Answer::where('user_id','like',$user_id)->where('post_id', 'like', $post_id)->where('action', 'like',"Dislike" )->get();
+        if ($user_disliked->count()==0)
+        {
+            if ($post_type =='Question')
+            {
+                $question= Question::find($post_id);          
+                $question->total_dislike += 1;
+                $question->save();
+            }
+            else
+            {
+                $answer= Answer::find($post_id);
+                $question=$answer->question_id;               
+                $answer->total_dislike += 1;
+                $answer->save();
+            }
+            $dislike=new User_Question_Answer();
+            $dislike->user_id=$user_id;
+            $dislike->post_id=$post_id;
+            $dislike->post_type=$post_type;
+            $dislike->action="Dislike";
+            $dislike->save();
+            if ($user_liked->count()!=0)
+            {   
+                if ($post_type =='Question')
+                {         
+                    $question->total_like -= 1;
+                    $question->save();
+                }
+                else
+                {            
+                    $answer->total_like -= 1;
+                    $answer->save();
+                }
+                foreach($user_liked as $unlike){                
+                    $unlike->delete();
+                }
+            }
+        }
+        else
+        {
+            if ($post_type =='Question')
+            {
+                $question= Question::find($post_id);          
+                $question->total_dislike -= 1;
+                $question->save();
+            }
+            else
+            {
+                $answer= Answer::find($post_id);
+                $question=$answer->question_id;               
+                $answer->total_dislike -= 1;
+                $answer->save();
+            }
+            foreach($user_disliked as $undislike){                
+                $undislike->delete();
+            }
+        }
+       
+        return redirect()->route('view-topic',compact('question'));        
     }
-    $like=new User_Question_Answer();
-    $like->user_id=$user_id;
-    $like->post_id=$post_id;
-    $like->post_type=$post_type;
-    $like->action="Like";
-    $like->save();
-    return redirect()->route('view-topic',compact('question'));
-
-}
-public function dislike($post_id,$post_type,$user_id)
-{
- if ($post_type =='Question')
- {
-  $question= Question::find($post_id);    		
-  $question->total_dislike += 1;
-  $question->save();
-}
-else
-{
-  $answer= Answer::find($post_id);
-  $question=$answer->question_id;       		
-  $answer->total_dislike += 1;
-  $answer->save();
-}
-$dislike=new User_Question_Answer();
-$dislike->user_id=$user_id;
-$dislike->post_id=$post_id;
-$dislike->post_type=$post_type;
-$dislike->action="Dislike";
-$dislike->save();
-return redirect()->route('view-topic',compact('question'));        
-}
 }
 
