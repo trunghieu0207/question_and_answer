@@ -77,7 +77,7 @@ rel="stylesheet" type="text/css" />
 							<h3>{{$question->title}}</h3>
 							<span class="badge badge-info" style="height: 20px">{{$question->category->name}}</span>
 						</div>
-						<div class="col-sm-12">		
+						<div class="col-sm-12" style="margin-left: 10px">		
 							<p>
 								{!! $question->content !!}
 							</p>
