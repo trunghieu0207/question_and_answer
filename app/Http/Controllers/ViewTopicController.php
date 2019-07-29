@@ -9,6 +9,7 @@ use App\User_Question_Answer;
 
 class ViewTopicController extends Controller
 {
+
     public function view($id)
     {
         $question = Question::find($id);
@@ -28,6 +29,7 @@ class ViewTopicController extends Controller
     }
     public function like($post_id,$post_type,$user_id)
     {
+
     	$user_liked=User_Question_Answer::find($user_id);
         if ($user_liked==null){
             if ($post_type =='Question')
@@ -75,33 +77,30 @@ class ViewTopicController extends Controller
         }
         
         return redirect()->route('view-topic',compact('question'));
-    } 
-        
-        
-		        
-    
+    }      
+		      
     public function dislike($post_id,$post_type,$user_id)
     {
-    	if ($post_type =='Question')
-    	{
-    		$question= Question::find($post_id);    		
-    		$question->total_dislike += 1;
-    		$question->save();
-    	}
-    	else
-    	{
-    		$answer= Answer::find($post_id);
-    		$question=$answer->question_id;       		
-    		$answer->total_dislike += 1;
-    		$answer->save();
-    	}
-    	$dislike=new User_Question_Answer();
-		$dislike->user_id=$user_id;
-		$dislike->post_id=$post_id;
-		$dislike->post_type=$post_type;
-		$dislike->action="Dislike";
-		$dislike->save();
-		return redirect()->route('view-topic',compact('question'));        
+     if ($post_type =='Question')
+     {
+      $question= Question::find($post_id);    		
+      $question->total_dislike += 1;
+      $question->save();
     }
-
+    else
+    {
+      $answer= Answer::find($post_id);
+      $question=$answer->question_id;       		
+      $answer->total_dislike += 1;
+      $answer->save();
+    }
+    $dislike=new User_Question_Answer();
+    $dislike->user_id=$user_id;
+    $dislike->post_id=$post_id;
+    $dislike->post_type=$post_type;
+    $dislike->action="Dislike";
+    $dislike->save();
+    return redirect()->route('view-topic',compact('question'));        
+    }
 }
+

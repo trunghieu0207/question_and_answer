@@ -35,6 +35,7 @@ class SignInController extends Controller
         {
             Session()->put('id',$user->_id);
             Session()->put('username',$user->fullname);
+            Session()->put('avatar','img\avatar\\'.$user->avatar);
             return redirect()->route('home-page');
         }
         else
