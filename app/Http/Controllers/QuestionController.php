@@ -13,12 +13,8 @@ class QuestionController extends Controller
 {
 	public function create()
 	{
-		if(Auth::check()){
-			$categories = Category::all();
-			return view('addtopic',compact('categories'));
-		} else {
-			return view('signin');
-		}
+		$categories = Category::all();
+		return view('addtopic',compact('categories'));
 	}
 
 	public function store(Request $request)
@@ -42,6 +38,11 @@ class QuestionController extends Controller
 
 	public function edit($id)
 	{
+
+		$categories = Category::all();
+		$question = Question::find($id);
+		return view('edittopic',compact('question','id','categories'));
+
 		if(Auth::check()){
 			$categories = Category::all();
 			$question = Question::find($id);
@@ -53,6 +54,7 @@ class QuestionController extends Controller
 		} else {
 			return view('signin');
 		}
+
 	}
 
 	public function update(Request $request, $id)

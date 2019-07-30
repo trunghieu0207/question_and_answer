@@ -31,6 +31,11 @@ class AnswerController extends Controller
 
 	public function edit($id)
 	{
+
+		$answer = Answer::find($id);
+		$question = Question::where('_id', '=',$answer->question_id)->get();
+		return view('editanswer',compact('answer','id','question'));
+
 		if(Auth::check()){
 			$answer = Answer::find($id);
 			if(empty($answer)) {
@@ -42,6 +47,7 @@ class AnswerController extends Controller
 		} else {
 			return view('signin');
 		}
+
 	}
 
 	public function update(Request $request, $id)
