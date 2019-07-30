@@ -58,6 +58,8 @@ Route::get('edittopic', function() {
 	return redirect()->route('sign-in');
 });
 
+Route::get('test', 'QuestionController@test');
+
 /*Start middleware check sigin*/
 Route::middleware(['checkSignIn'])->group(function () {
     Route::prefix('profile')->group(function () {
@@ -109,7 +111,7 @@ Route::middleware(['checkSignIn'])->group(function () {
 	]);
 
 
-	Route::post('edittopic/{id}','QuestionController@update');
+	Route::post('edittopic','QuestionController@update');
 
 	Route::post('deletetopic','QuestionController@destroy')->name('delete-topic');
 

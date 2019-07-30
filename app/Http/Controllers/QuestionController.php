@@ -5,6 +5,7 @@ use App\Question;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Attachment;
+use App\Answer;
 use Illuminate\Support\Facades\Auth;
 use File;
 
@@ -28,9 +29,11 @@ class QuestionController extends Controller
 		$question->total_dislike = 0;
 		$question->total_answer = 0;
 		$question->attachment_path = null;
+		$question->save();
 		if($request->hasFile('attachment')) {
-			$question->attachment_path = $request->attachment->getClientOriginalName();
-			$request->attachment->move('files\\', $request->attachment->getClientOriginalName());
+			$filename = $question->_id.$request->attachment->getClientOriginalName();
+			$question->attachment_path = $filename;
+			$request->attachment->move('files\\', $filename);
 		}
 		$question->save();
 		return redirect('/');
@@ -39,9 +42,9 @@ class QuestionController extends Controller
 	public function edit($id)
 	{
 
-		$categories = Category::all();
-		$question = Question::find($id);
-		return view('edittopic',compact('question','id','categories'));
+		// $categories = Category::all();
+		// $question = Question::find($id);
+		// return view('edittopic',compact('question','id','categories'));
 
 		if(Auth::check()){
 			$categories = Category::all();
@@ -57,26 +60,47 @@ class QuestionController extends Controller
 
 	}
 
-	public function update(Request $request, $id)
+	public function update(Request $request)
 	{
-		$question = Question::find($id);
+		$question = Question::find($request->get('id'));
 		$question->title = $request->get('title');
 		$question->content = $request->get('content');
 		$question->category_id = $request->get('category');
-		$question->attachment_path = null;
 		if($request->hasFile('attachment')) {
-			File::delete("files\\".$question->attachment_path);
-			$question->attachment_path = $request->attachment->getClientOriginalName();
-			$request->attachment->move('files\\', $request->attachment->getClientOriginalName());
+			File::delete('files\\'.$question->attachment_path);
+			$filename = $question->_id.$request->attachment->getClientOriginalName();
+			$question->attachment_path = $filename;
+			$request->attachment->move('files\\', $filename);
 		}
 		$question->save();
-		return redirect()->route('view-topic', ['id' => $id]);
+		return redirect()->route('view-topic', ['id' => $request->get('id')]);
 	}
 
 	public function destroy(Request $request)
 	{
-		$question = Question::find($request->id);
-		$question->delete();
+		$this->remove_question($request);
 		return redirect('/');
 	}
+
+	public function remove_question(Request $request)
+	{
+        $question = Question::where('user_id', '=', session('id'))->where('_id', '=', $request->_id)->first();
+        if(empty($question)) return 'Question not found';
+        else{
+            $answers = Answer::where('question_id','=',$question->_id)->get();
+            foreach($answers as $answer){
+                if(!empty($answer->attachment_path)) File::delete('files\\'.$answer->attachment_path);
+                $answer->delete();
+            }
+            //$answers->delete();
+            if(!empty($question->attachment_path)) File::delete('files\\'.$question->attachment_path);
+            $question->delete();
+        }
+	}
+	
+	public function test()
+	{
+		File::delete("files\ask.ico");
+		return "?";
+    }
 }

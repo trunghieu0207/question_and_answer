@@ -14,12 +14,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form id="searchform" class="form-inline" action="{{route('submit_search')}}" method="get">
                 <div class="input-group">
-                    <input required id="search" name="keyword" class="form-control" type="search" placeholder="Search" title="enter your keyword">
+                    <input id="search" name="keyword" class="form-control" type="search" placeholder="Search" title="enter your keyword">
                     <div id="result_list" class="dropdown-menu">
 
                     </div>
                     <div class="input-group-prepend">
-                        <button class="btn btn-outline-dark font-weight-bold" type="submit">
+                        <button class="btn btn-outline-dark font-weight-bold" type="button" onclick="submit_search()">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>

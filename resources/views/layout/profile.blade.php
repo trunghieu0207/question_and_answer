@@ -10,7 +10,7 @@
 	<script>
         $('#fuMain').fileinput({
             theme: 'fa',
-            allowedFileExtensions: ['png', 'jpg'],
+            allowedFileExtensions: ['png', 'jpg', 'ico'],
             //uploadUrl: '/upload_article_poster',
             uploadAsync: false,
             showUpload: false,

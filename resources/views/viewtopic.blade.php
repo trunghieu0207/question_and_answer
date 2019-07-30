@@ -57,7 +57,7 @@
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     <form action="{{route('delete-topic')}}" method="post">
                                         @csrf
-                                        <input type="text" name="id" value="{{$question->id}}" hidden>
+                                        <input type="text" name="_id" value="{{$question->id}}" hidden>
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </div>
@@ -85,6 +85,10 @@
                 <p>
                     {!! $question->content !!}
                 </p>
+                @if(!file_exists(public_path().'files/{{ $question->attachment_path }}'))
+                <h6>Attchments</h6><a target="blank" href="{{asset('files/'.$question->attachment_path)}}"><i>{{$question->attachment_path}}</i></a>
+                @else
+                @endif
                 <div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
                     <div class="col-sm">
                         @if (Auth::check())
@@ -180,6 +184,10 @@
                 <p>
                     {!! $best_answer->content !!}
                 </p>
+                 @if(!file_exists(public_path().'files/{{ $best_answer->attachment_path }}'))
+                 <h6>Attchments</h6><a target="blank" href="{{asset('files/'.$best_answer->attachment_path)}}"><i>{{$best_answer->attachment_path}}</i></a>
+                @else
+                @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-sm-1">
                         @if(Auth::check())
@@ -254,6 +262,10 @@
                 <p>
                     {!! $answer->content !!}
                 </p>
+                @if(!file_exists(public_path().'files/{{ $answer->attachment_path }}'))
+                 <h6>Attchments</h6><a target="blank" href="{{asset('files/'.$answer->attachment_path)}}"><i>{{$answer->attachment_path}}</i></a>
+                @else
+                @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-sm-1">
                         @if(Auth::check())
