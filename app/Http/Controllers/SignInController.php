@@ -21,7 +21,7 @@ class SignInController extends Controller
         if(Auth::check()){
     	   return redirect()->route('home-page');
         } else {
-            return view('signin');
+            return view('log.signin');
         }
     }
 

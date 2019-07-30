@@ -46,7 +46,10 @@ class User extends Authenticatable
     }
 
     public function answers() {
-        return $this->hasMany('App\Question','user_id','_id');
+        return $this->hasMany('App\Answer','user_id','_id');
     }
 
+    public function notifications() {
+        return $this->hasMany('App\Notification','user_id','_id');
+    }
 }

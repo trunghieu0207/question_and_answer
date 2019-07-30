@@ -13,7 +13,9 @@ class AddTopicRequest extends FormRequest
      */
     public function authorize()
     {
+
         return true;
+
     }
 
     /**
@@ -24,14 +26,17 @@ class AddTopicRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
+
+            'title' => 'required|max:255',
+            'content' => 'required',
         ];
     }
 
     public function messages() {
-        return
-        [
-            'title.required' =>'Enter title'
+        
+        return [
+            'title.required' => 'Please! Enter title!',
+            'content.required' => 'Please! Enter content!'
         ];
     }
 }

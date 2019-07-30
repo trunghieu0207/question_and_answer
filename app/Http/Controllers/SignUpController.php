@@ -12,27 +12,30 @@ use App\Http\Requests\SignUpRequests;
 
 class SignUpController extends Controller
 {
-    public function getSignUp(){
-        return view('signup');
-    }
-    public function postSignUp(SignUpRequests $request){
+    public function index() {
+        return view('log.signup');
+	}
+	
+    public function store(SignUpRequests $request) {
+		$data = $request->validate([
+			'fullname' => 'required',
+			'email' => 'email|unique:antman_users,email',
+			'password' => 'min:5|max:30',
+		]);
 
-		$user = User::where('email', '=', $request->email)->get();
-		if($user->count()==0){
-			$user = new User();
-			$user->fullname=$request->fullname;
-			$user->email=$request->email;
-			$user->password=bcrypt($request->password);
-			$user->avatar = "default_avatar.png";
-			$user->save();			
-			return redirect()->route('sign-in');
-		}
-		else return "This email has been used!";
-    }
-    public function validEmail(Request $request){
-		$user = User::where('email', '=', $request->email);
-		$result = true;
-		if($user->count()>0) $result=false;
+		$user = new User();
+		$user->fullname=$data->fullname;
+		$user->email=$data->email;
+		$user->password=bcrypt($data->password);
+		$user->avatar = "default_avatar.png";
+		$user->about_me = null;
+		$user->save();		
+		return redirect()->route('sign-in');
+	}
+	
+    public function validEmail(Request $request) {
+		$user = User::where('email', $request->email);
+		$result = $user->count()==0 ? true : false;
 
 		return response()->json($result);
 	}
