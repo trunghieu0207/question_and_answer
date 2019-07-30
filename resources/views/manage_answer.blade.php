@@ -18,7 +18,7 @@
                 <small class="text-muted m-0">{{$answer->created_at}}</small>
             </th>
             <td class="text-right">
-                <button class="btn btn-sm btn-outline-dark" title="Edit answer"><i class="fa fa-pencil"></i></button>
+                <a href="{{asset('editanswer')}}/{{ $answer->id }}" class="btn btn-sm btn-outline-dark" title="Edit answer"><i class="fa fa-pencil"></i></a>
             </td>
         </tr>
         @endforeach

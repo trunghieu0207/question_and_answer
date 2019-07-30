@@ -20,10 +20,14 @@ class AnswerController extends Controller
         $question = Question::find($id_question);
         $question->total_answer+=1;
 		$question->save();
+		$answer->total_like = 0;
+		$answer->total_dislike = 0;
 		$answer->attachment_path = null;
+		$answer->save();
 		if($request->hasFile('attachment')) {
-			$answer->attachment_path = $request->attachment->getClientOriginalName();
-			$request->attachment->move('files\\', $request->attachment->getClientOriginalName());
+			$filename = $answer->_id.$request->attachment->getClientOriginalName();
+			$answer->attachment_path = $filename;
+			$request->attachment->move('files\\', $filename);
 		}
 		$answer->save();
 		return redirect()->route('view-topic', ['id' => $answer->question_id]);
@@ -54,11 +58,11 @@ class AnswerController extends Controller
 	{
 		$answer = Answer::find($id);
 		$answer->content = $request->get('content');
-		$answer->attachment_path = null;
 		if($request->hasFile('attachment')) {
 			File::delete('files\\'.$answer->attachment_path);
-			$answer->attachment_path = $request->attachment->getClientOriginalName();
-			$request->attachment->move('files\\', $request->attachment->getClientOriginalName());
+			$filename = $answer->_id.$request->attachment->getClientOriginalName();
+			$answer->attachment_path = $filename;
+			$request->attachment->move('files\\', $filename);
 		}
 		$answer->save();
 		return redirect()->route('view-topic', ['id' => $answer->question_id]);
