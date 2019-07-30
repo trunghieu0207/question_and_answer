@@ -9,6 +9,7 @@ use App\User;
 use File;
 use Illuminate\Support\Facades\Hash;
 use App\Notification;
+use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
     public function index_manage_question()
@@ -49,48 +50,51 @@ class ProfileController extends Controller
         return redirect('profile');
     }
     
-    public function getInformation () {
-        $id = Session()->get('id');
-        $user = User::find($id);
+    public function indexInformation () {
+        $user = Auth::user();
         $active_personal_info = true;
         return view('information',compact('user','active_personal_info'));
     }
 
-    public function postInformation (Request $request) {
-
-        $id = Session()->get('id');
-        $user = User::find($id);
+    public function updateInformation (Request $request) {
+        $user = Auth::user();
         $user->fullname = $request->fullname;
         $user->about_me = $request->aboutme;
         $user->save();
         Session()->put('username',$request->fullname);
         Session()->flash('message', 'Complete!');
+
         return redirect()->back();
     }
 
-    public function getChangepassword () {
+    public function indexChangePassword () {
         $id = Session()->get('id');
-        $user = User::find($id);
+        $user = Auth::user();
         $active_change_pass = true;
         return view('changepassword',compact('user','active_change_pass'));
     }
 
-    public function postChangepassword(Request $request) {
-        $id = Session()->get('id');
-        $user = User::find($id);
+    public function storeChangePassword(Request $request) {
+        $user = Auth::user();
         $curentpassword = $user->password;
-        if (Hash::check($request->curentpassword, $curentpassword)) {
+        if (!Hash::check($request->curentpassword, $curentpassword)) {
+
+            Session()->flash('error', 'Current password is not correct!');
+            
+            return redirect()->back();       
+        } else {
             $user->password = bcrypt($request->newpassword);
             $user->save();
             Session()->flash('message', 'Change password complete!');
+
             return redirect()->back();
-        } else {
-            Session()->flash('error', 'Current password is not correct!');
-            return redirect()->back();
-        }    
+        }  
+
     }
     public function getNotifications()
     {
+        $user->notifications();
+
         $notifications = Notification::where('user_id','=',Session::get('id'))->get();
         return $notifications;
     }

@@ -11,28 +11,8 @@
 </head>
 
 <body>
-
-    <div class="container">
-        <h1>Markdown Editor</h1>
-
-        <form id="form" action="test" method="post">
-        {{ csrf_field() }}
-            <textarea name="text" id="editor">
-                </textarea>
-                <button type="submit">submit</button>
-        </form>
-    </div>
-
-   <!-- Include the required files -->
-<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-
-<!-- Start simple MDE -->
-<script>
-    var simplemde = new SimpleMDE({ 
-        element: document.getElementById("editor") 
-    });
-</script>
-
+    <h2>Tesst</h2>
+    {{ $user }}
 </body>
 
 </html>

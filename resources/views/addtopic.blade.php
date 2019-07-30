@@ -16,14 +16,19 @@
         <div class="card shadow">
             <div class="card-header">
                 <h3>Add new topic</h3>
+
+                @if(count($errors)>0)
+                    @foreach($errors->all() as $error)
+                        {{ $error }}
+                    @endforeach
+                @endif
             </div>
             <div class="card-body">
 			<form method="post" action="{{url('addtopic')}}" id="addquestion" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <h5>Topic title</h5>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="title" required
-                            placeholder="Subject of your topic (limit of 100 characters)" maxlength="100">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="title"  placeholder="Subject of your topic (limit of 100 characters)" maxlength="100">
                     </div>
                     <div class="form-group">
                         <h5>Category</h5>

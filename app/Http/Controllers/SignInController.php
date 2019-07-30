@@ -24,9 +24,6 @@ class SignInController extends Controller
             return view('signin');
         }
     }
-    public function viewtest(){
-        return view('test');
-    }
 
     public function postSignIn(Request $request) {
         $email = $request->email;
@@ -46,8 +43,6 @@ class SignInController extends Controller
             return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors([
                 'approve' => 'The email or password is incorrect.',
             ]);
-         //    Session()->flash('error','The email or password is incorrect');
-        	// return view('page.signin');
         }
     }
     public function logout(){

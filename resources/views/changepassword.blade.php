@@ -16,7 +16,7 @@
 						@if(Session::has('error'))
 							<div class="alert alert-danger">{{ Session::get('error') }}</div>
 						@endif
-					<form action="{{ route('postchange-password') }}" method="post" id="changepass">
+					<form action="{{ route('storeChangePassword') }}" method="post" id="changepass">
 						<input type="hidden" name="_token" value="{{csrf_token()}}">
 						<div class="form-group">
 					    	<label for="curentpassword" class="font-weight-bold">Current password</label>
@@ -39,4 +39,63 @@
 				</div>
 			</div>
 		</div>
+@section('js')
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script>
+        $(function () {
+
+            jQuery.validator.addMethod("validpass", function (value, element) {
+                return this.optional(element) || /^\S+$/i.test(value);
+            }, "Password can't contain space.");
+
+            $('#changepass').validate({
+                rules: {
+                	curentpassword: {
+                        required: true,
+                        validpass: true,
+                        maxlength:30,
+                        minlength:5
+                    },
+                    newpassword: {
+                        required: true,
+                        validpass: true,
+                        maxlength:30,
+                        minlength:5
+                    },
+                    confirmpass: {
+                        required: true,
+                        equalTo: $('[name="newpassword"]')
+                    
+                    }
+                },
+                messages: {
+                	curentpassword: {
+                        required: 'Please enter your current password.',
+                        maxlength:'Maximum character is 30',
+                        minlength:'Password must has at least 5 character.'
+                    },
+                    newpassword: {
+                        required: 'Please enter your password.',
+                        maxlength:'Maximum character is 30',
+                        minlength:'Password must has at least 5 character.'
+                    },
+                    confirmpass: {
+                        required: 'Please comfirm your password.',
+                        equalTo: "Your password isn't matched."
+                    }
+                },
+                errorElement: 'small',
+                errorClass: 'help-block text-danger mt-2',
+                validClass: 'is-valid',
+                highlight: function (e) {
+                    $(e).removeClass('is-valid').addClass('is-invalid');
+                },
+                unhighlight: function (e) {
+                    $(e).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
+        })
+
+    </script>
+@endsection
 @endsection

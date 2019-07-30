@@ -8,7 +8,7 @@ use App\Attachment;
 use App\Answer;
 use Illuminate\Support\Facades\Auth;
 use File;
-
+use App\Http\Requests\AddTopicRequest;
 
 class QuestionController extends Controller
 {
@@ -18,8 +18,9 @@ class QuestionController extends Controller
 		return view('addtopic',compact('categories'));
 	}
 
-	public function store(Request $request)
+	public function store(AddTopicRequest $request)
 	{
+
 		$question = new Question();
 		$question->title = $request->get('title');
 		$question->content = $request->get('content');

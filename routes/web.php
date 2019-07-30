@@ -65,21 +65,21 @@ Route::middleware(['checkSignIn'])->group(function () {
     Route::prefix('profile')->group(function () {
        	Route::get('information', [
 			'as' => 'information',
-			'uses' => 'ProfileController@getInformation'
+			'uses' => 'ProfileController@indexInformation'
 		]);
 
-       	Route::post('postInformation', [
-			'as' => 'post-information',
-			'uses' => 'ProfileController@postInformation'
+       	Route::post('updateInformation', [
+			'as' => 'updateInformation',
+			'uses' => 'ProfileController@updateInformation'
 		]);
        	Route::get('changepassword', [
-			'as' => 'change-password',
-			'uses' => 'ProfileController@getChangepassword'
+			'as' => 'changePassword',
+			'uses' => 'ProfileController@indexChangePassword'
 		]);
 
-		Route::post('postchangepassword', [
-			'as' => 'postchange-password',
-			'uses' => 'ProfileController@postChangepassword'
+		Route::post('changepassword', [
+			'as' => 'storeChangePassword',
+			'uses' => 'ProfileController@storeChangePassword'
 		]);
 
 		Route::get('manage_question', 'ProfileController@index_manage_question')->name('manage_question');

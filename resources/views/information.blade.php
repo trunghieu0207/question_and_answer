@@ -9,7 +9,7 @@
 				<div class="row">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
-					<form action="{{ route('post-information') }}" method="post">
+					<form action="{{ route('updateInformation') }}" method="post" id="information">
 						<input type="hidden" name="_token" value="{{csrf_token()}}">
 						@if(Session::has('message'))
 							<div class="alert alert-success">{{ Session::get('message') }}</div>
@@ -35,4 +35,36 @@
 				</div>
 			</div>
 		</div>
+@section('js')
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script>
+        $(function () {
+            jQuery.validator.addMethod("validname", function (value, element) {
+                return this.optional(element) || /^[\w ]+$/i.test(value);
+            }, "Alphabet, number, underscore, spaces only.");
+
+            jQuery.validator.addMethod("validpass", function (value, element) {
+                return this.optional(element) || /^\S+$/i.test(value);
+            }, "Password can't contain space.");
+
+            $('#information').validate({
+                rules: {
+                    fullname: {
+                        validname: true
+                    },
+                },
+                errorElement: 'small',
+                errorClass: 'help-block text-danger mt-2',
+                validClass: 'is-valid',
+                highlight: function (e) {
+                    $(e).removeClass('is-valid').addClass('is-invalid');
+                },
+                unhighlight: function (e) {
+                    $(e).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
+        })
+
+    </script>
+@endsection
 @endsection

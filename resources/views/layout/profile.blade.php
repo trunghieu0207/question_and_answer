@@ -1,24 +1,28 @@
 @extends('layout.master')
+
 @section('title','Profile')
+
 @section('css')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
-        rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
+            rel="stylesheet" type="text/css" />
 @endsection
+
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
-	<script>
-        $('#fuMain').fileinput({
-            theme: 'fa',
-            allowedFileExtensions: ['png', 'jpg', 'ico'],
-            //uploadUrl: '/upload_article_poster',
-            uploadAsync: false,
-            showUpload: false,
-            maxFileSize: 5120,
-            removeClass: 'btn btn-warning'
-        });
-		</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+    	<script>
+            $('#fuMain').fileinput({
+                theme: 'fa',
+                allowedFileExtensions: ['png', 'jpg', 'ico'],
+                //uploadUrl: '/upload_article_poster',
+                uploadAsync: false,
+                showUpload: false,
+                maxFileSize: 5120,
+                removeClass: 'btn btn-warning'
+            });
+    		</script>
 @endsection
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -31,7 +35,7 @@
                             avatar</button>
                         <div class="nav flex-column nav-pills my-3 bg-white border">
                             <a href="{{ route('information') }}" class="btn nav-link @if(!empty($active_personal_info)) active @endif" >Personal information</a>
-                            <a href="{{ route('change-password') }}" class="btn nav-link @if(!empty($active_change_pass)) active @endif">Change password</a>
+                            <a href="{{ route('changePassword') }}" class="btn nav-link @if(!empty($active_change_pass)) active @endif">Change password</a>
                             <a href="{{ route('manage_question') }}" class="btn nav-link @if(!empty($active_manage_question)) active @endif">Manage question</a>
                             <a href="{{ route('manage_answer') }}" class="btn nav-link @if(!empty($active_manage_answer)) active @endif">Manage answer</a>
                             <a href="{{ route('log-out') }}" class="btn nav-link">Sign out</a>
