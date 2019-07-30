@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand" href="{{ route('home-page') }}"><b style="font-size:20px"><img
 
-            src="{{ asset('img/resource/logo2a.png') }}" width="40px"> TechSolution</b></a>
+            src="{{ asset('images/resource/logo2a.png') }}" width="40px"> TechSolution</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 
 
@@ -12,7 +12,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form id="searchform" class="form-inline" action="{{route('submit_search')}}" method="get">
+            <form id="searchform" class="form-inline" action="{{ route('submitSearch') }}" method="get">
                 <div class="input-group">
                     <input id="search" name="keyword" class="form-control" type="search" placeholder="Search" title="enter your keyword">
                     <div id="result_list" class="dropdown-menu">
@@ -27,7 +27,7 @@
             </form>
 
             @if(Auth::check())
-            <a href="{{route('add-topic')}}" class="btn btn-outline-secondary ml-2"><i class="fa fa-plus"></i></a>
+            <a href="{{route('addTopic')}}" class="btn btn-outline-secondary ml-2"><i class="fa fa-plus"></i></a>
             <div class="nav-item dropright">
                 <a href="#" class="nav-link text-dark" id="notify" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -57,8 +57,8 @@
                 </div>
             </div>
             <ul class="navbar-nav mr-auto"></ul>
-            @if(!empty(Session::get('username')))
-            <b class="text-dark">{{ Session::get('username') }}</b>
+            @if(Auth::check())
+            <b class="text-dark">{{ Auth::user()->fullname }}</b>
             @endif
             <div class="nav-item dropdown">
                 <a href="" class="nav-link dropdown-toggle text-dark" id="setting" role="button" data-toggle="dropdown"
@@ -70,11 +70,11 @@
                     <i class="fa fa-cog" style="width:20px"></i>
                     Profile
                 </a>
-                <a class="dropdown-item" href="{{ route('manage_question') }}">
+                <a class="dropdown-item" href="{{ route('manageQuestion') }}">
                     <i class="fa fa-comments-o" style="width:20px"></i>
                     Your questions
                 </a>
-                <a class="dropdown-item" href="{{ route('manage_answer') }}">
+                <a class="dropdown-item" href="{{ route('manageAnswer') }}">
                     <i class="fa fa-lightbulb-o" style="width:20px"></i>
                     Your answers
                 </a>
@@ -89,7 +89,7 @@
         @else
         <ul class="navbar-nav mr-auto"></ul>
         <a href="{{route('sign-in')}}" class="btn btn-success">Sign in</a>
-        <a href="{{route('getSignUp')}}" class="btn btn-primary ml-2">Sign up</a>
+        <a href="{{route('signUp')}}" class="btn btn-primary ml-2">Sign up</a>
         @endif
     </div>
 </div>

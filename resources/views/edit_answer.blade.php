@@ -1,33 +1,9 @@
 @extends('layout.master')
 @section('css')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
-    rel="stylesheet" type="text/css" />
+
 @endsection
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
-<script>
-    $('#fuMain').fileinput({
-        theme: 'fa',
-        //allowedFileExtensions: ['png', 'jpg'],
-        //uploadUrl: '/upload_article_poster',
-        uploadAsync: false,
-        showUpload: false,
-        maxFileSize: 1024,
-        removeClass: 'btn btn-warning'
-    });
 
-    var simplemde = new SimpleMDE({
-        element: document.getElementById("MyID")
-    });
-
-    function CheckContent() {
-        if (simplemde.value() != "") {
-            document.getElementById("editanswer").submit();
-        }
-    }
-
-</script>
 @endsection
 @section('content')
 <div class="container mt-5">
@@ -75,9 +51,9 @@
     <div class="card shadow" style="margin-top: 20px; margin-bottom: 20px;">
 
         <div class="card-body">
-            <form id="editanswer" method="post" action="{{action('AnswerController@update', $id)}}"
-                enctype="multipart/form-data">
+            <form id="editanswer" method="post" action="{{ url('editanswer') }}" enctype="multipart/form-data">
                 @csrf
+                <input type="text" name="id" hidden value="{{$answer->id}}">
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="file-loading">
@@ -91,7 +67,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary float-right" onclick="CheckContent()">Save changes</button>
+                <button type="submit" class="btn btn-primary float-right" onclick="checkContent()">Save changes</button>
             </form>
         </div>
     </div>

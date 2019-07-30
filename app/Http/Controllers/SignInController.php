@@ -11,6 +11,7 @@ use Validator;
 
 class SignInController extends Controller
 {
+
     public function view()
     {    
         return view('signin');
