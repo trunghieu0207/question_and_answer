@@ -18,8 +18,9 @@
                 <h3>Edit topic</h3>
             </div>
             <div class="card-body">
-			<form method="post" action="{{url('addtopic')}}" id="addquestion" enctype="multipart/form-data">
+			<form method="post" action="{{url('edittopic')}}" id="addquestion" enctype="multipart/form-data">
                     @csrf
+                    <input type="text" name="id" hidden value="{{$question->id}}">
                     <div class="form-group">
                         <h5>Topic title</h5>
                         <input type="text" class="form-control" id="exampleFormControlInput1" name="title" required

@@ -39,9 +39,9 @@ class QuestionController extends Controller
 	public function edit($id)
 	{
 
-		$categories = Category::all();
-		$question = Question::find($id);
-		return view('edittopic',compact('question','id','categories'));
+		// $categories = Category::all();
+		// $question = Question::find($id);
+		// return view('edittopic',compact('question','id','categories'));
 
 		if(Auth::check()){
 			$categories = Category::all();
@@ -57,20 +57,19 @@ class QuestionController extends Controller
 
 	}
 
-	public function update(Request $request, $id)
+	public function update(Request $request)
 	{
-		$question = Question::find($id);
+		$question = Question::find($request->get('id'));
 		$question->title = $request->get('title');
 		$question->content = $request->get('content');
 		$question->category_id = $request->get('category');
-		$question->attachment_path = null;
 		if($request->hasFile('attachment')) {
 			File::delete("files\\".$question->attachment_path);
 			$question->attachment_path = $request->attachment->getClientOriginalName();
 			$request->attachment->move('files\\', $request->attachment->getClientOriginalName());
 		}
 		$question->save();
-		return redirect()->route('view-topic', ['id' => $id]);
+		return redirect()->route('view-topic', ['id' => $request->get('id')]);
 	}
 
 	public function destroy(Request $request)

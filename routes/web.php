@@ -109,7 +109,7 @@ Route::middleware(['checkSignIn'])->group(function () {
 	]);
 
 
-	Route::post('edittopic/{id}','QuestionController@update');
+	Route::post('edittopic','QuestionController@update');
 
 	Route::post('deletetopic','QuestionController@destroy')->name('delete-topic');
 
