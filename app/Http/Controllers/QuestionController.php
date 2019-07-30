@@ -78,13 +78,7 @@ class QuestionController extends Controller
 
 	public function destroy(Request $request)
 	{
-		$this->remove_question($request);
-		return redirect('/');
-	}
-
-	public function remove_question(Request $request)
-	{
-        $question = Question::where('user_id', '=', session('id'))->where('_id', '=', $request->_id)->first();
+		$question = Question::where('user_id', '=', session('id'))->where('_id', '=', $request->_id)->first();
         if(empty($question)) return 'Question not found';
         else{
             $answers = Answer::where('question_id','=',$question->_id)->get();
@@ -96,11 +90,6 @@ class QuestionController extends Controller
             if(!empty($question->attachment_path)) File::delete('files\\'.$question->attachment_path);
             $question->delete();
         }
+		return redirect()->back();
 	}
-	
-	public function test()
-	{
-		File::delete("files\ask.ico");
-		return "?";
-    }
 }
