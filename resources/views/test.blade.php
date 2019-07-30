@@ -13,6 +13,7 @@
 <body>
     <h2>Tesst</h2>
     {{ $user }}
+
 </body>
 
 </html>

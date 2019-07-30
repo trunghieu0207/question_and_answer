@@ -8,20 +8,20 @@ use App\Answer;
 use App\User_Question_Answer;
 use App\Notification;
 use App\user;
+use Illuminate\Support\Collection;
 
 class ViewTopicController extends Controller
 {
-
     public function view($id)
     {
         $question = Question::find($id);
         if(empty($question))
         {
-           return redirect()->route('home-page');
+            return redirect()->route('home-page');
         } 
         else 
         {
-            $answers = Answer::where('question_id','like',$id)->get();
+            $answers = $question->answers()->get();
             $best_answer=null;
             $question->total_answer = $answers->count();
             $question->save(); 
@@ -36,54 +36,72 @@ class ViewTopicController extends Controller
                 $best_answer= Answer::find($question->best_answer_id);
                 $best_answer->content = $parsedown->text($best_answer->content);
             }
+
             return view('viewtopic',compact('question','answers','best_answer'));
-        }
-       
-        return view('viewtopic',compact('question'));
+        } 
     }
+
     public function bestAnswer($id_answer)
     {
     	$answer = Answer::find($id_answer);
-    	$id_question=$answer->question_id;
-        $question = Question::find($id_question);
+        $question = Question::find($answer->question_id);
         $question->best_answer_id = $id_answer;
         $question->save();
+
         return redirect()->route('view-topic',compact('question'));
-        
     }
+
     public function removeBestAnswer($id_answer)
     {
         $answer = Answer::find($id_answer);
-        $id_question=$answer->question_id;
-        $question = Question::find($id_question);
+        $question = Question::find($answer->question_id);
         $question->best_answer_id = null;
         $question->save();
-        return redirect()->route('view-topic',compact('question'));
-        
+
+        return redirect()->route('view-topic',compact('question'));        
     }
     
     public function checkLike($post_id,$post_type,$user_id)
     {
-        $user_liked=User_Question_Answer::where('user_id','like',$user_id)->where('post_id', 'like', $post_id)->where('action', 'like', "Like")->where('post_type', 'like', $post_type)->get();
+        $user_liked=User_Question_Answer::where('user_id',$user_id)->where('post_id', $post_id)->where('action', "Like")->where('post_type',$post_type)->get();
+        // if ($user_liked->count()>0)
+        //     $user_liked=$user_liked->where('post_id', 'like', $post_id)->get();
+
+        // if ($user_liked->count()>0)
+        //     $user_liked=$user_liked->where('action', 'like', "Like")->get();
+
+        // if ($user_liked->count()>0)
+        //     $user_liked=$user_liked->where('post_type', 'like', $post_type)->get();
         return $user_liked;
     }
+
     public function checkDislike($post_id,$post_type,$user_id)
     {
-        $user_disliked=User_Question_Answer::where('user_id','like',$user_id)->where('post_id', 'like', $post_id)->where('action', 'like', "Dislike")->where('post_type', 'like', $post_type)->get();
+        $user_disliked=User_Question_Answer::where('user_id',$user_id)->where('post_id', $post_id)->where('action', "Dislike")->where('post_type',$post_type)->get();
+        // if ($user_disliked->count()>0)
+        //     $user_disliked=$user_disliked->where('post_id', 'like', $post_id);
+        // if ($user_disliked->count()>0)
+        //     $user_disliked=$user_disliked->where('action', 'like', "Dislike");
+        // if ($user_disliked->count()>0)
+        //     $user_disliked=$user_disliked->where('post_type', 'like', $post_type)->get();      
+        
         return $user_disliked;
     }
 
     public function like($post_id,$post_type,$user_id)
     {
-        $user_liked=$this->checkLike($post_id,$post_type,$user_id);
-        $user_disliked=$this->checkDislike($post_id,$post_type,$user_id);
+        $user_liked    =$this->checkLike($post_id,$post_type,$user_id);
+        $user_disliked =$this->checkDislike($post_id,$post_type,$user_id);
+        
         if ($user_liked->count()==0){
+            echo $user_disliked->count();
             if ($post_type =='Question')
             {
                 $question= Question::find($post_id);    
                 $question->total_like += 1;
                 $question->save();
                 $this->notificationQuestion($question,"Like",$user_id);
+                
             }
             else
             {
@@ -92,15 +110,19 @@ class ViewTopicController extends Controller
                 $answer->total_like += 1;
                 $answer->save();
                 $this->notificationAnswer($answer,"Like",$user_id);
+                
             }
+            
             $like=new User_Question_Answer();
             $like->user_id=$user_id;
             $like->post_id=$post_id;
             $like->post_type=$post_type;
             $like->action="Like";
             $like->save();
+            
             if ($user_disliked->count()!=0)
             {   
+                
                 if ($post_type =='Question')
                 {         
                     $question->total_dislike -= 1;
@@ -137,7 +159,8 @@ class ViewTopicController extends Controller
 
         }
         
-        return redirect()->route('view-topic',compact('question'));
+        return redirect()->route('view-topic',compact('question','user_liked'));
+        
     }
 
 		      
