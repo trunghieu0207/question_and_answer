@@ -16,7 +16,6 @@
         maxFileSize: 1024,
         removeClass: 'btn btn-warning'
     });
-
     var simplemde = new SimpleMDE({
         element: document.getElementById("MyID")
     });
@@ -26,7 +25,6 @@
             document.getElementById("addanswer").submit();
         }
     }
-
 </script>
 @endsection
 @section('content')
@@ -90,16 +88,24 @@
                 <div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
                     <div class="col-sm">
                         @if (Auth::check())
+
                         <a href="{{asset('like')}}/{{$question->_id}}/Question/{{Session::get('id')}}"><i
                                 class="fa fa-thumbs-up"></i></a> {{$question->total_like}}
                         @else
-                        <a href="{{route('sign-in')}}"><i class="fa fa-thumbs-up"></i></a>{{$question->total_like}}
+                        <a href="{{route('sign-in')}} " style="color:#787878"><i class="fa fa-thumbs-up"></i></a>
+                        {{$question->total_like}}
                         @endif
                     </div>
                     <div class="col-sm">
+                        @if (Auth::check())
                         <a href="{{asset('dislike')}}/{{$question->_id}}/Question/{{Session::get('id')}}"><i
                                 class="fa fa-thumbs-down"></i></a>
                         {{$question->total_dislike}}
+                        @else
+                        <a href="{{route('sign-in')}}" style="color:#787878"><i class="fa fa-thumbs-down"></i></a>
+                        {{$question->total_dislike}}
+                        @endif
+
                     </div>
                     <div class="col-sm">
                         <i class="fa fa-reply"></i>
@@ -176,14 +182,25 @@
                 </p>
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-sm-1">
+                        @if(Auth::check())
+
                         <a href="{{asset('like')}}/{{$best_answer->_id}}/Answer/{{Session::get('id')}}"><i
                                 class="fa fa-thumbs-up"></i></a>
                         {{$best_answer->total_like}}
+                        @else
+                        <a href="{{route('sign-in')}}"><i class="fa fa-thumbs-up" style="color:#787878"></i></a>
+                        {{$best_answer->total_like}}
+                        @endif
                     </div>
                     <div class="col-sm-1">
+                        @if(Auth::check())
                         <a href="{{asset('dislike')}}/{{$best_answer->_id}}/Answer/{{Session::get('id')}}"><i
                                 class="fa fa-thumbs-down"></i></a>
                         {{$best_answer->total_dislike}}
+                        @else
+                        <a href="{{route('sign-in')}}"><i class="fa fa-thumbs-down" style="color:#787878"></i></a>
+                        {{$best_answer->total_dislike}}
+                        @endif
                     </div>
                     @if (Session::get('id')==$question->user_id)
                     <div class="col-sm-10 d-flex justify-content-sm-end">
@@ -244,7 +261,7 @@
                                 class="fa fa-thumbs-up"></i></a>
                         {{$answer->total_like}}
                         @else
-                        <a href="{{ route('sign-in') }}"><i class="fa fa-thumbs-up"></i></a>
+                        <a href="{{ route('sign-in') }} " style="color:#787878"><i class="fa fa-thumbs-up"></i></a>
                         {{$answer->total_like}}
                         @endif
                     </div>
@@ -254,7 +271,7 @@
                                 class="fa fa-thumbs-down"></i></a>
                         {{$answer->total_dislike}}
                         @else
-                        <a href="{{ route('sign-in') }}"><i class="fa fa-thumbs-down"></i></a>
+                        <a href="{{ route('sign-in') }}" style="color:#787878"><i class="fa fa-thumbs-down"></i></a>
                         {{$answer->total_dislike}}
                         @endif
                     </div>
