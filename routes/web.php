@@ -58,6 +58,8 @@ Route::get('edittopic', function() {
 	return redirect()->route('sign-in');
 });
 
+Route::get('test', 'QuestionController@test');
+
 /*Start middleware check sigin*/
 Route::middleware(['checkSignIn'])->group(function () {
     Route::prefix('profile')->group(function () {

@@ -57,7 +57,7 @@
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     <form action="{{route('delete-topic')}}" method="post">
                                         @csrf
-                                        <input type="text" name="id" value="{{$question->id}}" hidden>
+                                        <input type="text" name="_id" value="{{$question->id}}" hidden>
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </div>

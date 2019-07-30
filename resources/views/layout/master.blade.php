@@ -39,6 +39,9 @@
             }
 			else $('#result_list').hide();
         });
+        function submit_search(){
+            if($('#search').val()!='') $('#searchform').submit();
+        }
     </script>
 </body>
 

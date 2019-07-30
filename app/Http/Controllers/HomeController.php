@@ -17,7 +17,7 @@ class HomeController extends Controller
 		$full_text_search = Question::whereRaw(array('$text'=>array('$search'=> $request->keyword)))->get();
 		$normal_search = Question::where('title','like',"%$request->keyword%")->get();
 
-		$questions = $full_text_search->merge($normal_search);
+		$questions = $normal_search->merge($full_text_search);
 		if($questions->count()<=0) return "";
 		foreach($questions as $question){
 			//{{ route(\'view-topic\',[\'id\'=>'.$question->_id.']) }}
@@ -28,7 +28,7 @@ class HomeController extends Controller
 		$full_text_search = Question::whereRaw(array('$text'=>array('$search'=> $request->keyword)))->get();
 		$normal_search = Question::where('title','like',"%$request->keyword%")->get();
 
-		$questions = $full_text_search->merge($normal_search);
+		$questions = $normal_search->merge($full_text_search);
 		if($questions->count()>0) return redirect()->route('view-topic',['id'=>$questions[0]]);
 		else return "not found!";
 	}
