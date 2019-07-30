@@ -27,7 +27,7 @@
         @endforeach
     </tbody>
 </table>
-<form id="deleteform" action="{{route('remove_question')}}" method="post">
+<form id="deleteform" action="{{route('removeQuestion')}}" method="post">
     {{csrf_field()}}
     <input hidden type="text" name="_id" id="question_id">
 </form>

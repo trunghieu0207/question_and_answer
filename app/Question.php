@@ -8,7 +8,7 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class Question extends Eloquent
 {
     protected $connection = 'mongodb';
-    protected $collection = 'questions';
+    protected $collection = 'antman_questions';
     protected $fillable = [
         'title','content','user_id','best_answer','category_id','total_like','total_dislike','total_answer'
     ];

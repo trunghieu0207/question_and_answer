@@ -49,7 +49,7 @@
                 <div class="row">
                     
                     <div class="col-sm-4">
-                        <a href="{{route('home-page')}}">
+                        <a href="{{route('homePage')}}">
                         <img src="{{ asset('images/resource/logo2a.png') }}" alt="" class="w-100" style="margin-top: 15px;margin-left:15px" ></a>
                     </div>
                     <div class="col-sm-8 mt-3">
@@ -61,7 +61,7 @@
             <div class="card-body pr-5 pl-5 pb-5">
                 
                 
-                <form id="signinform" action="{{route('post-signin')}}" method="post">
+                <form id="signinform" action="{{route('signIn')}}" method="post">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">    
                     <div class="form-group">
                         <label class="font-weight-bold">Email:</label>

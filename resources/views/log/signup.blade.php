@@ -85,7 +85,7 @@
                 <div class="row">
                     <div class="col-sm-1"></div>
                     <div class="col-sm-3">
-                        <a href="{{route('home-page')}}">
+                        <a href="{{route('homePage')}}">
                         <img src="{{ asset('images/resource/logo2a.png') }}" alt="" class="h-100 w-100"></a>
                     </div>
                     <div class="col-sm-7 mt-3">
@@ -132,7 +132,7 @@
                         <button type="submit" class="btn btn-primary w-100 font-weight-bold">Create account</button>
                     </div>
                     <div class="text-center">
-                        Already have an account? <a href="{{route('sign-in')}}">Login here</a>
+                        Already have an account? <a href="{{route('signInIndex')}}">Login here</a>
                     </div>
                 </form>
             </div>

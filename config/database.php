@@ -93,9 +93,9 @@ return [
 
         'mongodb' => [
             'driver'   => 'mongodb',
-            'host'     => 'localhost',
-            'port'     => 27017,
-            'database' => 'antman',
+            'host'     => env('DB_HOST', 'localhost'),
+            'port'     => env('DB_PORT', '27017'),
+            'database' => env('DB_DATABASE', 'antman'),
             
         ],
         

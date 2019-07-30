@@ -11,14 +11,14 @@
 |
 */
 
-Route::get('/','HomeController@index')->name('home-page');
+Route::get('/','HomeController@index')->name('homePage');
 
 Route::get('signup','SignUpController@index')->name('signUp');
 Route::post('signup','SignUpController@store')->name('signUpStore');
 Route::get('validEmail','SignUpController@validEmail')->name('validEmail');
 
 Route::get('signin',[
-	'as' => 'sign-in',
+	'as' => 'signInIndex',
 	'uses' => 'SignInController@view'
 ]);
 Route::get('submitSearch',[
@@ -32,26 +32,16 @@ Route::get('search',[
 ]);
 
 Route::post('signin',[
-	'as' => 'post-signin',
+	'as' => 'signIn',
 	'uses' => 'SignInController@postSignIn'
 ]);
 
-Route::get('profile', function() {
-	return redirect()->route('sign-in');
-});
 
 Route::get('viewtopic/{id}',[
-		'as' => 'view-topic',
+		'as' => 'viewTopic',
 		'uses' => 'ViewTopicController@view'
 ]);
 
-Route::get('viewtopic', function() {
-	return redirect()->route('sign-in');
-});
-
-Route::get('edittopic', function() {
-	return redirect()->route('signIn');
-});
 
 /*Start middleware check sigin*/
 Route::middleware(['checkSignIn'])->group(function () {
@@ -61,7 +51,7 @@ Route::middleware(['checkSignIn'])->group(function () {
 			'uses' => 'ProfileController@indexInformation'
 		]);
 
-       	Route::post('updateInformation', [
+       	Route::post('updateinformation', [
 			'as' => 'updateInformation',
 			'uses' => 'ProfileController@updateInformation'
 		]);
@@ -75,17 +65,17 @@ Route::middleware(['checkSignIn'])->group(function () {
 			'uses' => 'ProfileController@storeChangePassword'
 		]);
 
-		Route::get('manage_question', 'ProfileController@indexManageQuestion')->name('manageQuestion');
-		Route::get('manage_answer', 'ProfileController@indexManageAnswer')->name('manageAnswer');
-		Route::post('remove_question', 'ProfileController@removeQuestion')->name('removeQuestion');
-		Route::post('change_avatar', 'ProfileController@changeAvatar')->name('changeAvatar');
+		Route::get('managequestion', 'ProfileController@indexManageQuestion')->name('manageQuestion');
+		Route::get('manageanswer', 'ProfileController@indexManageAnswer')->name('manageAnswer');
+		Route::post('removequestion', 'ProfileController@removeQuestion')->name('removeQuestion');
+		Route::post('changeavatar', 'ProfileController@changeAvatar')->name('changeAvatar');
 
     });
 
 
     Route::get('logout',[
-		'as'=>'log-out',
-		'uses' => 'SignInController@logout'
+		'as'=>'logOut',
+		'uses' => 'SignInController@logOut'
 	]);
 
 	
@@ -119,22 +109,18 @@ Route::middleware(['checkSignIn'])->group(function () {
 	Route::post('addanswer','AnswerController@store')->name('addAnswer');
 
 	Route::get('bestanswer/{id}',[
-		'as' => 'best-answer',
+		'as' => 'bestAnswer',
 		'uses' => 'ViewTopicController@bestAnswer'
 	]);
 
 	Route::get('removebestanswer/{id}',[
-		'as' => 'remove-best-answer',
+		'as' => 'removeBestAnswer',
 		'uses' => 'ViewTopicController@removeBestAnswer'
 	]);
 
 	Route::get('like/{post_id}/{post_type}/{user_id}',[
 		'as' => 'like',
 		'uses' => 'ViewTopicController@like'
-	]);
-	Route::get('checklike/{post_id}/{post_type}/{user_id}',[
-		'as' => 'check-like',
-		'uses' => 'ViewTopicController@checkLike'
 	]);
 
 

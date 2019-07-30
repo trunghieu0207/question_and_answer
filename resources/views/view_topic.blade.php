@@ -1,10 +1,31 @@
 @extends('layout.master')
-@section('css')
 
-@endsection
+@section('title','View topic')
+
 @section('js')
+<script>
+    $('#fuMain').fileinput({
+    theme: 'fa',
+            //allowedFileExtensions: ['png', 'jpg'],
+            //uploadUrl: '/upload_article_poster',
+            uploadAsync: false,
+            showUpload: false,
+            maxFileSize: 5120,
+            removeClass: 'btn btn-warning'
+        });
+var simplemde = new SimpleMDE({
+    element: document.getElementById("MyID")
+});
 
+function checkContent() {
+    if (simplemde.value() != "") {
+        document.getElementById("addanswer").submit();
+    }
+}
+
+</script>
 @endsection
+
 @section('content')
 
 
@@ -13,7 +34,7 @@
     <div class="card shadow">
         <div class="row px-3 pt-3">
 
-            <div class="col-sm-1"><img src="{{asset('img/avatar')}}/{{$question->user->avatar}}"class="test rounded-circle align-middle"></div>
+            <div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}"class="test rounded-circle align-middle"></div>
             
             <!-- Start Username, Date, Edit, Delete Block -->
             <div class="col-sm-11">
@@ -82,7 +103,7 @@
                             <a href="{{asset('like')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$question->total_like}}
                         @else
-                            <a href="{{route('sign-in')}} " style="color:#787878"><i class="fa fa-thumbs-up"></i></a>
+                            <a href="{{route('signInIndex')}} " style="color:#787878"><i class="fa fa-thumbs-up"></i></a>
                             {{$question->total_like}}
                         @endif
                     </div>
@@ -91,7 +112,7 @@
                             <a href="{{asset('dislike')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-down"></i></a> {{$question->total_dislike}}
                         @else
-                            <a href="{{route('sign-in')}}" style="color:#787878"><i class="fa fa-thumbs-down"></i></a>
+                            <a href="{{route('signInIndex')}}" style="color:#787878"><i class="fa fa-thumbs-down"></i></a>
                             {{$question->total_dislike}}
                         @endif
                     </div>
@@ -125,7 +146,7 @@
                         </div>
                     </div>
                 </div>
-                <button onclick="CheckContent()" type="button" class="btn btn-primary float-right">Answer</button>
+                <button onclick="checkContent()" type="button" class="btn btn-primary float-right">Answer</button>
             </form>
         </div>
     </div>
@@ -142,7 +163,7 @@
         @if ($best_answer!=null)
         <div class="row px-3 pt-3">
             <div class="col-sm-1">
-                <img src="{{asset('img/avatar')}}/{{$best_answer->user->avatar}}" class="test rounded-circle align-middle">
+                <img src="{{asset('images/avatars')}}/{{$best_answer->user->avatar}}" class="test rounded-circle align-middle">
                 <br>
                 <br>                
                 <div class="d-flex" style="justify-content :center; align-items:center;  font-size:200%; color:#66ad1f">
@@ -173,7 +194,7 @@
                             <a href="{{asset('like')}}/{{$best_answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$best_answer->total_like}}
                         @else
-                            <a href="{{route('sign-in')}}"><i class="fa fa-thumbs-up" style="color:#787878"></i></a>
+                            <a href="{{route('signInIndex')}}"><i class="fa fa-thumbs-up" style="color:#787878"></i></a>
                             {{$best_answer->total_like}}
                         @endif
                     </div>
@@ -182,7 +203,7 @@
                             <a href="{{asset('dislike')}}/{{$best_answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-down"></i></a> {{$best_answer->total_dislike}}
                         @else
-                            <a href="{{route('sign-in')}}"><i class="fa fa-thumbs-down" style="color:#787878"></i></a>
+                            <a href="{{route('signInIndex')}}"><i class="fa fa-thumbs-down" style="color:#787878"></i></a>
                             {{$best_answer->total_dislike}}
                         @endif
                     </div>
@@ -241,7 +262,7 @@
                             <a href="{{asset('like')}}/{{$answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$answer->total_like}}
                         @else
-                            <a href="{{ route('sign-in') }} " style="color:#787878"><i class="fa fa-thumbs-up"></i></a>
+                            <a href="{{ route('signInIndex') }} " style="color:#787878"><i class="fa fa-thumbs-up"></i></a>
                             {{$answer->total_like}}
                         @endif
                     </div>
@@ -251,7 +272,7 @@
                             <i class="fa fa-thumbs-down"></i></a>
                             {{$answer->total_dislike}}
                         @else
-                            <a href="{{ route('sign-in') }}" style="color:#787878"><i class="fa fa-thumbs-down"></i></a>
+                            <a href="{{ route('signInIndex') }}" style="color:#787878"><i class="fa fa-thumbs-down"></i></a>
                             {{$answer->total_dislike}}
                         @endif
                     </div>

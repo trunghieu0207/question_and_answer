@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('home-page') }}"><b style="font-size:20px"><img
+        <a class="navbar-brand" href="{{ route('homePage') }}"><b style="font-size:20px"><img
 
             src="{{ asset('images/resource/logo2a.png') }}" width="40px"> TechSolution</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -79,7 +79,7 @@
                     Your answers
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ route('log-out') }}">
+                <a class="dropdown-item" href="{{ route('logOut') }}">
                     <i class="fa fa-sign-out" style="width:20px"></i>
                     Logout
                 </a>
@@ -88,7 +88,7 @@
         </div>
         @else
         <ul class="navbar-nav mr-auto"></ul>
-        <a href="{{route('sign-in')}}" class="btn btn-success">Sign in</a>
+        <a href="{{route('signInIndex')}}" class="btn btn-success">Sign in</a>
         <a href="{{route('signUp')}}" class="btn btn-primary ml-2">Sign up</a>
         @endif
     </div>

@@ -1,16 +1,37 @@
 @extends('layout.master')
 @section('css')
-
 @endsection
+
 @section('js')
+    <script>
+        $('#fuMain').fileinput({
+        theme: 'fa',
+                //allowedFileExtensions: ['png', 'jpg'],
+                //uploadUrl: '/upload_article_poster',
+                uploadAsync: false,
+                showUpload: false,
+                maxFileSize: 5120,
+                removeClass: 'btn btn-warning'
+            });
+    var simplemde = new SimpleMDE({
+        element: document.getElementById("MyID")
+    });
 
+    function checkContent() {
+        if (simplemde.value() != "") {
+            document.getElementById("editanswer").submit();
+        }
+    }
+
+</script>
 @endsection
+
 @section('content')
 <div class="container mt-5">
     <div class="card shadow">
         @foreach($question as $val)
         <div class="row px-3 pt-3">
-            <div class="col-sm-1"><img src="{{asset('img/avatar')}}/{{$val->user->avatar}}"
+            <div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$val->user->avatar}}"
                     class="test rounded-circle align-middle"></div>
             <div class="col-sm-11">
 

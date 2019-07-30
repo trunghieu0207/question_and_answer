@@ -28,7 +28,7 @@ class HomeController extends Controller
 
 		if($questions->count()==0) return "not found!";
 
-		return redirect()->route('view-topic',['id'=>$questions[0]]);
+		return redirect()->route('viewTopic',['id'=>$questions[0]]);
 	}
 
 	public function runSearch($keyword){

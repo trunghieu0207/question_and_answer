@@ -24,7 +24,7 @@ class SignUpRequests extends FormRequest
     public function rules()
     {
         return [
-            'g-recaptcha-response' => 'required|captcha'
+            'g-recaptcha-response' => 'required|captcha',
         ];
     }
 

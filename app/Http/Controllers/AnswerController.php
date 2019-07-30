@@ -36,22 +36,19 @@ class AnswerController extends Controller
 		}
 		$answer->save();
 
-		return redirect()->route('view-topic', ['id' => $answer->question_id]);
+		return redirect()->route('viewTopic', ['id' => $answer->question_id]);
 	}
 
 	public function edit($id)
 	{
 
-		if(!Auth::check()){
-			return view('signin');
-		}
 		$answer = Answer::find($id);
 		if(empty($answer)) {
-			return redirect()->route('home-page');
+			return redirect()->route('homePage');
 		} 
 		$question = Question::where('_id',$answer->question_id)->get();
 
-		return view('edit_answer',compact('answer','id','question'));
+		return view('answer.edit_answer',compact('answer','id','question'));
 	}
 
 	public function update(Request $request)
@@ -71,6 +68,6 @@ class AnswerController extends Controller
 		}
 		$answer->save();
 
-		return redirect()->route('view-topic', ['id' => $answer->question_id]);
+		return redirect()->route('viewTopic', ['id' => $answer->question_id]);
 	}
 }

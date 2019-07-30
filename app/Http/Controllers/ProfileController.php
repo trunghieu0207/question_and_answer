@@ -19,15 +19,15 @@ class ProfileController extends Controller
         $questions = Auth::user()->questions()->get();
         $active_manage_question = true;
 
-		return view('manage_question',compact('questions','active_manage_question'));
+		return view('profile.manage_question',compact('questions','active_manage_question'));
     }
 
     public function indexManageAnswer()
 	{
         $answers = Auth::user()->answers()->get();
-        $manage_answer = 'active';
+        $active_manage_answer = 'active';
 
-		return view('manage_answer',compact('answers','manage_answer'));
+		return view('profile.manage_answer',compact('answers','active_manage_answer'));
     }
 
     public function removeQuestion(Request $request)
@@ -50,7 +50,7 @@ class ProfileController extends Controller
 
             Auth::user()->avatar = $filename;
         }
-        return redirect('profile');
+        return redirect()->back();
     }
     
     public function getNotifications()
@@ -61,7 +61,8 @@ class ProfileController extends Controller
     public function indexInformation () {
         $user = Auth::user();
         $active_personal_info = true;
-        return view('information',compact('user','active_personal_info'));
+        
+        return view('profile.information',compact('user','active_personal_info'));
     }
 
     public function updateInformation (Request $request) {
@@ -79,7 +80,8 @@ class ProfileController extends Controller
         $id = Session()->get('id');
         $user = Auth::user();
         $active_change_pass = true;
-        return view('changepassword',compact('user','active_change_pass'));
+
+        return view('profile.change_password',compact('user','active_change_pass'));
     }
 
     public function storeChangePassword(Request $request) {
@@ -99,3 +101,4 @@ class ProfileController extends Controller
         }  
 
     }
+}

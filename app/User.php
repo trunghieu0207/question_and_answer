@@ -11,7 +11,7 @@ use Jenssegers\Mongodb\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     protected $connection = 'mongodb';
-    protected $collection = 'users';
+    protected $collection = 'antman_users';
     use Notifiable;
 
     /**

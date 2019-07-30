@@ -8,7 +8,7 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class Category extends Eloquent
 {
     protected $connection = 'mongodb';
-    protected $collection = 'categories';
+    protected $collection = 'antman_categories';
     protected $fillable = [
         'name'
     ];
@@ -17,4 +17,5 @@ class Category extends Eloquent
         return $this->hasMany('App\Question','category_id','_id');
     }
 }
+
 

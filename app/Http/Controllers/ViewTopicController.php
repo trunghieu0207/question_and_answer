@@ -17,7 +17,7 @@ class ViewTopicController extends Controller
         $question = Question::find($id);
         if(empty($question))
         {
-            return redirect()->route('home-page');
+            return redirect()->route('homePage');
         } 
         else 
         {
@@ -37,7 +37,7 @@ class ViewTopicController extends Controller
                 $best_answer->content = $parsedown->text($best_answer->content);
             }
 
-            return view('viewtopic',compact('question','answers','best_answer'));
+            return view('view_topic',compact('question','answers','best_answer'));
         } 
     }
 
@@ -48,7 +48,7 @@ class ViewTopicController extends Controller
         $question->best_answer_id = $id_answer;
         $question->save();
 
-        return redirect()->route('view-topic',compact('question'));
+        return redirect()->route('viewTopic',compact('question'));
     }
 
     public function removeBestAnswer($id_answer)
@@ -58,7 +58,7 @@ class ViewTopicController extends Controller
         $question->best_answer_id = null;
         $question->save();
 
-        return redirect()->route('view-topic',compact('question'));        
+        return redirect()->route('viewTopic',compact('question'));        
     }
     
     public function checkLike($post_id,$post_type,$user_id)
@@ -159,7 +159,7 @@ class ViewTopicController extends Controller
 
         }
         
-        return redirect()->route('view-topic',compact('question','user_liked'));
+        return redirect()->route('viewTopic',compact('question'));
         
     }
 
@@ -228,7 +228,7 @@ class ViewTopicController extends Controller
             }
         }
        
-        return redirect()->route('view-topic',compact('question'));        
+        return redirect()->route('viewTopic',compact('question'));        
     }
 
     public function notificationQuestion($question,$action,$user_id)

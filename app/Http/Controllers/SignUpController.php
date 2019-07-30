@@ -17,20 +17,15 @@ class SignUpController extends Controller
 	}
 	
     public function store(SignUpRequests $request) {
-		$data = $request->validate([
-			'fullname' => 'required',
-			'email' => 'email|unique:antman_users,email',
-			'password' => 'min:5|max:30',
-		]);
 
 		$user = new User();
-		$user->fullname=$data->fullname;
-		$user->email=$data->email;
-		$user->password=bcrypt($data->password);
+		$user->fullname=$request->fullname;
+		$user->email=$request->email;
+		$user->password=bcrypt($request->password);
 		$user->avatar = "default_avatar.png";
 		$user->about_me = null;
 		$user->save();		
-		return redirect()->route('sign-in');
+		return redirect()->route('signInIndex');
 	}
 	
     public function validEmail(Request $request) {

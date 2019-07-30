@@ -14,7 +14,7 @@ class SignInController extends Controller
 
     public function view()
     {    
-        return view('signin');
+        return view('log.signin');
     }
 
     public function postSignIn(Request $request)
@@ -29,7 +29,7 @@ class SignInController extends Controller
         else
         {
 
-            return redirect()->route('home-page');            
+            return redirect()->route('homePage');            
         }
     }
 
@@ -38,6 +38,6 @@ class SignInController extends Controller
         Auth::logout();
         Session()->flush();
         
-        return redirect()->route('home-page');
+        return redirect()->route('homePage');
     }
 }

@@ -15,7 +15,7 @@ class QuestionController extends Controller
 	{
 		$categories = Category::all();
 
-		return view('add_topic',compact('categories'));
+		return view('question.add_topic',compact('categories'));
 	}
 
 	public function store(AddTopicRequest $request)
@@ -44,19 +44,15 @@ class QuestionController extends Controller
 
 	public function edit($id)
 	{
-		if(!Auth::check()){
-
-			return view('signin');
-		}
 
 		$categories = Category::all();
 		$question = Question::find($id);
 		if(empty($question)){
 
-			return redirect()->route('home-page');
+			return redirect()->route('homePage');
 		} 
 
-		return view('edit_topic',compact('question','id','categories'));
+		return view('question.edit_topic',compact('question','id','categories'));
 	}
 	
 	public function update(Request $request)
@@ -80,22 +76,13 @@ class QuestionController extends Controller
 		}
 		$question->save();
 
-		return redirect()->route('view-topic', ['id' => $request->get('id')]);
+		return redirect()->route('viewTopic', ['id' => $request->get('id')]);
 	}
 
 	public function destroy(Request $request)
 	{
-
-
-		$this->removeQuestion($request);
-
-		return redirect('/');
-	}
-
-	public function removeQuestion(Request $request)
-	{
-		
-		$question = Question::where('user_id', '=', session('id'))->where('_id', '=', $request->_id)->first();
+		$id = Auth::user()->id;
+		$question = Question::where('user_id', '=', $id)->where('_id', '=', $request->_id)->first();
         if(empty($question)) return 'Question not found';
         else{
             $answers = Answer::where('question_id','=',$question->_id)->get();

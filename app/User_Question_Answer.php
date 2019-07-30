@@ -7,5 +7,5 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class User_Question_Answer extends Eloquent
 {
     protected $connection = 'mongodb';
-    protected $collection = 'user_question_answer';
+    protected $collection = 'antman_user_question_answer';
 }
