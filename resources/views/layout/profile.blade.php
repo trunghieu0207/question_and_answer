@@ -58,7 +58,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                <form action="{{route('change_avatar')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('changeAvatar')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="card">
                         <div class="card-header d-flex justify-content-between bg-primary">

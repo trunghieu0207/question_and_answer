@@ -9,7 +9,7 @@
 <div class="container mt-5">
     <div class="card shadow">
         <div class="row px-3 pt-3">
-            <div class="col-sm-1"><img src="{{asset('img/avatar')}}/{{$question->user->avatar}}"
+            <div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}"
                     class="test rounded-circle align-middle"></div>
             <div class="col-sm-11">
                 <div class="font-weight-bold" style="color:#787878; font-size: 25px">{{$question->user->fullname}}
@@ -131,7 +131,7 @@
         <div class="row px-3 pt-3">
 
             <div class="col-sm-1">
-                <img src="{{asset('img/avatar')}}/{{$best_answer->user->avatar}}"
+                <img src="{{asset('images/avatars')}}/{{$best_answer->user->avatar}}"
                     class="test rounded-circle align-middle">
                 <br>
                 <br>
@@ -211,7 +211,7 @@
         <div class="row px-3 pt-3">
 
             <div class="col-sm-1">
-                <img src="{{asset('img/avatar')}}/{{$answer->user->avatar}}" class="test rounded-circle align-middle">
+                <img src="{{asset('images/avatars')}}/{{$answer->user->avatar}}" class="test rounded-circle align-middle">
                 <br>
                 <br>
                 @if ($question->best_answer_id == $answer->_id)

@@ -112,14 +112,5 @@ class QuestionController extends Controller
         }
 		return redirect()->back();
 	}
-
-	public function test()
-	{
-		File::delete("files\ask.ico");
-		return "?";
-	}
-
-		
-	}
-
+	
 }
