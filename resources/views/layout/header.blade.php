@@ -27,7 +27,7 @@
             </form>
 
             @if(Auth::check())
-            <a href="{{route('add-topic')}}" class="btn btn-outline-secondary ml-2"><i class="fa fa-plus"></i></a>
+            <a href="{{route('addTopic')}}" class="btn btn-outline-secondary ml-2"><i class="fa fa-plus"></i></a>
             <div class="nav-item dropright">
                 <a href="#" class="nav-link text-dark" id="notify" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">

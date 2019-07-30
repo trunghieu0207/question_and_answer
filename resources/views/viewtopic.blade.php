@@ -1,31 +1,9 @@
 @extends('layout.master')
 @section('css')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
-    rel="stylesheet" type="text/css" />
+
 @endsection
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
-<script>
-    $('#fuMain').fileinput({
-        theme: 'fa',
-        //allowedFileExtensions: ['png', 'jpg'],
-        //uploadUrl: '/upload_article_poster',
-        uploadAsync: false,
-        showUpload: false,
-        maxFileSize: 1024,
-        removeClass: 'btn btn-warning'
-    });
-    var simplemde = new SimpleMDE({
-        element: document.getElementById("MyID")
-    });
 
-    function CheckContent() {
-        if (simplemde.value() != "") {
-            document.getElementById("addanswer").submit();
-        }
-    }
-</script>
 @endsection
 @section('content')
 <div class="container mt-5">
@@ -55,7 +33,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <form action="{{route('delete-topic')}}" method="post">
+                                    <form action="{{route('deleteTopic')}}" method="post">
                                         @csrf
                                         <input type="text" name="_id" value="{{$question->id}}" hidden>
                                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -122,7 +100,7 @@
     @if (Auth::check())
     <div class="card shadow" style="margin-top: 20px;">
         <div class="card-body">
-            <form id="addanswer" method="post" action="{{route('add-answer')}}" enctype="multipart/form-data">
+            <form id="addanswer" method="post" action="{{route('addAnswer')}}" enctype="multipart/form-data">
                 @csrf
                 <input type="text" name="question_id" hidden value="{{$question->_id}}">
                 <div class="form-group">

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
 class Answer extends Eloquent
@@ -17,6 +16,7 @@ class Answer extends Eloquent
     public function user() {
     	return $this->belongsTo('App\User', 'user_id', '_id');
     }
+    
     public function question() {
     	
     	return $this->belongsTo('App\Question', 'question_id', '_id');

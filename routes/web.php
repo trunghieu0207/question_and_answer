@@ -55,7 +55,7 @@ Route::get('viewtopic', function() {
 });
 
 Route::get('edittopic', function() {
-	return redirect()->route('sign-in');
+	return redirect()->route('signIn');
 });
 
 Route::get('test', 'QuestionController@test');
@@ -98,7 +98,7 @@ Route::middleware(['checkSignIn'])->group(function () {
 	
 
 	Route::get('addtopic',[
-		'as' => 'add-topic',
+		'as' => 'addTopic',
 		'uses' => 'QuestionController@create'
 	]);
 
@@ -106,24 +106,24 @@ Route::middleware(['checkSignIn'])->group(function () {
 
 
 	Route::get('edittopic/{id}',[
-		'as' => 'edit-topic',
+		'as' => 'editTopic',
 		'uses' => 'QuestionController@edit'
 	]);
 
 
 	Route::post('edittopic','QuestionController@update');
 
-	Route::post('deletetopic','QuestionController@destroy')->name('delete-topic');
+	Route::post('deletetopic','QuestionController@destroy')->name('deleteTopic');
 
 	Route::get('editanswer/{id}',[
-		'as' => 'edit-answer',
+		'as' => 'editAnswer',
 		'uses' => 'AnswerController@edit'
 	]);
 
 
-	Route::post('editanswer/{id}','AnswerController@update');
+	Route::post('editanswer','AnswerController@update');
 
-	Route::post('addanswer','AnswerController@store')->name('add-answer');
+	Route::post('addanswer','AnswerController@store')->name('addAnswer');
 
 	Route::get('bestanswer/{id}',[
 		'as' => 'best-answer',
