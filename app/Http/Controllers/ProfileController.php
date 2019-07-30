@@ -8,32 +8,36 @@ use App\Answer;
 use App\User;
 use File;
 use Illuminate\Support\Facades\Hash;
+use App\Notification;
+use Illuminate\Support\Facades\Auth;
+
 class ProfileController extends Controller
 {
-    public function index_manage_question()
+    public function indexManageQuestion()
 	{
-        $questions = Question::where('user_id', '=', session('id'))->get();
+        $questions = Auth::user()->questions()->get();
         $active_manage_question = true;
+
 		return view('manage_question',compact('questions','active_manage_question'));
     }
 
-    public function index_manage_answer()
+    public function indexManageAnswer()
 	{
-        $answers = Answer::where('user_id', '=', session('id'))->get();
-        $active_manage_answer = true;
-		return view('manage_answer',compact('answers','active_manage_answer'));
+        $answers = Auth::user()->answers()->get();
+        $manage_answer = 'active';
+
+		return view('manage_answer',compact('answers','manage_answer'));
     }
 
-    public function remove_question(Request $request)
+    public function removeQuestion(Request $request)
 	{
-        (new QuestionController)->remove_question($request);
-        return redirect()->route('manage_question');
+        return (new QuestionController)->destroy($request);
     }
 
-    public function change_avatar(Request $request)
+    public function changeAvatar(Request $request)
     {
 		if ($request->hasFile('avatar')) {
-            $user = User::find(session('id'));
+            $user = Auth::user();
 
             $filename = $user->_id.$request->avatar->getClientOriginalName();
 
@@ -43,11 +47,16 @@ class ProfileController extends Controller
             $user->avatar=$filename;
             $user->save();
 
-            Session()->put('avatar','img\avatar\\'.$user->avatar);
+            Auth::user()->avatar = $filename;
         }
         return redirect('profile');
     }
     
+    public function getNotifications()
+    {
+        return Auth::user()->notifications()->get();;
+    }
+
     public function getInformation () {
         $id = Session()->get('id');
         $user = User::find($id);
@@ -86,7 +95,6 @@ class ProfileController extends Controller
         } else {
             Session()->flash('error', 'Current password is not correct!');
             return redirect()->back();
-        }
-        
+        }    
     }
 }

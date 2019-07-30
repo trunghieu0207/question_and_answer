@@ -13,17 +13,17 @@
 
 Route::get('/','HomeController@index')->name('home-page');
 
-Route::get('signup','SignUpController@getSignUp')->name('getSignUp');
-Route::post('signup','SignUpController@postSignUp')->name('postSignUp');
+Route::get('signup','SignUpController@index')->name('signUp');
+Route::post('signup','SignUpController@store')->name('signUpStore');
 Route::get('validEmail','SignUpController@validEmail')->name('validEmail');
 
 Route::get('signin',[
 	'as' => 'sign-in',
 	'uses' => 'SignInController@view'
 ]);
-Route::get('submit_search',[
-	'as' => 'submit_search',
-	'uses' => 'HomeController@submit_search'
+Route::get('submitSearch',[
+	'as' => 'submitSearch',
+	'uses' => 'HomeController@submitSearch'
 ]);
 
 Route::get('search',[
@@ -34,11 +34,6 @@ Route::get('search',[
 Route::post('signin',[
 	'as' => 'post-signin',
 	'uses' => 'SignInController@postSignIn'
-]);
-
-Route::get('search_test',[
-	'as' => 'search_test',
-	'uses' => 'HomeController@search_test'
 ]);
 
 Route::get('profile', function() {
@@ -57,8 +52,6 @@ Route::get('viewtopic', function() {
 Route::get('edittopic', function() {
 	return redirect()->route('signIn');
 });
-
-Route::get('test', 'QuestionController@test');
 
 /*Start middleware check sigin*/
 Route::middleware(['checkSignIn'])->group(function () {
@@ -82,10 +75,10 @@ Route::middleware(['checkSignIn'])->group(function () {
 			'uses' => 'ProfileController@postChangepassword'
 		]);
 
-		Route::get('manage_question', 'ProfileController@index_manage_question')->name('manage_question');
-		Route::get('manage_answer', 'ProfileController@index_manage_answer')->name('manage_answer');
-		Route::post('remove_question', 'ProfileController@remove_question')->name('remove_question');
-		Route::post('change_avatar', 'ProfileController@change_avatar')->name('change_avatar');
+		Route::get('manage_question', 'ProfileController@indexManageQuestion')->name('manageQuestion');
+		Route::get('manage_answer', 'ProfileController@indexManageAnswer')->name('manageAnswer');
+		Route::post('remove_question', 'ProfileController@removeQuestion')->name('removeQuestion');
+		Route::post('change_avatar', 'ProfileController@changeAvatar')->name('changeAvatar');
 
     });
 

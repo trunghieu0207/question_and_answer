@@ -89,6 +89,7 @@ class QuestionController extends Controller
 	public function destroy(Request $request)
 	{
 
+
 		$this->removeQuestion($request);
 
 		return redirect('/');
@@ -97,16 +98,19 @@ class QuestionController extends Controller
 	public function removeQuestion(Request $request)
 	{
 		
-		$question = Question::where('user_id', Auth::user()->_id)->where('_id', $request->_id)->first();
-		if(empty($question)) return 'Question not found';
-		$answers = Answer::where('question_id',$question->_id)->get();
-		foreach($answers as $answer){
-			if(!empty($answer->attachment_path)) File::delete('files\\'.$answer->attachment_path);
-			$answer->delete();
-		}
-
-		if(!empty($question->attachment_path)) File::delete('files\\'.$question->attachment_path);
-		$question->delete();
+		$question = Question::where('user_id', '=', session('id'))->where('_id', '=', $request->_id)->first();
+        if(empty($question)) return 'Question not found';
+        else{
+            $answers = Answer::where('question_id','=',$question->_id)->get();
+            foreach($answers as $answer){
+                if(!empty($answer->attachment_path)) File::delete('files\\'.$answer->attachment_path);
+                $answer->delete();
+            }
+            //$answers->delete();
+            if(!empty($question->attachment_path)) File::delete('files\\'.$question->attachment_path);
+            $question->delete();
+        }
+		return redirect()->back();
 	}
 
 	public function test()
@@ -114,4 +118,8 @@ class QuestionController extends Controller
 		File::delete("files\ask.ico");
 		return "?";
 	}
+
+		
+	}
+
 }
