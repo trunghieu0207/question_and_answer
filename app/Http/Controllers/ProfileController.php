@@ -8,6 +8,7 @@ use App\Answer;
 use App\User;
 use File;
 use Illuminate\Support\Facades\Hash;
+use App\Notification;
 class ProfileController extends Controller
 {
     public function index_manage_question()
@@ -88,7 +89,11 @@ class ProfileController extends Controller
         } else {
             Session()->flash('error', 'Current password is not correct!');
             return redirect()->back();
-        }
-        
+        }    
+    }
+    public function getNotifications()
+    {
+        $notifications = Notification::where('user_id','=',Session::get('id'))->get();
+        return $notifications;
     }
 }
