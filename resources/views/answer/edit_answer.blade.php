@@ -47,7 +47,7 @@
                 <span class="badge badge-info" style="height: 20px">{{$val->category->name}}</span>
             </div>
             <div class="col-sm-12">
-                <p>{{$val->content}}</p>
+                <p>{!! $val->content !!}</p>
                 <div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
                     <div class="col-sm">
                         <i class="fa fa-thumbs-up"></i>

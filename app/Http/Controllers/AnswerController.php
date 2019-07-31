@@ -5,6 +5,7 @@ use App\Answer;
 use Illuminate\Http\Request;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 use File;
 
 class AnswerController extends Controller
@@ -47,6 +48,11 @@ class AnswerController extends Controller
 			return redirect()->route('homePage');
 		} 
 		$question = Question::where('_id',$answer->question_id)->get();
+		$parsedown = new \Parsedown();
+		foreach($question as $key)
+		{
+			$key->content = $parsedown->setMarkupEscaped(true)->text($key->content);
+		}
 
 		return view('answer.edit_answer',compact('answer','id','question'));
 	}
