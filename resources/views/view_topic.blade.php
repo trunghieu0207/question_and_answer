@@ -75,7 +75,8 @@ function checkContent() {
                 </div>
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
-                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{$question->created_at}}
+                        <i class="fa fa-clock-o" aria-hidden="true"> </i>
+                        {{$date_convert_question}}
                     </small>
                 </div>
                 <br>
@@ -179,7 +180,12 @@ function checkContent() {
                 </div>
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
-                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{$best_answer->created_at}}
+                        <i class="fa fa-clock-o" aria-hidden="true"> </i> 
+                        @foreach($date_convert_answer as $date)
+                            @if($date['answer_id']==$best_answer->_id)
+                                {{$date['date']}}
+                            @endif
+                        @endforeach
                     </small>
                 </div>
                 <br>
@@ -246,7 +252,12 @@ function checkContent() {
                 </div>
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
-                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{$answer->created_at}}
+                        <i class="fa fa-clock-o" aria-hidden="true"> </i> 
+                        @foreach($date_convert_answer as $date)
+                            @if($date['answer_id']==$answer->_id)
+                                {{$date['date']}}
+                            @endif
+                        @endforeach
                     </small>
                 </div>
                 <br>

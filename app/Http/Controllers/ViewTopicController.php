@@ -9,6 +9,7 @@ use App\User_Question_Answer;
 use App\Notification;
 use App\user;
 use Illuminate\Support\Collection;
+use Carbon\Carbon;
 
 class ViewTopicController extends Controller
 {
@@ -27,9 +28,20 @@ class ViewTopicController extends Controller
             $question->save(); 
             $parsedown = new \Parsedown();
             $question->content = $parsedown->text($question->content);
+
+            $now = Carbon::now();
+            $date_question = $question->created_at;
+            $date_convert_question =  $date_question->diffForHumans($now);
+            $date_convert_answer = array();
             foreach ($answers as $answer) 
             {
                 $answer->content = $parsedown->text($answer->content);
+                $date_answer = $answer->created_at;
+                $datenow = $date_answer->diffForHumans($now);
+                $date_convert_answer[] = array(
+                        'answer_id' => $answer->_id,
+                        'date' => $datenow
+                    );
             }
             if(!empty($question->best_answer_id)) 
             {
@@ -37,7 +49,7 @@ class ViewTopicController extends Controller
                 $best_answer->content = $parsedown->text($best_answer->content);
             }
 
-            return view('view_topic',compact('question','answers','best_answer'));
+            return view('view_topic',compact('question','answers','best_answer','date_convert_question','date_convert_answer'));
         } 
     }
 
