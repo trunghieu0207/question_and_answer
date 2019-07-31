@@ -88,6 +88,10 @@
                         </div>
                     </div>
                 </div>
+                @if(!file_exists(public_path().'files/{{ $answer->attachment_path }}'))
+                <h6>Attachments</h6>
+                <a target="blank" href="{{asset('files/'.$answer->attachment_path)}}"><i>{{$answer->attachment_path}}</i></a>
+                @endif
                 <button type="submit" class="btn btn-primary float-right" onclick="checkContent()">Save changes</button>
             </form>
         </div>
