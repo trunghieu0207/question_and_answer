@@ -40,7 +40,7 @@ class QuestionObserver
         foreach($question->answers()->get() as $single_answer){
 			$single_answer->delete();
 		}
-        if(!empty($question->attachment_path)) File::delete('files\\'.$question->attachment_path);
+        if(!empty($question->attachment_path)) File::delete('files/'.$question->attachment_path);
     }
 
     /**

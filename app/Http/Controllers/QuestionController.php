@@ -35,7 +35,7 @@ class QuestionController extends Controller
 		if($request->hasFile('attachment')) {
 			$filename = $question->_id.$request->attachment->getClientOriginalName();
 			$question->attachment_path = $filename;
-			$request->attachment->move('files\\', $filename);
+			$request->attachment->move('files/', $filename);
 		}
 		$question->save();
 
@@ -63,10 +63,10 @@ class QuestionController extends Controller
 		$question->content = $request->get('content');
 		$question->category_id = $request->get('category');
 		if($request->hasFile('attachment')) {
-			File::delete('files\\'.$question->attachment_path);
+			File::delete('files/'.$question->attachment_path);
 			$filename = $question->_id.$request->attachment->getClientOriginalName();
 			$question->attachment_path = $filename;
-			$request->attachment->move('files\\', $filename);
+			$request->attachment->move('files/', $filename);
 		}
 		$question->save();
 
