@@ -11,20 +11,10 @@ class HomeController extends Controller
 	public function index()
 	{
 		$questions = Question::orderBy('created_at', 'desc')->get();
-		//$date_convert = array();
 		foreach($questions as $question){
-			//$id= $question->_id;
-			//$now = Carbon::now();
-			//$date = $question->created_at;
-			//$datenow = $date->diffForHumans($now);
-			//$date_convert[] = array(
-			//		'id' => $id,
-			//		'date' => $datenow
-			//	);
 			$question->date = $question->created_at->diffForHumans();
 		}
-	   
-	   	//return view('test');
+		
 		return view('home',compact('questions'));
 	}
 
