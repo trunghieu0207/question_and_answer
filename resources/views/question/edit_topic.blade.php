@@ -2,9 +2,9 @@
 @section('title', 'Edit topic')
 
 @section('js')
-	<script>
-	    $('#fuMain').fileinput({
-	    theme: 'fa',
+<script>
+	$('#fuMain').fileinput({
+		theme: 'fa',
 	            //allowedFileExtensions: ['png', 'jpg'],
 	            //uploadUrl: '/upload_article_poster',
 	            uploadAsync: false,
@@ -13,13 +13,13 @@
 	            removeClass: 'btn btn-warning'
 	        });
 	var simplemde = new SimpleMDE({
-	    element: document.getElementById("MyID")
+		element: document.getElementById("MyID")
 	});
 
 	function checkContent() {
-	    if (simplemde.value() != "") {
-	        document.getElementById("addquestion").submit();
-	    }
+		if (simplemde.value() != "") {
+			document.getElementById("addquestion").submit();
+		}
 	}
 
 </script>
@@ -48,19 +48,19 @@
 
 				<!-- Category -->
 				<div class="form-group">
-				
-						@foreach($errors->all() as $error)
-							<div class="alert alert-danger">{{ $error }}</div>
-						@endforeach
+
+					@foreach($errors->all() as $error)
+					<div class="alert alert-danger">{{ $error }}</div>
+					@endforeach
 
 					<h5>Category</h5>
 					<select class="form-control col-sm-3" id="exampleFormControlSelect1" name="category">
 						@foreach($categories as $category)
-							@if($question->category_id==$category->_id)
-								<option value="{{$category->_id}}" selected="selected">{{$category->name}}</option>
-							@else
-								<option value="{{$category->_id}}">{{$category->name}}</option>
-							@endif
+						@if($question->category_id==$category->_id)
+						<option value="{{$category->_id}}" selected="selected">{{$category->name}}</option>
+						@else
+						<option value="{{$category->_id}}">{{$category->name}}</option>
+						@endif
 						@endforeach
 					</select>
 				</div>
@@ -82,6 +82,10 @@
 						</div>
 					</div>
 				</div>
+				@if(!file_exists(public_path().'files/{{ $question->attachment_path }}'))
+				<h6>Attachments</h6>
+				<a target="blank" href="{{asset('files/'.$question->attachment_path)}}"><i>{{$question->attachment_path}}</i></a>
+				@endif
 				<!-- End content-->
 
 				<button type="button" onclick="checkContent()" class="btn btn-primary float-right">Update</button>
