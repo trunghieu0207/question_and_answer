@@ -30,26 +30,20 @@ class ViewTopicController extends Controller
             $question->content = $parsedown->text($question->content);
 
             $now = Carbon::now();
-            $date_question = $question->created_at;
-            $date_convert_question =  $date_question->diffForHumans($now);
-            $date_convert_answer = array();
+            $question->date_convert = $question->created_at->diffForHumans($now);
             foreach ($answers as $answer) 
             {
                 $answer->content = $parsedown->text($answer->content);
-                $date_answer = $answer->created_at;
-                $datenow = $date_answer->diffForHumans($now);
-                $date_convert_answer[] = array(
-                        'answer_id' => $answer->_id,
-                        'date' => $datenow
-                    );
+                $answer->date_convert = $answer->created_at->diffForHumans($now);
             }
             if(!empty($question->best_answer_id)) 
             {
                 $best_answer= Answer::find($question->best_answer_id);
                 $best_answer->content = $parsedown->text($best_answer->content);
+                $best_answer->date_convert = $best_answer->created_at->diffForHumans($now);
             }
 
-            return view('view_topic',compact('question','answers','best_answer','date_convert_question','date_convert_answer'));
+            return view('view_topic',compact('question','answers','best_answer'));
         } 
     }
 

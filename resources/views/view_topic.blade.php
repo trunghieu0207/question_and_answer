@@ -76,7 +76,7 @@ function checkContent() {
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
                         <i class="fa fa-clock-o" aria-hidden="true"> </i>
-                        {{$date_convert_question}}
+                        {{$question->date_convert}}
                     </small>
                 </div>
                 <br>
@@ -181,11 +181,7 @@ function checkContent() {
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
                         <i class="fa fa-clock-o" aria-hidden="true"> </i> 
-                        @foreach($date_convert_answer as $date)
-                            @if($date['answer_id']==$best_answer->_id)
-                                {{$date['date']}}
-                            @endif
-                        @endforeach
+                        {{$best_answer->date_convert}}
                     </small>
                 </div>
                 <br>
@@ -253,11 +249,7 @@ function checkContent() {
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
                         <i class="fa fa-clock-o" aria-hidden="true"> </i> 
-                        @foreach($date_convert_answer as $date)
-                            @if($date['answer_id']==$answer->_id)
-                                {{$date['date']}}
-                            @endif
-                        @endforeach
+                        {{$answer->date_convert}}
                     </small>
                 </div>
                 <br>
