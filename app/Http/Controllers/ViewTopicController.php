@@ -27,19 +27,19 @@ class ViewTopicController extends Controller
             $question->total_answer = $answers->count();
             $question->save(); 
             $parsedown = new \Parsedown();
-            $question->content = $parsedown->text($question->content);
+            $question->content = $parsedown->setMarkupEscaped(true)->text($question->content);
 
             $now = Carbon::now();
             $question->date_convert = $question->created_at->diffForHumans($now);
             foreach ($answers as $answer) 
             {
-                $answer->content = $parsedown->text($answer->content);
+                $answer->content = $parsedown->setMarkupEscaped(true)->text($answer->content);
                 $answer->date_convert = $answer->created_at->diffForHumans($now);
             }
             if(!empty($question->best_answer_id)) 
             {
                 $best_answer= Answer::find($question->best_answer_id);
-                $best_answer->content = $parsedown->text($best_answer->content);
+                $best_answer->content = $parsedown->setMarkupEscaped(true)->text($best_answer->content);
                 $best_answer->date_convert = $best_answer->created_at->diffForHumans($now);
             }
 
