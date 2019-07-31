@@ -1,5 +1,5 @@
 @extends('layout.profile')
-@section('status2','active')
+@section('title','Change password')
 
 @section('script')
     <script>
