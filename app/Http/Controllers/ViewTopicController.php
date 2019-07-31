@@ -238,7 +238,7 @@ class ViewTopicController extends Controller
         $user2= User::find($user_id);
         $noti= new Notification();
         $noti->user_id=$user_id;
-        $noti->postable_id=$question->_id;
+        $noti->postable_id=$answer->_id;
         $noti->postable_type="Answer";
         $noti->content=$user2->fullname.$action." your answer.";
         $noti->save();        
