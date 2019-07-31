@@ -16,11 +16,7 @@
 					<div class="col-sm-11">
 						<small class="font-weight-bold" style="color:#5488c7;">{{$question->user->fullname}}</small>
 						<small class="text-muted" style="color:#5488c7;">
-							@foreach($date_convert as $date)
-							@if($date['id']==$question->_id)
-								{{$date['date']}}
-							@endif
-							@endforeach
+							{{$question->date}}
 						</small>
 						<br>
 

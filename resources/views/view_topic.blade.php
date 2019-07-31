@@ -2,6 +2,8 @@
 
 @section('title','View topic')
 
+
+
 @section('js')
 <script>
     $('#fuMain').fileinput({

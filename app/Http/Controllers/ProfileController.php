@@ -52,11 +52,6 @@ class ProfileController extends Controller
         }
         return redirect()->back();
     }
-    
-    public function getNotifications()
-    {
-        return Auth::user()->notifications()->get();;
-    }
 
     public function indexInformation () {
         $user = Auth::user();
