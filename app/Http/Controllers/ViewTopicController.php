@@ -9,6 +9,7 @@ use App\User_Question_Answer;
 use App\Notification;
 use App\user;
 use Illuminate\Support\Collection;
+use Carbon\Carbon;
 
 class ViewTopicController extends Controller
 {
@@ -27,9 +28,20 @@ class ViewTopicController extends Controller
             $question->save(); 
             $parsedown = new \Parsedown();
             $question->content = $parsedown->text($question->content);
+
+            $now = Carbon::now();
+            $date_question = $question->created_at;
+            $date_convert_question =  $date_question->diffForHumans($now);
+            $date_convert_answer = array();
             foreach ($answers as $answer) 
             {
                 $answer->content = $parsedown->text($answer->content);
+                $date_answer = $answer->created_at;
+                $datenow = $date_answer->diffForHumans($now);
+                $date_convert_answer[] = array(
+                        'answer_id' => $answer->_id,
+                        'date' => $datenow
+                    );
             }
             if(!empty($question->best_answer_id)) 
             {
@@ -37,7 +49,7 @@ class ViewTopicController extends Controller
                 $best_answer->content = $parsedown->text($best_answer->content);
             }
 
-            return view('view_topic',compact('question','answers','best_answer'));
+            return view('view_topic',compact('question','answers','best_answer','date_convert_question','date_convert_answer'));
         } 
     }
 
@@ -81,7 +93,6 @@ class ViewTopicController extends Controller
         $user_disliked =$this->checkDislike($post_id,$post_type,$user_id);
         
         if ($user_liked->count()==0){
-            echo $user_disliked->count();
             if ($post_type =='Question')
             {
                 $question= Question::find($post_id);    
@@ -238,7 +249,7 @@ class ViewTopicController extends Controller
         $user2= User::find($user_id);
         $noti= new Notification();
         $noti->user_id=$user_id;
-        $noti->postable_id=$question->_id;
+        $noti->postable_id=$answer->_id;
         $noti->postable_type="Answer";
         $noti->content=$user2->fullname.$action." your answer.";
         $noti->save();        

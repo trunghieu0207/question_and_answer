@@ -77,7 +77,8 @@ function checkContent() {
                 </div>
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
-                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{$question->created_at}}
+                        <i class="fa fa-clock-o" aria-hidden="true"> </i>
+                        {{$date_convert_question}}
                     </small>
                 </div>
                 <br>
@@ -99,8 +100,8 @@ function checkContent() {
                     <a target="blank" href="{{asset('files/'.$question->attachment_path)}}"><i>{{$question->attachment_path}}</i></a>
                 @else
                 @endif
-                <div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
-                    <div class="col-sm">
+                <div class="row" style="width: 500px; color:#787878; font-size: 20px; margin-bottom: 10px; margin-left: 5px;">
+                    <div class="col-xs" style="width:100px">
                         @if (Auth::check())
                             <a href="{{asset('like')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$question->total_like}}
@@ -109,7 +110,7 @@ function checkContent() {
                             {{$question->total_like}}
                         @endif
                     </div>
-                    <div class="col-sm">
+                    <div class="col-xs" style="width:100px">
                         @if (Auth::check())
                             <a href="{{asset('dislike')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-down"></i></a> {{$question->total_dislike}}
@@ -118,7 +119,7 @@ function checkContent() {
                             {{$question->total_dislike}}
                         @endif
                     </div>
-                    <div class="col-sm">
+                    <div class="col-xs" style="width:100px">
                         <i class="fa fa-reply"></i> {{$question->total_answer}}
                     </div>
                 </div>
@@ -181,7 +182,12 @@ function checkContent() {
                 </div>
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
-                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{$best_answer->created_at}}
+                        <i class="fa fa-clock-o" aria-hidden="true"> </i> 
+                        @foreach($date_convert_answer as $date)
+                            @if($date['answer_id']==$best_answer->_id)
+                                {{$date['date']}}
+                            @endif
+                        @endforeach
                     </small>
                 </div>
                 <br>
@@ -191,7 +197,7 @@ function checkContent() {
                     <a target="blank" href="{{asset('files/'.$best_answer->attachment_path)}}"><i>{{$best_answer->attachment_path}}</i></a>
                 @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
-                    <div class="col-sm-1">
+                    <div class="col-1">
                         @if(Auth::check())
                             <a href="{{asset('like')}}/{{$best_answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$best_answer->total_like}}
@@ -200,7 +206,7 @@ function checkContent() {
                             {{$best_answer->total_like}}
                         @endif
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-1">
                         @if(Auth::check())
                             <a href="{{asset('dislike')}}/{{$best_answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-down"></i></a> {{$best_answer->total_dislike}}
@@ -210,7 +216,7 @@ function checkContent() {
                         @endif
                     </div>
                     @if (Auth::user()->id==$question->user_id)
-                    <div class="col-sm-10 d-flex justify-content-sm-end">
+                    <div class="col-10 justify-content-sm-end">
                         <a href="{{asset('removebestanswer')}}/{{$best_answer->_id}}"><button type="button"
                                 class="float-right btn btn-warning">Remove Best Answer</button></a>
                     </div>
@@ -248,7 +254,12 @@ function checkContent() {
                 </div>
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
-                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{$answer->created_at}}
+                        <i class="fa fa-clock-o" aria-hidden="true"> </i> 
+                        @foreach($date_convert_answer as $date)
+                            @if($date['answer_id']==$answer->_id)
+                                {{$date['date']}}
+                            @endif
+                        @endforeach
                     </small>
                 </div>
                 <br>
@@ -259,7 +270,7 @@ function checkContent() {
                 @else
                 @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
-                    <div class="col-sm-1">
+                    <div class="col-1">
                         @if(Auth::check())
                             <a href="{{asset('like')}}/{{$answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$answer->total_like}}
@@ -268,7 +279,7 @@ function checkContent() {
                             {{$answer->total_like}}
                         @endif
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-1">
                         @if(Auth::check())
                             <a href="{{asset('dislike')}}/{{$answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-down"></i></a>
@@ -278,14 +289,15 @@ function checkContent() {
                             {{$answer->total_dislike}}
                         @endif
                     </div>
-                    @if (Auth::check())
+                     @if (Auth::check())
                     @if (Auth::user()->id==$question->user_id)
-                    <div class="col-sm-10 d-flex justify-content-sm-end">
+                    <div class='col-10 justify-content-sm-end'>                                           
                         <a href="{{asset('bestanswer')}}/{{$answer->_id}}"><button type="button"
-                                class="float-right btn btn-success">Best Answer</button></a>
+                            class="float-right btn btn-success">Best Answer</button></a>                           
                     </div>
                     @endif
                     @endif
+                   
                 </div>
             </div>
         </div>
