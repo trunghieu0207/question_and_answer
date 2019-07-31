@@ -75,19 +75,12 @@ class QuestionController extends Controller
 
 	public function destroy(Request $request)
 	{
-		$id = Auth::user()->id;
-		$question = Question::where('user_id', '=', $id)->where('_id', '=', $request->_id)->first();
-        if(empty($question)) return 'Question not found';
-        else{
-            $answers = Answer::where('question_id','=',$question->_id)->get();
-            foreach($answers as $answer){
-                if(!empty($answer->attachment_path)) File::delete('files\\'.$answer->attachment_path);
-                $answer->delete();
-            }
-            //$answers->delete();
-            if(!empty($question->attachment_path)) File::delete('files\\'.$question->attachment_path);
-            $question->delete();
-        }
+		$question = Question::where('user_id', '=', Auth::user()->id)->where('_id', '=', $request->_id)->first();
+		
+		if(empty($question)) return 'Question not found';
+
+		$question->delete();
+		
 		return redirect()->back();
 	}
 	

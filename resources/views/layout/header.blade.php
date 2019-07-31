@@ -34,8 +34,7 @@
                 <i class="fa fa-bell" style="font-size: 18px"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="notify" style="width: 270px">
-                @if(!empty(session('notifications')))
-                @foreach(session('notifications') as $notification)
+                @foreach(Auth::user()->notifications()->get() as $notification)
                 <div class="row">
                     <div class="col-sm-10">
                         <div class=" ml-2">
@@ -53,7 +52,6 @@
                     </div>
                     <div class="dropdown-divider"></div>
                     @endforeach
-                    @endif
                 </div>
             </div>
             <ul class="navbar-nav mr-auto"></ul>

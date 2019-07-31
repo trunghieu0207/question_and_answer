@@ -14,7 +14,7 @@
 					<div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}" class="test rounded-circle align-middle"></div>
 					<div class="col-sm-11">
 						<small class="font-weight-bold" style="color:#5488c7;">{{$question->user->fullname}}</small>
-						<small class="text-muted" style="color:#5488c7;">{{$question->created_at}}</small>
+						<small class="text-muted" style="color:#5488c7;">{{\Carbon\Carbon::createFromTimeStamp(strtotime($question->created_at))->diffForHumans()}}</small>
 						<br>
 
 						<div class="float-left"><a href="viewtopic/{{ $question->id }}"><h5>{{$question->title}}</h5></a></div>

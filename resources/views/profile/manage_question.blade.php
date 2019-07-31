@@ -1,4 +1,17 @@
 @extends('layout.profile')
+
+@section('script')
+<script>
+function confirmRemove(btn){
+    var r = confirm("Do you want to delete this question?");
+    if (r == true) {
+        document.getElementById("question_id").value = btn.getAttribute('tag');
+        document.getElementById("deleteform").submit();
+    }
+}
+</script>
+@endsection
+
 @section('contentprofile')
 <h2 class="text-primary text-center">MANAGE QUESTION</h2>
 <hr class="my-3">
@@ -31,14 +44,5 @@
     {{csrf_field()}}
     <input hidden type="text" name="_id" id="question_id">
 </form>
-<script>
-function confirmRemove(btn){
-    var r = confirm("Do you want to delete this question?");
-    if (r == true) {
-        document.getElementById("question_id").value = btn.getAttribute('tag');
-        document.getElementById("deleteform").submit();
-    }
-}
-</script>
 @endsection
 

@@ -17,7 +17,6 @@ class SignUpController extends Controller
 	}
 	
     public function store(SignUpRequests $request) {
-
 		$user = new User();
 		$user->fullname=$request->fullname;
 		$user->email=$request->email;

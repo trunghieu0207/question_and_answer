@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
 	public function index()
 	{
 		$questions = Question::orderBy('created_at', 'desc')->get();
-		
 		return view('home',compact('questions'));
 	}
 

@@ -1,6 +1,4 @@
 @extends('layout.master')
-@section('css')
-@endsection
 
 @section('js')
     <script>

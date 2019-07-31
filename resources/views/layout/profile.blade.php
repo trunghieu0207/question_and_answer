@@ -2,15 +2,8 @@
 
 @section('title','Profile')
 
-@section('css')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
-            rel="stylesheet" type="text/css" />
-
-@endsection
 
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
 	<script>
         $('#fuMain').fileinput({
             theme: 'fa',
@@ -21,7 +14,8 @@
             maxFileSize: 5120,
             removeClass: 'btn btn-warning'
         });
-		</script>
+	</script>
+    @yield('script')
 @endsection
 
 @section('content')
@@ -81,7 +75,7 @@
     </div>
 @endsection
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
 <script>
         $(function () {
             jQuery.validator.addMethod("validname", function (value, element) {
