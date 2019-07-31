@@ -81,7 +81,6 @@ class ViewTopicController extends Controller
         $user_disliked =$this->checkDislike($post_id,$post_type,$user_id);
         
         if ($user_liked->count()==0){
-            echo $user_disliked->count();
             if ($post_type =='Question')
             {
                 $question= Question::find($post_id);    
