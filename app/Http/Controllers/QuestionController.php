@@ -55,14 +55,8 @@ class QuestionController extends Controller
 		return view('question.edit_topic',compact('question','id','categories'));
 	}
 	
-	public function update(Request $request)
+	public function update(AddTopicRequest $request)
 	{
-		// $validatedData = $request->validate([
-		// 	'id' => 'required',
-		// 	'title' => 'required|max:255',
-		// 	'content' => 'required',
-		// 	'category' => 'required',
-		// ]);
 
 		$question = Question::find($request->get('id'));
 		$question->title = $request->get('title');

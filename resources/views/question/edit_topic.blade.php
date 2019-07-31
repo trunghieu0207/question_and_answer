@@ -1,5 +1,5 @@
 @extends('layout.master')
-
+@section('title', 'Edit topic')
 
 @section('js')
 	<script>
@@ -48,14 +48,19 @@
 
 				<!-- Category -->
 				<div class="form-group">
+				
+						@foreach($errors->all() as $error)
+							<div class="alert alert-danger">{{ $error }}</div>
+						@endforeach
+
 					<h5>Category</h5>
 					<select class="form-control col-sm-3" id="exampleFormControlSelect1" name="category">
 						@foreach($categories as $category)
-						@if($question->category_id==$category->_id)
-						<option value="{{$category->_id}}" selected="selected">{{$category->name}}</option>
-						@else
-						<option value="{{$category->_id}}">{{$category->name}}</option>
-						@endif
+							@if($question->category_id==$category->_id)
+								<option value="{{$category->_id}}" selected="selected">{{$category->name}}</option>
+							@else
+								<option value="{{$category->_id}}">{{$category->name}}</option>
+							@endif
 						@endforeach
 					</select>
 				</div>

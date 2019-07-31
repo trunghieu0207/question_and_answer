@@ -21,7 +21,7 @@ class SigninMiddle
         }
         else
         {
-            return redirect()-> route('sign-in');
+            return redirect()-> route('signIn');
         } 
             
     }

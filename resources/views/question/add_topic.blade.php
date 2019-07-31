@@ -1,5 +1,5 @@
 @extends('layout.master')
-
+@section('title', 'Add topic')
 @section('js')
 	<script>
 	    $('#fuMain').fileinput({
@@ -32,8 +32,10 @@
 		<div class="card-header">
 			<h3>Add new topic</h3>
 		</div>
-		
 		<div class="card-body">
+			@foreach($errors->all() as $error)
+				<div class="alert alert-danger">{{ $error }}</div>
+			@endforeach
 			<form method="post" action="{{url('addtopic')}}" id="addquestion" enctype="multipart/form-data">
 				@csrf
 				<!-- Start topic title -->

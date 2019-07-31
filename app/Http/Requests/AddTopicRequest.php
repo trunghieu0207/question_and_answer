@@ -35,8 +35,9 @@ class AddTopicRequest extends FormRequest
     public function messages() {
         
         return [
-            'title.required' => 'Please! Enter title!',
-            'content.required' => 'Please! Enter content!'
+            'title.required' => 'Please enter a title.',
+            'title.max' => 'The title is up to 255 characters.',
+            'content.required' => 'Please enter a content.'
         ];
     }
 }

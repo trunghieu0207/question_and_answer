@@ -50,7 +50,13 @@
             $('#information').validate({
                 rules: {
                     fullname: {
-                        validname: true
+                        validname: true,
+                        required: true
+                    },
+                },
+                 messages: {
+                    fullname: {
+                        required: 'Please enter your fullname.',
                     },
                 },
                 errorElement: 'small',
