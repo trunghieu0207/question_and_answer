@@ -32,7 +32,7 @@ class AnswerController extends Controller
 		if($request->hasFile('attachment')) {
 			$filename = $answer->_id.$request->attachment->getClientOriginalName();
 			$answer->attachment_path = $filename;
-			$request->attachment->move('files\\', $filename);
+			$request->attachment->move('files/', $filename);
 		}
 		$answer->save();
 
@@ -47,6 +47,12 @@ class AnswerController extends Controller
 			return redirect()->route('homePage');
 		} 
 		$question = Question::where('_id',$answer->question_id)->get();
+		$parsedown = new \Parsedown();
+		foreach($question as $key)
+		{
+			$key->content = $parsedown->setMarkupEscaped(true)->text($key->content);
+			$key->date_convert = $key->created_at->diffForHumans();
+		}
 
 		return view('answer.edit_answer',compact('answer','id','question'));
 	}
@@ -61,10 +67,10 @@ class AnswerController extends Controller
 		$answer = Answer::find($request->get('id'));
 		$answer->content = $request->get('content');
 		if($request->hasFile('attachment')) {
-			File::delete('files\\'.$answer->attachment_path);
+			File::delete('files/'.$answer->attachment_path);
 			$filename = $answer->_id.$request->attachment->getClientOriginalName();
 			$answer->attachment_path = $filename;
-			$request->attachment->move('files\\', $filename);
+			$request->attachment->move('files/', $filename);
 		}
 		$answer->save();
 

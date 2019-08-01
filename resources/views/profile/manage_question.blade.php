@@ -1,5 +1,7 @@
 @extends('layout.profile')
 
+@section('title', 'Profile - Manage question')
+
 @section('script')
 <script>
 function confirmRemove(btn){

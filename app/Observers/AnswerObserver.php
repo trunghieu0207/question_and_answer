@@ -37,7 +37,7 @@ class AnswerObserver
      */
     public function deleted(Answer $answer)
     {
-        if(!empty($answer->attachment_path)) File::delete('files\\'.$answer->attachment_path);
+        if(!empty($answer->attachment_path)) File::delete('files/'.$answer->attachment_path);
     }
 
     /**
