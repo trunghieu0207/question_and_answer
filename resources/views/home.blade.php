@@ -26,16 +26,16 @@
 						<br>
 						<br>
 						<p class="pv-archiveText">{{$question->content}}</p>
-						<div class="row" style="width: 300px">
-							<div class="col">
+						<div class="row" style="width: 250px; color:gray;">
+							<div class="col-3">
 								<i class="fa fa-thumbs-up"></i>
 								{{$question->total_like}}
 							</div>
-							<div class="col">
+							<div class="col-3">
 								<i class="fa fa-thumbs-down"></i>
 								{{$question->total_dislike}}
 							</div>
-							<div class="col">
+							<div class="col-3">
 								<i class="fa fa-reply"></i>
 								{{$question->total_answer}}
 
