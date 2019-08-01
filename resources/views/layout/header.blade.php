@@ -25,7 +25,7 @@
                 </div>
                 @if(Auth::check())
                 <div class="col-0.5">
-                    <a href="{{route('addTopic')}}" class="btn btn-outline-secondary ml-2"><i
+                    <a href="{{route('addTopic')}}" class="btn btn-outline-secondary"><i
                             class="fa fa-plus"></i></a>
                 </div>
                 <div class="col-0.5">

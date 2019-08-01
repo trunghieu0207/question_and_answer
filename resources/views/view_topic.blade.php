@@ -7,23 +7,30 @@
 @section('js')
 <script>
     $('#fuMain').fileinput({
-    theme: 'fa',
-            //allowedFileExtensions: ['png', 'jpg'],
-            //uploadUrl: '/upload_article_poster',
-            uploadAsync: false,
-            showUpload: false,
-            maxFileSize: 5120,
-            removeClass: 'btn btn-warning'
-        });
-var simplemde = new SimpleMDE({
-    element: document.getElementById("MyID")
-});
+        theme: 'fa',
+        //allowedFileExtensions: ['png', 'jpg'],
+        //uploadUrl: '/upload_article_poster',
+        uploadAsync: false,
+        showUpload: false,
+        maxFileSize: 5120,
+        removeClass: 'btn btn-warning'
+    });
 
-function checkContent() {
-    if (simplemde.value() != "") {
-        document.getElementById("addanswer").submit();
+    var simplemde = new SimpleMDE({
+        element: document.getElementById("MyID")
+    });
+
+    function checkContent() {
+        if (simplemde.value() != "") {
+            document.getElementById("addanswer").submit();
+        }
     }
-}
+
+
+    var imgs = document.getElementsByTagName("IMG");
+    for (i = 0; i < imgs.length; i++) {
+        imgs[i].setAttribute("style", "max-height: 600px;max-width: 800px;");
+    }
 
 </script>
 @endsection
@@ -36,8 +43,9 @@ function checkContent() {
     <div class="card shadow">
         <div class="row px-3 pt-3">
 
-            <div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}"class="test rounded-circle align-middle"></div>
-            
+            <div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}"
+                    class="test rounded-circle align-middle"></div>
+
             <!-- Start Username, Date, Edit, Delete Block -->
             <div class="col-sm-11">
                 <div class="font-weight-bold" style="color:#787878; font-size: 25px">{{$question->user->fullname}}
@@ -45,7 +53,8 @@ function checkContent() {
                     @if(Auth::check())
                     @if($question->user_id==Auth::user()->id)
                     <a href="#myModal" data-toggle="modal">
-                        <i class="float-right fa fa-trash" aria-hidden="true"style="margin-right:10px; font-size: 120%; "></i></a>
+                        <i class="float-right fa fa-trash" aria-hidden="true"
+                            style="margin-right:10px; font-size: 120%; "></i></a>
                     <!-- Modal HTML -->
                     <div id="myModal" class="modal fade" tabindex="-1">
                         <div class="modal-dialog">
@@ -84,10 +93,10 @@ function checkContent() {
                 <br>
             </div>
             <!-- End Username, Date, Edit, Delete Block -->
-            
+
             <!-- Start Question Title Block -->
             <div class="col-sm-12 d-flex justify-content-sm-between">
-                <h3>{{$question->title}}</h3>
+                <h3 class="text-primary font-weight-bold">{{$question->title}}</h3>
                 <span class="badge badge-info" style="height: 20px">{{$question->category->name}}</span>
             </div>
             <!-- End Question Title Block -->
@@ -96,27 +105,31 @@ function checkContent() {
             <div class="col-sm-12" style="margin-left: 10px">
                 <p>{!! $question->content !!}</p>
                 @if($question->attachment_path)
-                    <h6>Attachments</h6>
-                    <a target="blank" href="{{asset('files/'.$question->attachment_path)}}"><i>{{$question->attachment_path}}</i></a>
+                <div class="float-right">
+                    <b class="badge badge-warning">Attachments:</b>
+                    <a target="blank"
+                        href="{{asset('files/'.$question->attachment_path)}}"><i>{{$question->attachment_path}}</i></a>
+                </div>
                 @else
                 @endif
-                <div class="row" style="width: 500px; color:#787878; font-size: 20px; margin-bottom: 10px; margin-left: 5px;">
+                <div class="row"
+                    style="width: 500px; color:#787878; font-size: 20px; margin-bottom: 10px; margin-left: 5px;">
                     <div class="col-xs" style="width:70px">
                         @if (Auth::check())
-                            <a href="{{asset('like')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
+                        <a href="{{asset('like')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$question->total_like}}
                         @else
-                            <a href="{{route('signInIndex')}} " style="color:#787878"><i class="fa fa-thumbs-up"></i></a>
-                            {{$question->total_like}}
+                        <a href="{{route('signInIndex')}} " style="color:#787878"><i class="fa fa-thumbs-up"></i></a>
+                        {{$question->total_like}}
                         @endif
                     </div>
                     <div class="col-xs" style="width:70px">
                         @if (Auth::check())
-                            <a href="{{asset('dislike')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
+                        <a href="{{asset('dislike')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-down"></i></a> {{$question->total_dislike}}
                         @else
-                            <a href="{{route('signInIndex')}}" style="color:#787878"><i class="fa fa-thumbs-down"></i></a>
-                            {{$question->total_dislike}}
+                        <a href="{{route('signInIndex')}}" style="color:#787878"><i class="fa fa-thumbs-down"></i></a>
+                        {{$question->total_dislike}}
                         @endif
                     </div>
                     <div class="col-xs" style="width:70px">
@@ -162,13 +175,14 @@ function checkContent() {
             <h3>Answer</h3>
         </div>
 
-        <!-- Start Best Answer Block -->        
+        <!-- Start Best Answer Block -->
         @if ($best_answer!=null)
         <div class="row px-3 pt-3">
             <div class="col-sm-1">
-                <img src="{{asset('images/avatars')}}/{{$best_answer->user->avatar}}" class="test rounded-circle align-middle">
+                <img src="{{asset('images/avatars')}}/{{$best_answer->user->avatar}}"
+                    class="test rounded-circle align-middle">
                 <br>
-                <br>                
+                <br>
                 <div class="d-flex" style="justify-content :center; align-items:center;  font-size:200%; color:#66ad1f">
                     <i class="fa fa-check" aria-hidden="true"></i>
                 </div>
@@ -176,41 +190,45 @@ function checkContent() {
             <div class="col-sm-11">
                 <div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$best_answer->user->fullname}}
                     @if (Auth::check())
-                        @if($best_answer->user_id==Auth::user()->id)
-                            <a href="{{asset('editanswer')}}/{{ $best_answer->id }}">
-                            <i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>
-                        @endif
+                    @if($best_answer->user_id==Auth::user()->id)
+                    <a href="{{asset('editanswer')}}/{{ $best_answer->id }}">
+                        <i class="float-right fa fa-pencil-square-o" aria-hidden="true"
+                            style="margin-right:10px; font-size:120%"></i></a>
+                    @endif
                     @endif
                 </div>
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
-                        <i class="fa fa-clock-o" aria-hidden="true"> </i> 
+                        <i class="fa fa-clock-o" aria-hidden="true"> </i>
                         {{$best_answer->date_convert}}
                     </small>
                 </div>
                 <br>
                 <p>{!! $best_answer->content !!}</p>
                 @if($best_answer->attachment_path)
-                    <h6>Attachments</h6>
-                    <a target="blank" href="{{asset('files/'.$best_answer->attachment_path)}}"><i>{{$best_answer->attachment_path}}</i></a>
+                <div class="float-right">
+                    <b class="badge badge-warning">Attachments:</b>
+                    <a target="blank"
+                        href="{{asset('files/'.$best_answer->attachment_path)}}"><i>{{$best_answer->attachment_path}}</i></a>
+                </div>
                 @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-1">
                         @if(Auth::check())
-                            <a href="{{asset('like')}}/{{$best_answer->_id}}/Answer/{{Auth::user()->id}}">
+                        <a href="{{asset('like')}}/{{$best_answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$best_answer->total_like}}
                         @else
-                            <a href="{{route('signInIndex')}}"><i class="fa fa-thumbs-up" style="color:#787878"></i></a>
-                            {{$best_answer->total_like}}
+                        <a href="{{route('signInIndex')}}"><i class="fa fa-thumbs-up" style="color:#787878"></i></a>
+                        {{$best_answer->total_like}}
                         @endif
                     </div>
                     <div class="col-1">
                         @if(Auth::check())
-                            <a href="{{asset('dislike')}}/{{$best_answer->_id}}/Answer/{{Auth::user()->id}}">
+                        <a href="{{asset('dislike')}}/{{$best_answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-down"></i></a> {{$best_answer->total_dislike}}
                         @else
-                            <a href="{{route('signInIndex')}}"><i class="fa fa-thumbs-down" style="color:#787878"></i></a>
-                            {{$best_answer->total_dislike}}
+                        <a href="{{route('signInIndex')}}"><i class="fa fa-thumbs-down" style="color:#787878"></i></a>
+                        {{$best_answer->total_dislike}}
                         @endif
                     </div>
                     @if (Auth::check())
@@ -227,73 +245,77 @@ function checkContent() {
         </div>
         <hr>
         @endif
-        <!-- End Best Answer Block --> 
+        <!-- End Best Answer Block -->
 
         <!-- Start Other Answers Block -->
         @foreach($answers as $answer)
         @if (($best_answer==null) or (($best_answer!=null) and ($answer->_id!=$best_answer->_id)))
         <div class="row px-3 pt-3">
             <div class="col-sm-1">
-                <img src="{{asset('images/avatars')}}/{{$answer->user->avatar}}" class="test rounded-circle align-middle">
+                <img src="{{asset('images/avatars')}}/{{$answer->user->avatar}}"
+                    class="test rounded-circle align-middle">
                 <br>
                 <br>
                 @if ($question->best_answer_id == $answer->_id)
-                    <div class="d-flex" style="justify-content :center; align-items:center;  font-size:200%; color:#66ad1f">
-                        <i class="fa fa-check" aria-hidden="true"></i>
-                    </div>
+                <div class="d-flex" style="justify-content :center; align-items:center;  font-size:200%; color:#66ad1f">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                </div>
                 @endif
             </div>
             <div class="col-sm-11">
                 <div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$answer->user->fullname}}
                     @if (Auth::check())
                     @if (Auth::user()->id==$answer->user_id)
-                        <a href="{{asset('editanswer')}}/{{ $answer->id }}"><i class="float-right fa fa-pencil-square-o"
-                                aria-hidden="true" style="margin-right:10px; font-size:120%"></i> </a>
+                    <a href="{{asset('editanswer')}}/{{ $answer->id }}"><i class="float-right fa fa-pencil-square-o"
+                            aria-hidden="true" style="margin-right:10px; font-size:120%"></i> </a>
                     @endif
                     @endif
                 </div>
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
-                        <i class="fa fa-clock-o" aria-hidden="true"> </i> 
+                        <i class="fa fa-clock-o" aria-hidden="true"> </i>
                         {{$answer->date_convert}}
                     </small>
                 </div>
                 <br>
                 <p>{!! $answer->content !!}</p>
                 @if($answer->attachment_path)
-                    <h6>Attachments</h6>
-                    <a target="blank" href="{{asset('files/'.$answer->attachment_path)}}"><i>{{$answer->attachment_path}}</i></a>
+                <div class="float-right">
+                    <b class="badge badge-warning">Attachments:</b>
+                    <a target="blank"
+                        href="{{asset('files/'.$answer->attachment_path)}}"><i>{{$answer->attachment_path}}</i></a>
+                </div>
                 @else
                 @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-1">
                         @if(Auth::check())
-                            <a href="{{asset('like')}}/{{$answer->_id}}/Answer/{{Auth::user()->id}}">
+                        <a href="{{asset('like')}}/{{$answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$answer->total_like}}
                         @else
-                            <a href="{{ route('signInIndex') }} " style="color:#787878"><i class="fa fa-thumbs-up"></i></a>
-                            {{$answer->total_like}}
+                        <a href="{{ route('signInIndex') }} " style="color:#787878"><i class="fa fa-thumbs-up"></i></a>
+                        {{$answer->total_like}}
                         @endif
                     </div>
                     <div class="col-1">
                         @if(Auth::check())
-                            <a href="{{asset('dislike')}}/{{$answer->_id}}/Answer/{{Auth::user()->id}}">
+                        <a href="{{asset('dislike')}}/{{$answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-down"></i></a>
-                            {{$answer->total_dislike}}
+                        {{$answer->total_dislike}}
                         @else
-                            <a href="{{ route('signInIndex') }}" style="color:#787878"><i class="fa fa-thumbs-down"></i></a>
-                            {{$answer->total_dislike}}
+                        <a href="{{ route('signInIndex') }}" style="color:#787878"><i class="fa fa-thumbs-down"></i></a>
+                        {{$answer->total_dislike}}
                         @endif
                     </div>
                     @if (Auth::check())
-                        @if (Auth::user()->id==$question->user_id)
-                            <div class='col-10 justify-content-sm-end'>                                           
-                                <a href="{{asset('bestanswer')}}/{{$answer->_id}}"><button type="button"
-                                    class="float-right btn btn-success">Best Answer</button></a>                           
-                            </div>
-                        @endif
+                    @if (Auth::user()->id==$question->user_id)
+                    <div class='col-10 justify-content-sm-end'>
+                        <a href="{{asset('bestanswer')}}/{{$answer->_id}}"><button type="button"
+                                class="float-right btn btn-success">Best Answer</button></a>
+                    </div>
                     @endif
-                   
+                    @endif
+
                 </div>
 
             </div>

@@ -90,7 +90,7 @@
 				@endif
 				<!-- End content-->
 
-				<button type="button" onclick="checkContent()" class="btn btn-primary float-right">Update</button>
+				<button type="button" onclick="checkContent()" class="btn btn-primary float-right">Save changes</button>
 
 			</form>
 		</div>
