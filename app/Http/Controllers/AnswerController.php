@@ -51,6 +51,7 @@ class AnswerController extends Controller
 		foreach($question as $key)
 		{
 			$key->content = $parsedown->setMarkupEscaped(true)->text($key->content);
+			$key->date_convert = $key->created_at->diffForHumans();
 		}
 
 		return view('answer.edit_answer',compact('answer','id','question'));

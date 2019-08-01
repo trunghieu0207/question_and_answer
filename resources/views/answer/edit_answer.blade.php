@@ -37,7 +37,7 @@
                 </div>
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
-                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{$val->created_at}}
+                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{$val->date_convert}}
                     </small>
                 </div>
                 <br>
