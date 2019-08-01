@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         $user->password = bcrypt(123456);
         $user->fullname = 'User1';
         $user->avatar = 'default_avatar.png';
-        $user->about_me = null;
-        $user->read_notification = false;
+        $user->about_me = 'None';
+        $user->read_notification = true;
         $user->save();
 
         $user2 = new User();
@@ -32,8 +32,8 @@ class DatabaseSeeder extends Seeder
         $user2->password=bcrypt(123456);
         $user2->fullname='User2';
         $user2->avatar = 'default_avatar.png';
-        $user2->about_me = null;
-        $user->read_notification = false;
+        $user2->about_me='None';
+        $user2->read_notification = true;
         $user2->save();
 
 
