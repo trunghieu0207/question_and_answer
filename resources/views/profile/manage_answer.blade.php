@@ -3,7 +3,7 @@
 @section('title', 'Profile - Manage answer')
 
 @section('contentprofile')
-<h2 class="text-primary text-center">MANAGE ANSWER</h2>
+<h2 class="text-primary text-center">MANAGE ANSWERS</h2>
 <hr class="my-3">
 <table class="table table-hover">
     <thead>

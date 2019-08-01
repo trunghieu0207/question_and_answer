@@ -5,6 +5,7 @@ use App\Answer;
 use Illuminate\Http\Request;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 use File;
 
 class AnswerController extends Controller
@@ -59,10 +60,6 @@ class AnswerController extends Controller
 
 	public function update(Request $request)
 	{
-		// $validatedData = $request->validate([
-		// 	'title' => 'required|unique:posts|max:255',
-		// 	'content' => 'required',
-		// ]);
 
 		$answer = Answer::find($request->get('id'));
 		$answer->content = $request->get('content');

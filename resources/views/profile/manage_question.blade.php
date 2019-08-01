@@ -15,7 +15,7 @@ function confirmRemove(btn){
 @endsection
 
 @section('contentprofile')
-<h2 class="text-primary text-center">MANAGE QUESTION</h2>
+<h2 class="text-primary text-center">MANAGE QUESTIONS</h2>
 <hr class="my-3">
 <table class="table table-hover">
     <thead>

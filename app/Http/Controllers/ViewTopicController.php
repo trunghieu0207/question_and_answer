@@ -230,7 +230,7 @@ class ViewTopicController extends Controller
         $noti->user_id=$user_id;
         $noti->postable_id=$question->_id;
         $noti->postable_type="Question";
-        $noti->content=$user2->fullname.$action." your question.";
+        $noti->content=$user2->fullname." ".strtolower($action)." your question.";
         $noti->save();        
     }
 
@@ -243,7 +243,7 @@ class ViewTopicController extends Controller
         $noti->user_id=$user_id;
         $noti->postable_id=$answer->_id;
         $noti->postable_type="Answer";
-        $noti->content=$user2->fullname.$action." your answer.";
+        $noti->content=$user2->fullname." ".strtolower($action)." your answer.";
         $noti->save();        
     }
 

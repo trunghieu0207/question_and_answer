@@ -101,7 +101,7 @@ function checkContent() {
                 @else
                 @endif
                 <div class="row" style="width: 500px; color:#787878; font-size: 20px; margin-bottom: 10px; margin-left: 5px;">
-                    <div class="col-xs" style="width:100px">
+                    <div class="col-xs" style="width:70px">
                         @if (Auth::check())
                             <a href="{{asset('like')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$question->total_like}}
@@ -110,7 +110,7 @@ function checkContent() {
                             {{$question->total_like}}
                         @endif
                     </div>
-                    <div class="col-xs" style="width:100px">
+                    <div class="col-xs" style="width:70px">
                         @if (Auth::check())
                             <a href="{{asset('dislike')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-down"></i></a> {{$question->total_dislike}}
@@ -119,7 +119,7 @@ function checkContent() {
                             {{$question->total_dislike}}
                         @endif
                     </div>
-                    <div class="col-xs" style="width:100px">
+                    <div class="col-xs" style="width:70px">
                         <i class="fa fa-reply"></i> {{$question->total_answer}}
                     </div>
                 </div>
