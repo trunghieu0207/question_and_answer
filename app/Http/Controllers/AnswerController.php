@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Answer;
 use Illuminate\Http\Request;
 use App\Question;
+use App\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 use File;
@@ -36,6 +37,8 @@ class AnswerController extends Controller
 			$request->attachment->move('files/', $filename);
 		}
 		$answer->save();
+
+		(new UserController)->createNotification($question->user_id, Notification::$target[0], Notification::$action[0],  $question->_id);
 
 		return redirect()->route('viewTopic', ['id' => $answer->question_id]);
 	}

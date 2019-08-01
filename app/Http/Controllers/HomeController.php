@@ -26,6 +26,7 @@ class HomeController extends Controller
 
 		foreach($questions as $question){
 			echo '<a id="result_id" href="/viewtopic/'.$question->_id.'" class="dropdown-item"><small>'.htmlspecialchars($question->title, ENT_QUOTES, 'UTF-8').'</small></a>';
+			
 		}
 	}
 

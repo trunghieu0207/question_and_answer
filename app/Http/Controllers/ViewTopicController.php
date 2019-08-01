@@ -9,14 +9,11 @@ use App\User_Question_Answer;
 use App\Notification;
 use App\user;
 use Illuminate\Support\Collection;
-
+use Carbon\Carbon;
 
 class ViewTopicController extends Controller
 {
-    public function sort_objects_by_total($a, $b) {
-        if($a->total_posts == $b->total_posts){ return 0 ; }
-        return ($a->total_posts < $b->total_posts) ? -1 : 1;
-    }
+
     public function view($id)
     {
         $question = Question::find($id);
@@ -32,17 +29,18 @@ class ViewTopicController extends Controller
             $question->save(); 
             $parsedown = new \Parsedown();
             $question->content = $parsedown->setMarkupEscaped(true)->text($question->content);
-            $question->date_convert = $question->created_at->diffForHumans();
+            $now = Carbon::now();
+            $question->date_convert = $question->created_at->diffForHumans($now);
             foreach ($answers as $answer) 
             {
                 $answer->content = $parsedown->setMarkupEscaped(true)->text($answer->content);
-                $answer->date_convert = $answer->created_at->diffForHumans();
+                $answer->date_convert = $answer->created_at->diffForHumans($now);
             }
             if(!empty($question->best_answer_id)) 
             {
                 $best_answer= Answer::find($question->best_answer_id);
                 $best_answer->content = $parsedown->setMarkupEscaped(true)->text($best_answer->content);
-                $best_answer->date_convert = $best_answer->created_at->diffForHumans();
+                $best_answer->date_convert = $best_answer->created_at->diffForHumans($now);
             }
 
             return view('view_topic',compact('question','answers','best_answer'));
@@ -55,8 +53,10 @@ class ViewTopicController extends Controller
         $question = Question::find($answer->question_id);
         $question->best_answer_id = $id_answer;
         $question->save();
+        (new UserController)->createNotification($answer->user_id, Notification::$target[1], Notification::$action[3],  $question->_id);
 
         return redirect()->back();
+
     }
 
     public function removeBestAnswer($id_answer)
@@ -94,20 +94,24 @@ class ViewTopicController extends Controller
                 $question= Question::find($post_id);    
                 $question->total_like += 1;
                 $question->save();
-                $this->notificationQuestion($question,"Like",$user_id);
+
+                (new UserController)->createNotification($question->user_id, Notification::$target[0], Notification::$action[1],  $question->_id);
                 
             }
             else
             {
+
                 $answer= Answer::find($post_id);       
                 $answer->total_like += 1;
                 $answer->save();
-                $this->notificationAnswer($answer,"Like",$user_id);                
+                (new UserController)->createNotification($answer->user_id, Notification::$target[1], Notification::$action[1],  $answer->question_id);
+
             }            
             $this->addUserQuestionAnswer($post_id,$post_type,$user_id,"Like");            
             if ($user_disliked)
+
             {   
-                
+
                 if ($post_type =='Question')
                 {         
                     $question->total_dislike -= 1;
@@ -120,28 +124,27 @@ class ViewTopicController extends Controller
                 }
                 $user_disliked->delete();
             }
-        }
-        else
-        {
-            if ($post_type =='Question')
-            {
-                $question= Question::find($post_id);    
-                $question->total_like -= 1;
-                $question->save();
-            }
             else
-            {   
-                $answer= Answer::find($post_id);       
-                $answer->total_like -= 1;
-                $answer->save();
-            }                
-            $user_liked->delete();
+            {
+                if ($post_type =='Question')
+                {
+                    $question= Question::find($post_id);    
+                    $question->total_like -= 1;
+                    $question->save();
+                }
+                else
+                {   
+                    $answer= Answer::find($post_id);       
+                    $answer->total_like -= 1;
+                    $answer->save();
+                }                
+                $user_liked->delete();
+            }
+
+            return redirect()->back();
         }
 
-        return redirect()->back();  
     }
-
-		      
     public function dislike($post_id,$post_type,$user_id)
     {
         $user_liked=$this->checkLike($post_id,$post_type,$user_id);
@@ -153,14 +156,15 @@ class ViewTopicController extends Controller
                 $question= Question::find($post_id);          
                 $question->total_dislike += 1;
                 $question->save();
-                $this->notificationQuestion($question,"Dislike",$user_id);
+                (new UserController)->createNotification($question->user_id, Notification::$target[0], Notification::$action[2],  $question->_id);
             }
             else
             {
-                $answer= Answer::find($post_id);              
+
+                $answer= Answer::find($post_id);           
                 $answer->total_dislike += 1;
                 $answer->save();
-                $this->notificationAnswer($answer,"Dislike",$user_id);
+                (new UserController)->createNotification($answer->user_id, Notification::$target[1], Notification::$action[2],  $answer->question_id);
             }
             $this->addUserQuestionAnswer($post_id,$post_type,$user_id,"Dislike");
             if ($user_liked)
@@ -192,38 +196,14 @@ class ViewTopicController extends Controller
                 $answer->total_dislike -= 1;
                 $answer->save();
             }
-                           
+
             $user_disliked->delete();
         }
-       
+
         return redirect()->back();        
+
     }
 
-    public function notificationQuestion($question,$action,$user_id)
-    {
-
-        $user1=User::where('_id','=',$question->user_id);
-        $user2= User::find($user_id);
-        $noti= new Notification();
-        $noti->user_id=$user_id;
-        $noti->postable_id=$question->_id;
-        $noti->postable_type="Question";
-        $noti->content=$user2->fullname." ".strtolower($action)." your question.";
-        $noti->save();        
-    }
-
-    public function notificationAnswer($answer,$action,$user_id)
-    {
-
-        $user1=User::where('_id','=',$answer->user_id);
-        $user2= User::find($user_id);
-        $noti= new Notification();
-        $noti->user_id=$user_id;
-        $noti->postable_id=$answer->_id;
-        $noti->postable_type="Answer";
-        $noti->content=$user2->fullname." ".strtolower($action)." your answer.";
-        $noti->save();        
-    }
 
     public function addUserQuestionAnswer($post_id,$post_type,$user_id,$action)
     {
@@ -235,6 +215,8 @@ class ViewTopicController extends Controller
         $post->save();
     }
 
-
 }
+
+
+
 
