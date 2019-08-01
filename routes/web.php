@@ -42,6 +42,10 @@ Route::get('viewtopic/{id}',[
 		'uses' => 'ViewTopicController@view'
 ]);
 
+Route::get('aboutus',[
+	'as' => 'aboutUs',
+	'uses' => 'AboutUsController@index'
+]);
 
 /*Start middleware check sigin*/
 Route::middleware(['checkSignIn'])->group(function () {
