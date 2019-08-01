@@ -213,12 +213,14 @@ function checkContent() {
                             {{$best_answer->total_dislike}}
                         @endif
                     </div>
+                    @if (Auth::check())
                     @if (Auth::user()->id==$question->user_id)
                     <div class="col-10 justify-content-sm-end">
                         <a href="{{asset('removebestanswer')}}/{{$best_answer->_id}}"><button type="button"
                                 class="float-right btn btn-warning">Remove Best Answer</button></a>
                     </div>
                     @else
+                    @endif
                     @endif
                 </div>
             </div>
