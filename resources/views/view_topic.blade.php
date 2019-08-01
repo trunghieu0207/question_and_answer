@@ -95,7 +95,7 @@ function checkContent() {
             <!-- Start Question Content Block -->
             <div class="col-sm-12" style="margin-left: 10px">
                 <p>{!! $question->content !!}</p>
-                @if(!file_exists(public_path().'files/{{ $question->attachment_path }}'))
+                @if($question->attachment_path)
                     <h6>Attachments</h6>
                     <a target="blank" href="{{asset('files/'.$question->attachment_path)}}"><i>{{$question->attachment_path}}</i></a>
                 @else
@@ -190,7 +190,7 @@ function checkContent() {
                 </div>
                 <br>
                 <p>{!! $best_answer->content !!}</p>
-                @if(!file_exists(public_path().'files/{{ $best_answer->attachment_path }}'))
+                @if($best_answer->attachment_path)
                     <h6>Attachments</h6>
                     <a target="blank" href="{{asset('files/'.$best_answer->attachment_path)}}"><i>{{$best_answer->attachment_path}}</i></a>
                 @endif
@@ -260,7 +260,7 @@ function checkContent() {
                 </div>
                 <br>
                 <p>{!! $answer->content !!}</p>
-                @if(!file_exists(public_path().'files/{{ $answer->attachment_path }}'))
+                @if($answer->attachment_path)
                     <h6>Attachments</h6>
                     <a target="blank" href="{{asset('files/'.$answer->attachment_path)}}"><i>{{$answer->attachment_path}}</i></a>
                 @else

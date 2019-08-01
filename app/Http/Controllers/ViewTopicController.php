@@ -52,7 +52,7 @@ class ViewTopicController extends Controller
         $question->best_answer_id = $id_answer;
         $question->save();
 
-        return redirect()->route('viewTopic',compact('question'));
+        return redirect()->back();
     }
 
     public function removeBestAnswer($id_answer)
@@ -62,19 +62,19 @@ class ViewTopicController extends Controller
         $question->best_answer_id = null;
         $question->save();
 
-        return redirect()->route('viewTopic',compact('question'));        
+        return redirect()->back();        
     }
     
     public function checkLike($post_id,$post_type,$user_id)
     {
-        $user_liked=User_Question_Answer::where('user_id',$user_id)->where('post_id', $post_id)->where('action', "Like")->where('post_type',$post_type)->get();
+        $user_liked=User_Question_Answer::where('user_id',$user_id)->where('post_id', $post_id)->where('action', "Like")->where('post_type',$post_type)->first();
 
         return $user_liked;
     }
 
     public function checkDislike($post_id,$post_type,$user_id)
     {
-        $user_disliked=User_Question_Answer::where('user_id',$user_id)->where('post_id', $post_id)->where('action', "Dislike")->where('post_type',$post_type)->get();
+        $user_disliked=User_Question_Answer::where('user_id',$user_id)->where('post_id', $post_id)->where('action', "Dislike")->where('post_type',$post_type)->first();
 
         return $user_disliked;
     }
@@ -84,7 +84,7 @@ class ViewTopicController extends Controller
         $user_liked    =$this->checkLike($post_id,$post_type,$user_id);
         $user_disliked =$this->checkDislike($post_id,$post_type,$user_id);
         
-        if ($user_liked->count()==0){
+        if (!$user_liked){
             if ($post_type =='Question')
             {
                 $question= Question::find($post_id);    
@@ -95,22 +95,13 @@ class ViewTopicController extends Controller
             }
             else
             {
-                $answer= Answer::find($post_id);
-                $question=$answer->question_id;        
+                $answer= Answer::find($post_id);       
                 $answer->total_like += 1;
                 $answer->save();
-                $this->notificationAnswer($answer,"Like",$user_id);
-                
-            }
-            
-            $like=new User_Question_Answer();
-            $like->user_id=$user_id;
-            $like->post_id=$post_id;
-            $like->post_type=$post_type;
-            $like->action="Like";
-            $like->save();
-            
-            if ($user_disliked->count()!=0)
+                $this->notificationAnswer($answer,"Like",$user_id);                
+            }            
+            $this->addUserQuestionAnswer($post_id,$post_type,$user_id,"Like");            
+            if ($user_disliked)
             {   
                 
                 if ($post_type =='Question')
@@ -123,9 +114,7 @@ class ViewTopicController extends Controller
                     $answer->total_dislike -= 1;
                     $answer->save();
                 }
-                foreach($user_disliked as $undislike){                
-                    $undislike->delete();
-                }
+                $user_disliked->delete();
             }
         }
         else
@@ -138,19 +127,14 @@ class ViewTopicController extends Controller
             }
             else
             {   
-                $answer= Answer::find($post_id);
-                $question=$answer->question_id;        
+                $answer= Answer::find($post_id);       
                 $answer->total_like -= 1;
                 $answer->save();
-            }
-            foreach($user_liked as $unlike){                
-                $unlike->delete();
-            }
-
+            }                
+            $user_liked->delete();
         }
-        
-        return redirect()->route('viewTopic',compact('question'));
-        
+
+        return redirect()->back();  
     }
 
 		      
@@ -158,7 +142,7 @@ class ViewTopicController extends Controller
     {
         $user_liked=$this->checkLike($post_id,$post_type,$user_id);
         $user_disliked=$this->checkDislike($post_id,$post_type,$user_id);
-        if ($user_disliked->count()==0)
+        if (!$user_disliked)
         {
             if ($post_type =='Question')
             {
@@ -169,19 +153,13 @@ class ViewTopicController extends Controller
             }
             else
             {
-                $answer= Answer::find($post_id);
-                $question=$answer->question_id;               
+                $answer= Answer::find($post_id);              
                 $answer->total_dislike += 1;
                 $answer->save();
                 $this->notificationAnswer($answer,"Dislike",$user_id);
             }
-            $dislike=new User_Question_Answer();
-            $dislike->user_id=$user_id;
-            $dislike->post_id=$post_id;
-            $dislike->post_type=$post_type;
-            $dislike->action="Dislike";
-            $dislike->save();
-            if ($user_liked->count()!=0)
+            $this->addUserQuestionAnswer($post_id,$post_type,$user_id,"Dislike");
+            if ($user_liked)
             {   
                 if ($post_type =='Question')
                 {         
@@ -193,9 +171,7 @@ class ViewTopicController extends Controller
                     $answer->total_like -= 1;
                     $answer->save();
                 }
-                foreach($user_liked as $unlike){                
-                    $unlike->delete();
-                }
+                $user_liked->delete();
             }
         }
         else
@@ -208,17 +184,15 @@ class ViewTopicController extends Controller
             }
             else
             {
-                $answer= Answer::find($post_id);
-                $question=$answer->question_id;               
+                $answer= Answer::find($post_id);            
                 $answer->total_dislike -= 1;
                 $answer->save();
             }
-            foreach($user_disliked as $undislike){                
-                $undislike->delete();
-            }
+                           
+            $user_disliked->delete();
         }
        
-        return redirect()->route('viewTopic',compact('question'));        
+        return redirect()->back();        
     }
 
     public function notificationQuestion($question,$action,$user_id)
@@ -245,6 +219,16 @@ class ViewTopicController extends Controller
         $noti->postable_type="Answer";
         $noti->content=$user2->fullname." ".strtolower($action)." your answer.";
         $noti->save();        
+    }
+
+    public function addUserQuestionAnswer($post_id,$post_type,$user_id,$action)
+    {
+        $post=new User_Question_Answer();
+        $post->user_id=$user_id;
+        $post->post_id=$post_id;
+        $post->post_type=$post_type;
+        $post->action=$action;
+        $post->save();
     }
 
 

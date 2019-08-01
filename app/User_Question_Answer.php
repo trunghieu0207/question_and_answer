@@ -8,4 +8,14 @@ class User_Question_Answer extends Eloquent
 {
     protected $connection = 'mongodb';
     protected $collection = 'antman_user_question_answer';
+    public function user() {
+    	return $this->belongsTo('App\User', 'user_id', '_id');
+    }
+    public function question() {
+    	return $this->belongsTo('App\User', 'post_id', '_id');
+    }
+    public function answer() {
+    	return $this->belongsTo('App\User', 'post_id', '_id');
+    }
+
 }
