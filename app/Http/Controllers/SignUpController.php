@@ -23,6 +23,7 @@ class SignUpController extends Controller
 		$user->password=bcrypt($request->password);
 		$user->avatar = "default_avatar.png";
 		$user->about_me = null;
+		$user->read_notification = false;
 		$user->save();		
 		return redirect()->route('signInIndex');
 	}
