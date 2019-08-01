@@ -40,7 +40,7 @@ function confirmRemove(btn){
         @endforeach
     </tbody>
 </table>
-<form id="deleteform" action="{{route('removeQuestion')}}" method="post">
+<form id="deleteform" action="{{route('deleteTopic')}}" method="post">
     {{csrf_field()}}
     <input hidden type="text" name="_id" id="question_id">
 </form>

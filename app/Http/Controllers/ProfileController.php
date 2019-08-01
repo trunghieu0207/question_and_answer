@@ -30,11 +30,6 @@ class ProfileController extends Controller
 		return view('profile.manage_answer',compact('answers','active_manage_answer'));
     }
 
-    public function removeQuestion(Request $request)
-	{
-        return (new QuestionController)->destroy($request);
-    }
-
     public function changeAvatar(Request $request)
     {
 		if ($request->hasFile('avatar')) {

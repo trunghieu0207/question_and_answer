@@ -67,7 +67,6 @@ Route::middleware(['checkSignIn'])->group(function () {
 
 		Route::get('managequestion', 'ProfileController@indexManageQuestion')->name('manageQuestion');
 		Route::get('manageanswer', 'ProfileController@indexManageAnswer')->name('manageAnswer');
-		Route::post('removequestion', 'ProfileController@removeQuestion')->name('removeQuestion');
 		Route::post('changeavatar', 'ProfileController@changeAvatar')->name('changeAvatar');
 
     });
