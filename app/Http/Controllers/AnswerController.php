@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Question;
 use App\Notification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 use File;
 
 class AnswerController extends Controller
@@ -50,16 +51,18 @@ class AnswerController extends Controller
 			return redirect()->route('homePage');
 		} 
 		$question = Question::where('_id',$answer->question_id)->get();
+		$parsedown = new \Parsedown();
+		foreach($question as $key)
+		{
+			$key->content = $parsedown->setMarkupEscaped(true)->text($key->content);
+			$key->date_convert = $key->created_at->diffForHumans();
+		}
 
 		return view('answer.edit_answer',compact('answer','id','question'));
 	}
 
 	public function update(Request $request)
 	{
-		// $validatedData = $request->validate([
-		// 	'title' => 'required|unique:posts|max:255',
-		// 	'content' => 'required',
-		// ]);
 
 		$answer = Answer::find($request->get('id'));
 		$answer->content = $request->get('content');

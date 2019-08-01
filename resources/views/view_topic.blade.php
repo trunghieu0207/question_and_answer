@@ -95,13 +95,13 @@ function checkContent() {
             <!-- Start Question Content Block -->
             <div class="col-sm-12" style="margin-left: 10px">
                 <p>{!! $question->content !!}</p>
-                @if(!file_exists(public_path().'files/{{ $question->attachment_path }}'))
+                @if($question->attachment_path)
                     <h6>Attachments</h6>
                     <a target="blank" href="{{asset('files/'.$question->attachment_path)}}"><i>{{$question->attachment_path}}</i></a>
                 @else
                 @endif
                 <div class="row" style="width: 500px; color:#787878; font-size: 20px; margin-bottom: 10px; margin-left: 5px;">
-                    <div class="col-xs" style="width:100px">
+                    <div class="col-xs" style="width:70px">
                         @if (Auth::check())
                             <a href="{{asset('like')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$question->total_like}}
@@ -110,7 +110,7 @@ function checkContent() {
                             {{$question->total_like}}
                         @endif
                     </div>
-                    <div class="col-xs" style="width:100px">
+                    <div class="col-xs" style="width:70px">
                         @if (Auth::check())
                             <a href="{{asset('dislike')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-down"></i></a> {{$question->total_dislike}}
@@ -119,7 +119,7 @@ function checkContent() {
                             {{$question->total_dislike}}
                         @endif
                     </div>
-                    <div class="col-xs" style="width:100px">
+                    <div class="col-xs" style="width:70px">
                         <i class="fa fa-reply"></i> {{$question->total_answer}}
                     </div>
                 </div>
@@ -175,9 +175,11 @@ function checkContent() {
             </div>
             <div class="col-sm-11">
                 <div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$best_answer->user->fullname}}
-                    @if($best_answer->user_id==Auth::user()->id)
-                    <a href="{{asset('editanswer')}}/{{ $best_answer->id }}">
-                    <i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>
+                    @if (Auth::check())
+                        @if($best_answer->user_id==Auth::user()->id)
+                            <a href="{{asset('editanswer')}}/{{ $best_answer->id }}">
+                            <i class="float-right fa fa-pencil-square-o" aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>
+                        @endif
                     @endif
                 </div>
                 <div>
@@ -188,7 +190,7 @@ function checkContent() {
                 </div>
                 <br>
                 <p>{!! $best_answer->content !!}</p>
-                @if(!file_exists(public_path().'files/{{ $best_answer->attachment_path }}'))
+                @if($best_answer->attachment_path)
                     <h6>Attachments</h6>
                     <a target="blank" href="{{asset('files/'.$best_answer->attachment_path)}}"><i>{{$best_answer->attachment_path}}</i></a>
                 @endif
@@ -211,12 +213,14 @@ function checkContent() {
                             {{$best_answer->total_dislike}}
                         @endif
                     </div>
+                    @if (Auth::check())
                     @if (Auth::user()->id==$question->user_id)
                     <div class="col-10 justify-content-sm-end">
                         <a href="{{asset('removebestanswer')}}/{{$best_answer->_id}}"><button type="button"
                                 class="float-right btn btn-warning">Remove Best Answer</button></a>
                     </div>
                     @else
+                    @endif
                     @endif
                 </div>
             </div>
@@ -256,7 +260,7 @@ function checkContent() {
                 </div>
                 <br>
                 <p>{!! $answer->content !!}</p>
-                @if(!file_exists(public_path().'files/{{ $answer->attachment_path }}'))
+                @if($answer->attachment_path)
                     <h6>Attachments</h6>
                     <a target="blank" href="{{asset('files/'.$answer->attachment_path)}}"><i>{{$answer->attachment_path}}</i></a>
                 @else
@@ -281,21 +285,23 @@ function checkContent() {
                             {{$answer->total_dislike}}
                         @endif
                     </div>
-                     @if (Auth::check())
-                    @if (Auth::user()->id==$question->user_id)
-                    <div class='col-10 justify-content-sm-end'>                                           
-                        <a href="{{asset('bestanswer')}}/{{$answer->_id}}"><button type="button"
-                            class="float-right btn btn-success">Best Answer</button></a>                           
-                    </div>
-                    @endif
+                    @if (Auth::check())
+                        @if (Auth::user()->id==$question->user_id)
+                            <div class='col-10 justify-content-sm-end'>                                           
+                                <a href="{{asset('bestanswer')}}/{{$answer->_id}}"><button type="button"
+                                    class="float-right btn btn-success">Best Answer</button></a>                           
+                            </div>
+                        @endif
                     @endif
                    
                 </div>
+
             </div>
         </div>
         <hr>
         @endif
         @endforeach
+        <div class="row px-3 pt-3 justify-content-sm-center">{!! $answers->links() !!}</div>
     </div>
 
 </div>

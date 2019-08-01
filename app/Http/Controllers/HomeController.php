@@ -10,8 +10,10 @@ class HomeController extends Controller
 {
 	public function index()
 	{
-		$questions = Question::orderBy('created_at', 'desc')->get();
+		$questions = Question::orderBy('created_at', 'desc')->paginate(5);
+		$questions->setPath('/');
 		foreach($questions as $question){
+
 			$question->date = $question->created_at->diffForHumans();
 		}
 		

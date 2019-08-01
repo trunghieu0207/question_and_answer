@@ -56,4 +56,9 @@ class User extends Authenticatable
     public function do_notifications() {
         return $this->hasMany('App\Notification','actor_id','_id');
     }
+    
+    public function user_question_answer()
+    {
+        return $this->hasMany('App\User_Question_Answer','user_id','_id');
+    }
 }
