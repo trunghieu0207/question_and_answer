@@ -13,6 +13,10 @@ use Illuminate\Support\Collection;
 
 class ViewTopicController extends Controller
 {
+    public function sort_objects_by_total($a, $b) {
+        if($a->total_posts == $b->total_posts){ return 0 ; }
+        return ($a->total_posts < $b->total_posts) ? -1 : 1;
+    }
     public function view($id)
     {
         $question = Question::find($id);
@@ -22,7 +26,7 @@ class ViewTopicController extends Controller
         } 
         else 
         {
-            $answers = $question->answers()->paginate(5);
+            $answers = Answer::where('question_id',$id)->orderBy('total_like','desc')->paginate(5);
             $best_answer=null;
             $question->total_answer = $answers->count();
             $question->save(); 
