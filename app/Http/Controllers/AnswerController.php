@@ -47,6 +47,11 @@ class AnswerController extends Controller
 			return redirect()->route('homePage');
 		} 
 		$question = Question::where('_id',$answer->question_id)->get();
+		$parsedown = new \Parsedown();
+		foreach($question as $key)
+		{
+			$key->content = $parsedown->setMarkupEscaped(true)->text($key->content);
+		}
 
 		return view('answer.edit_answer',compact('answer','id','question'));
 	}
