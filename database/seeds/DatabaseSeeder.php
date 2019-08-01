@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
         $user->password = bcrypt(123456);
         $user->fullname = 'User1';
         $user->avatar = 'default_avatar.png';
-        $user->about_me = 'None';
+        $user->about_me = null;
+        $user->read_notification = false;
         $user->save();
 
         $user2 = new User();
@@ -31,7 +32,8 @@ class DatabaseSeeder extends Seeder
         $user2->password=bcrypt(123456);
         $user2->fullname='User2';
         $user2->avatar = 'default_avatar.png';
-        $user2->about_me='None';
+        $user2->about_me = null;
+        $user->read_notification = false;
         $user2->save();
 
 
@@ -134,9 +136,10 @@ class DatabaseSeeder extends Seeder
 
         $notification = new Notification();
         $notification->user_id = $user->_id;
-        $notification->content = "User2 like your Question";
-        $notification->postable_id = $question->_id;
-        $notification->postable_type= "Question";
+        $notification->actor_id = $user2->_id;
+        $notification->action = "like";
+        $notification->target = "question";
+        $notification->question_id = $question->_id;
         $notification->save();
 
 

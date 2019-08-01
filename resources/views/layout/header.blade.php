@@ -29,24 +29,24 @@
             @if(Auth::check())
             <a href="{{route('addTopic')}}" class="btn btn-outline-secondary ml-2"><i class="fa fa-plus"></i></a>
             <div class="nav-item dropright">
-                <a href="#" class="nav-link text-dark" id="notify" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-bell" style="font-size: 18px"></i>
+                <button class="btn btn-link" id="notify" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" onclick="read_notification()">
+                <i id="notification_bell" class="fa fa-bell @if(!Auth::user()->read_notification) text-danger @endif" style="font-size: 18px"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="notify" style="width: 270px">
-                @foreach(Auth::user()->notifications()->get() as $notification)
+                @foreach(Auth::user()->notifications()->orderBy('created_at', 'DESC')->get() as $notification)
                 <div class="row">
                     <div class="col-sm-10">
                         <div class=" ml-2">
-                            <a href="">
-                                {{ $notification->content }}
+                            <a href="/viewtopic/{{ $notification->question_id }}">
+                                {{ $notification->actor()->first()->fullname.' '.$notification->action.' your '.$notification->target }}
                             </a>
                             <br>
-                            <small>{{ $notification->created_at }}</small>
+                            <small>{{ $notification->created_at->diffForHumans() }}</small>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <a href="" class="btn btn-sm btn-outline-dark float-right mr-2 mt-1" title="Remove"><span
+                        <a href="/removenotification/{{ $notification->_id }}" class="btn btn-sm btn-outline-dark float-right mr-2 mt-1" title="Remove"><span
                             class="fa fa-close"></span></a>
                         </div>
                     </div>

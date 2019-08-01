@@ -23,7 +23,7 @@ class HomeController extends Controller
 		if($questions->count()<=0) return "";
 
 		foreach($questions as $question){
-			echo '<a id="result_id" href="/viewtopic/'.$question->_id.'" class="dropdown-item"><small>'.$question->title.'</small></a>';
+			echo '<a id="result_id" href="/viewtopic/'.$question->_id.'" class="dropdown-item"><small>'.htmlspecialchars($question->title).'</small></a>';
 		}
 	}
 

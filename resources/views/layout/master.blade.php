@@ -41,6 +41,15 @@
         function submit_search(){
             if($('#search').val()!='') $('#searchform').submit();
         }
+        @if(Auth::check())
+        function read_notification(){
+            $.ajax({
+                    url: "{{ route('readNotification') }}",
+                    method: "GET"
+                })
+            $("#notification_bell").removeClass("text-danger");
+        }
+        @endif
     </script>
 </body>
 

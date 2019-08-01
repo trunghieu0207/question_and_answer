@@ -54,6 +54,8 @@ class ViewTopicController extends Controller
         $question->best_answer_id = $id_answer;
         $question->save();
 
+        (new UserController)->createNotification($answer->user_id, Notification::$target[1], Notification::$action[3],  $question->_id);
+
         return redirect()->route('viewTopic',compact('question'));
     }
 
@@ -92,17 +94,17 @@ class ViewTopicController extends Controller
                 $question= Question::find($post_id);    
                 $question->total_like += 1;
                 $question->save();
-                $this->notificationQuestion($question,"Like",$user_id);
+
+                (new UserController)->createNotification($question->user_id, Notification::$target[0], Notification::$action[1],  $question->_id);
                 
             }
             else
             {
-                $answer= Answer::find($post_id);
-                $question=$answer->question_id;        
+                $answer= Answer::find($post_id);  
                 $answer->total_like += 1;
                 $answer->save();
-                $this->notificationAnswer($answer,"Like",$user_id);
                 
+                (new UserController)->createNotification($answer->user_id, Notification::$target[1], Notification::$action[1],  $answer->question_id);
             }
             
             $like=new User_Question_Answer();
@@ -151,7 +153,7 @@ class ViewTopicController extends Controller
 
         }
         
-        return redirect()->route('viewTopic',compact('question'));
+        return redirect()->back();
         
     }
 
@@ -167,15 +169,14 @@ class ViewTopicController extends Controller
                 $question= Question::find($post_id);          
                 $question->total_dislike += 1;
                 $question->save();
-                $this->notificationQuestion($question,"Dislike",$user_id);
+                (new UserController)->createNotification($question->user_id, Notification::$target[0], Notification::$action[2],  $question->_id);
             }
             else
             {
-                $answer= Answer::find($post_id);
-                $question=$answer->question_id;               
+                $answer= Answer::find($post_id);            
                 $answer->total_dislike += 1;
                 $answer->save();
-                $this->notificationAnswer($answer,"Dislike",$user_id);
+                (new UserController)->createNotification($answer->user_id, Notification::$target[1], Notification::$action[2],  $answer->question_id);
             }
             $dislike=new User_Question_Answer();
             $dislike->user_id=$user_id;
@@ -220,35 +221,7 @@ class ViewTopicController extends Controller
             }
         }
        
-        return redirect()->route('viewTopic',compact('question'));        
+        return redirect()->back();        
     }
-
-    public function notificationQuestion($question,$action,$user_id)
-    {
-
-        $user1=User::where('_id','=',$question->user_id);
-        $user2= User::find($user_id);
-        $noti= new Notification();
-        $noti->user_id=$user_id;
-        $noti->postable_id=$question->_id;
-        $noti->postable_type="Question";
-        $noti->content=$user2->fullname.$action." your question.";
-        $noti->save();        
-    }
-
-    public function notificationAnswer($answer,$action,$user_id)
-    {
-
-        $user1=User::where('_id','=',$answer->user_id);
-        $user2= User::find($user_id);
-        $noti= new Notification();
-        $noti->user_id=$user_id;
-        $noti->postable_id=$answer->_id;
-        $noti->postable_type="Answer";
-        $noti->content=$user2->fullname.$action." your answer.";
-        $noti->save();        
-    }
-
-
 }
 
