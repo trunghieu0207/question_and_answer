@@ -40,7 +40,8 @@ class UserController extends Controller
 			$user->save();
 			Session()->flash('message', 'Change password complete!');
    			return redirect()->back();
-		} else {
+		} 
+		else {
 			Session()->flash('error', 'Current password is not correct!');
    			return redirect()->back();
 		}
