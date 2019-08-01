@@ -16,7 +16,7 @@ class ProfileController extends Controller
 {
     public function indexManageQuestion()
 	{
-        $questions = Auth::user()->questions()->get();
+        $questions = Auth::user()->questions()->paginate(5);
         $active_manage_question = true;
 
 		return view('profile.manage_question',compact('questions','active_manage_question'));
@@ -24,7 +24,7 @@ class ProfileController extends Controller
 
     public function indexManageAnswer()
 	{
-        $answers = Auth::user()->answers()->get();
+        $answers = Auth::user()->answers()->paginate(5);
         $active_manage_answer = 'active';
 
 		return view('profile.manage_answer',compact('answers','active_manage_answer'));

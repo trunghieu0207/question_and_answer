@@ -25,6 +25,8 @@
             </td>
         </tr>
         @endforeach
+
     </tbody>
 </table>
+<div class="row px-3 pt-3 justify-content-sm-center">{!! $answers->links() !!}</div>
 @endsection

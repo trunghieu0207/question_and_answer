@@ -285,21 +285,23 @@ function checkContent() {
                             {{$answer->total_dislike}}
                         @endif
                     </div>
-                     @if (Auth::check())
-                    @if (Auth::user()->id==$question->user_id)
-                    <div class='col-10 justify-content-sm-end'>                                           
-                        <a href="{{asset('bestanswer')}}/{{$answer->_id}}"><button type="button"
-                            class="float-right btn btn-success">Best Answer</button></a>                           
-                    </div>
-                    @endif
+                    @if (Auth::check())
+                        @if (Auth::user()->id==$question->user_id)
+                            <div class='col-10 justify-content-sm-end'>                                           
+                                <a href="{{asset('bestanswer')}}/{{$answer->_id}}"><button type="button"
+                                    class="float-right btn btn-success">Best Answer</button></a>                           
+                            </div>
+                        @endif
                     @endif
                    
                 </div>
+
             </div>
         </div>
         <hr>
         @endif
         @endforeach
+        <div class="row px-3 pt-3 justify-content-sm-center">{!! $answers->links() !!}</div>
     </div>
 
 </div>

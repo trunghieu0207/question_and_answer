@@ -22,14 +22,12 @@ class ViewTopicController extends Controller
         } 
         else 
         {
-            $answers = $question->answers()->get();
+            $answers = $question->answers()->paginate(5);
             $best_answer=null;
             $question->total_answer = $answers->count();
             $question->save(); 
             $parsedown = new \Parsedown();
             $question->content = $parsedown->setMarkupEscaped(true)->text($question->content);
-
-            
             $question->date_convert = $question->created_at->diffForHumans();
             foreach ($answers as $answer) 
             {

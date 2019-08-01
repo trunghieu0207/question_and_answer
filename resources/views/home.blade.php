@@ -46,6 +46,7 @@
 				</div>
 				<hr>
 				@endforeach
+				<div class="row px-3 pt-3 justify-content-sm-center">{!! $questions->links() !!}</div>
 			</div>
 		</div>
 	</div>
