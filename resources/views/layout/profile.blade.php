@@ -1,6 +1,5 @@
 @extends('layout.master')
 
-@section('title','Profile')
 
 
 @section('js')

@@ -1,5 +1,7 @@
 @extends('layout.master')
 
+@section('title', 'Edit answer')
+
 @section('js')
     <script>
         $('#fuMain').fileinput({

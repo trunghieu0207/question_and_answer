@@ -1,4 +1,7 @@
 @extends('layout.profile')
+
+@section('title', 'Profile - Manage answer')
+
 @section('contentprofile')
 <h2 class="text-primary text-center">MANAGE ANSWER</h2>
 <hr class="my-3">
