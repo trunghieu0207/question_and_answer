@@ -12,7 +12,7 @@
                     <form id="searchform" class="form-inline-xs" action="{{ route('submitSearch') }}" method="get">
                         <div class="input-group">
                             <input id="search" name="keyword" class="form-control" type="search" placeholder="Search"
-                                title="enter your keyword">
+                                title="enter your keyword" autocomplete="off">
                             <div id="result_list" class="dropdown-menu"></div>
                             <div class="input-group-prepend">
                                 <button class="btn btn-outline-dark font-weight-bold" type="button"
