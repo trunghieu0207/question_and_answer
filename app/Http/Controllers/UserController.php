@@ -16,22 +16,22 @@ class UserController extends Controller
 {
     public function indexManageQuestion()
 	{
-        $questions = Auth::user()->questions()->get();
-        $active_manage_question = true;
+		$questions = Auth::user()->questions()->paginate(5);
+		$active_manage_question = true;
 
 		return view('profile.manage_question',compact('questions','active_manage_question'));
-    }
+	}
 
-    public function indexManageAnswer()
+	public function indexManageAnswer()
 	{
-        $answers = Auth::user()->answers()->get();
-        $active_manage_answer = 'active';
+		$answers = Auth::user()->answers()->paginate(5);
+		$active_manage_answer = 'active';
 
 		return view('profile.manage_answer',compact('answers','active_manage_answer'));
-    }
+	}
 
-    public function changeAvatar(Request $request)
-    {
+	public function changeAvatar(Request $request)
+	{
 		if ($request->hasFile('avatar')) {
             $user = Auth::user();
 
@@ -121,6 +121,5 @@ class UserController extends Controller
 
             return redirect()->back();
         }  
-
-    }
+	}
 }

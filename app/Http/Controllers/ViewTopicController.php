@@ -9,14 +9,11 @@ use App\User_Question_Answer;
 use App\Notification;
 use App\user;
 use Illuminate\Support\Collection;
-
+use Carbon\Carbon;
 
 class ViewTopicController extends Controller
 {
-    public function sort_objects_by_total($a, $b) {
-        if($a->total_posts == $b->total_posts){ return 0 ; }
-        return ($a->total_posts < $b->total_posts) ? -1 : 1;
-    }
+
     public function view($id)
     {
         $question = Question::find($id);
@@ -32,17 +29,18 @@ class ViewTopicController extends Controller
             $question->save(); 
             $parsedown = new \Parsedown();
             $question->content = $parsedown->setMarkupEscaped(true)->text($question->content);
-            $question->date_convert = $question->created_at->diffForHumans();
+            $now = Carbon::now();
+            $question->date_convert = $question->created_at->diffForHumans($now);
             foreach ($answers as $answer) 
             {
                 $answer->content = $parsedown->setMarkupEscaped(true)->text($answer->content);
-                $answer->date_convert = $answer->created_at->diffForHumans();
+                $answer->date_convert = $answer->created_at->diffForHumans($now);
             }
             if(!empty($question->best_answer_id)) 
             {
                 $best_answer= Answer::find($question->best_answer_id);
                 $best_answer->content = $parsedown->setMarkupEscaped(true)->text($best_answer->content);
-                $best_answer->date_convert = $best_answer->created_at->diffForHumans();
+                $best_answer->date_convert = $best_answer->created_at->diffForHumans($now);
             }
             $limitCharacter = \Config::get('constants.options.limitCharacterAttachmentName');
             return view('view_topic',compact('question','answers','best_answer','limitCharacter'));
@@ -110,7 +108,7 @@ class ViewTopicController extends Controller
             $this->addUserQuestionAnswer($post_id,$post_type,$user_id,"Like");            
             if ($user_disliked)
             {   
-                
+
                 if ($post_type =='Question')
                 {         
                     $question->total_dislike -= 1;
@@ -143,8 +141,6 @@ class ViewTopicController extends Controller
 
         return redirect()->back();  
     }
-
-		      
     public function dislike($post_id,$post_type,$user_id)
     {
         $user_liked=$this->checkLike($post_id,$post_type,$user_id);
@@ -195,7 +191,7 @@ class ViewTopicController extends Controller
                 $answer->total_dislike -= 1;
                 $answer->save();
             }
-                           
+
             $user_disliked->delete();
         }
        
@@ -212,6 +208,8 @@ class ViewTopicController extends Controller
         $post->save();
     }
 
-
 }
+
+
+
 

@@ -43,8 +43,10 @@ function confirmRemove(btn){
 
     </tbody>
 </table>
+
 <div class="row px-3 pt-3 justify-content-sm-center">{!! $questions->links() !!}</div>
 <form id="deleteform" action="{{route('deleteTopic')}}" method="post">
+
     {{csrf_field()}}
     <input hidden type="text" name="_id" id="question_id">
 </form>

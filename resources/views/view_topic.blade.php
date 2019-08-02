@@ -206,17 +206,15 @@
                         aria-hidden="true" style="font-size:30px"></i> </a>
                 @endif
                 @endif
-                @if($best_answer->attachment_path)
-                <div class="float-right">
-                    <b class="badge badge-warning">Attachments:</b>
-                    <a target="blank"
-                        href="{{asset('files/'.$best_answer->attachment_path)}}"><i>{{substr($best_answer->attachment_path,strlen($best_answer->attachment_path)-$limitCharacter)}}</i></a>
-                </div>
-                @endif
                 <br>
                 <br>
                 <br>
                 <div class="image-markdown">{!! $best_answer->content !!}</div>
+                @if($best_answer->attachment_path)
+                    <b class="badge badge-warning">Attachments:</b>
+                    <a target="blank"
+                        href="{{asset('files/'.$best_answer->attachment_path)}}"><i>{{substr($best_answer->attachment_path,strlen($best_answer->attachment_path)-$limitCharacter)}}</i></a>
+                @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-1">
                         @if(Auth::check())
@@ -282,17 +280,15 @@
                         aria-hidden="true" style="font-size:30px"></i> </a>
                 @endif
                 @endif
-                @if($answer->attachment_path)
-                <div class="float-right">
-                    <b class="badge badge-warning">Attachments:</b>
-                    <a target="blank"
-                        href="{{asset('files/'.$answer->attachment_path)}}"><i>{{substr($answer->attachment_path,strlen($answer->attachment_path)-$limitCharacter)}}</i></a>
-                </div>
-                @endif
                 <br>
                 <br>
                 <br>
                 <div class="image-markdown">{!! $answer->content !!}</div>
+                @if($answer->attachment_path)
+                    <b class="badge badge-warning">Attachments:</b>
+                    <a target="blank"
+                        href="{{asset('files/'.$answer->attachment_path)}}"><i>{{substr($answer->attachment_path,strlen($answer->attachment_path)-$limitCharacter)}}</i></a>
+                @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-1">
                         @if(Auth::check())
