@@ -1,6 +1,9 @@
 @extends('layout.profile')
+
+@section('title', 'Manage answer')
+
 @section('contentprofile')
-<h2 class="text-primary text-center">MANAGE ANSWER</h2>
+<h2 class="text-primary text-center">MANAGE ANSWERS</h2>
 <hr class="my-3">
 <table class="table table-hover">
     <thead>
@@ -22,6 +25,8 @@
             </td>
         </tr>
         @endforeach
+
     </tbody>
 </table>
+<div class="row px-3 pt-3 justify-content-sm-center">{!! $answers->links() !!}</div>
 @endsection

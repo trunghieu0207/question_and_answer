@@ -1,6 +1,5 @@
 @extends('layout.master')
 
-@section('title','Profile')
 
 
 @section('js')
@@ -20,26 +19,26 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-sm-3  sidebar-sticky" style="margin-top: 32px">
+        <div class="row mt-5">
+            <div class="col-sm-3">
                 <div class="card shadow bg-light">
                     <div class="card-body text-center">
                         <img src="{{ asset('images/avatars').'/'.Auth::user()->avatar }}" class="avatar">
                         <h4 class="mt-2 text-primary font-weight-bold">{{ Auth::user()->fullname }}</h4>
-                        <button class="badge btn btn-warning" data-toggle="modal" data-target="#exampleModal">change
+                        <button class="badge btn btn-warning" data-toggle="modal" data-target="#exampleModal">Change
                             avatar</button>
                         <div class="nav flex-column nav-pills my-3 bg-white border">
                             <a href="{{ route('information') }}" class="btn nav-link @if(!empty($active_personal_info)) active @endif" >Personal information</a>
                             <a href="{{ route('changePassword') }}" class="btn nav-link @if(!empty($active_change_pass)) active @endif">Change password</a>
-                            <a href="{{ route('manageQuestion') }}" class="btn nav-link @if(!empty($active_manage_question)) active @endif">Manage question</a>
-                            <a href="{{ route('manageAnswer') }}" class="btn nav-link @if(!empty($active_manage_answer)) active @endif">Manage answer</a>
+                            <a href="{{ route('manageQuestion') }}" class="btn nav-link @if(!empty($active_manage_question)) active @endif">Manage questions</a>
+                            <a href="{{ route('manageAnswer') }}" class="btn nav-link @if(!empty($active_manage_answer)) active @endif">Manage answers</a>
 
                             <a href="{{ route('logOut') }}" class="btn nav-link">Sign out</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9 mt-5">
+            <div class="col-sm-9">
             <div class="card shadow bg-light">
                     <div class="card-body">
                        @yield('contentprofile')

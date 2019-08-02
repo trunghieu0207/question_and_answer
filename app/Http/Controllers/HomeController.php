@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Question;
+use App\User;
+use App\User_Question_Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 //use Carbon\Carbon;
@@ -10,8 +12,10 @@ class HomeController extends Controller
 {
 	public function index()
 	{
-		$questions = Question::orderBy('created_at', 'desc')->get();
+		$questions = Question::orderBy('created_at', 'desc')->paginate(5);
+		$questions->setPath('/');
 		foreach($questions as $question){
+
 			$question->date = $question->created_at->diffForHumans();
 		}
 		
@@ -22,23 +26,53 @@ class HomeController extends Controller
 		$questions = $this->runSearch($request->keyword);
 		if($questions->count()<=0) return "";
 
+		$havingInput = false;
 		foreach($questions as $question){
-			echo '<a id="result_id" href="/viewtopic/'.$question->_id.'" class="dropdown-item"><small>'.$question->title.'</small></a>';
+			echo '<a id="result_id" href="/viewtopic/'.$question->_id.'" class="dropdown-item"><small>'.htmlspecialchars($question->title).'</small></a>';
+			if(!$havingInput){
+				echo '<input type="text" name="question_id" value="'.$question->_id.'" hidden>';
+				$havingInput=true;
+			}
 		}
 	}
 
 	public function submitSearch(Request $request){
-		$questions = $this->runSearch($request->keyword);
+		if($request->question_id) return redirect()->route('viewTopic',['id'=>$request->question_id]);
 
-		if($questions->count()==0) return "not found!";
-
-		return redirect()->route('viewTopic',['id'=>$questions[0]]);
+		return redirect()->back();
 	}
 
 	public function runSearch($keyword){
 		$full_text_search = Question::whereRaw(array('$text'=>array('$search'=> $keyword)))->get();
-		$normal_search = Question::where('title','like',"%$keyword%")->get();
+		$normal_search = Question::where('title','like',"%$keyword%")->orwhere('content','like',"%$keyword%")->get();
 
 		return $normal_search->merge($full_text_search);
+	}
+
+	public function aboutUs()
+	{
+		return view('about_us');
+	}
+
+	public function personalInfomation($id)
+	{
+		$user = User::find($id);
+		$totalLike = 0;
+		$totalDislike = 0;
+		$totalAccepted = 0;
+		$questions = $user->questions;
+		foreach($questions as $question){
+			$totalLike += $question->total_like;
+			$totalDislike += $question->total_dislike;
+		}
+		$answers = $user->answers;
+		foreach($answers as $answer){
+			$totalLike += $answer->total_like;
+			$totalDislike += $answer->total_dislike;
+
+			if($answer->question->best_answer_id==$answer->_id) $totalAccepted++;
+		}
+
+		return view('personal_infomation',compact('user','totalLike','totalDislike','totalAccepted'));
 	}
 }

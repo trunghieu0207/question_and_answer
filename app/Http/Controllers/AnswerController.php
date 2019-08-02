@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Answer;
 use Illuminate\Http\Request;
 use App\Question;
+use App\Notification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 use File;
 
 class AnswerController extends Controller
@@ -36,6 +38,8 @@ class AnswerController extends Controller
 		}
 		$answer->save();
 
+		(new UserController)->createNotification($question->user_id, Notification::$target[0], Notification::$action[0],  $question->_id);
+
 		return redirect()->route('viewTopic', ['id' => $answer->question_id]);
 	}
 
@@ -46,17 +50,16 @@ class AnswerController extends Controller
 		if(empty($answer)) {
 			return redirect()->route('homePage');
 		} 
-		$question = Question::where('_id',$answer->question_id)->get();
+		$question = $answer->question;
+		$parsedown = new \Parsedown();
+		$question->content = $parsedown->setMarkupEscaped(true)->text($question->content);
+		$question->date_convert = $question->created_at->diffForHumans();
 
 		return view('answer.edit_answer',compact('answer','id','question'));
 	}
 
 	public function update(Request $request)
 	{
-		// $validatedData = $request->validate([
-		// 	'title' => 'required|unique:posts|max:255',
-		// 	'content' => 'required',
-		// ]);
 
 		$answer = Answer::find($request->get('id'));
 		$answer->content = $request->get('content');

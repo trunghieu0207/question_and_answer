@@ -1,5 +1,7 @@
 @extends('layout.profile')
 
+@section('title', 'Information')
+
 @section('script')
     <script>
         $(function () {

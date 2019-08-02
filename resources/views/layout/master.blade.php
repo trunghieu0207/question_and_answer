@@ -6,12 +6,22 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <style type="text/css" media="screen">
+        .scrollbar {
+            float: left;
+            height: 400px;
+            background: #fff;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            margin-bottom: 50px;
+            }
     </style>
 </head>
 <body class="main-background">
 
     @include('layout.header')
 
+    <a href="{{route('aboutUs')}}" type="button" class="btn btn-outline-info btn-about-us">About us</a>
+    
     @yield('content')
 
     @include('layout.js')
@@ -32,15 +42,31 @@
 							$('#result_list').html(data);
 							$('#result_list').show();
 						}
-						else $('#result_list').hide();
+						else{
+                            $('#result_list').hide();
+                            $('#result_list').empty();
+                        }
                     }
                 })
             }
-			else $('#result_list').hide();
+			else{
+                $('#result_list').hide();
+                $('#result_list').empty();
+            }
         });
         function submit_search(){
             if($('#search').val()!='') $('#searchform').submit();
         }
+        @if(Auth::check())
+        function read_notification(){
+            $.ajax({
+                    url: "{{ route('readNotification') }}",
+                    method: "GET"
+                })
+            $("#notification_bell").removeClass("text-danger");
+            $("#unread_notification").remove();
+        }
+        @endif
     </script>
 </body>
 

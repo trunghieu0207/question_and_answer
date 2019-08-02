@@ -42,32 +42,39 @@ Route::get('viewtopic/{id}',[
 		'uses' => 'ViewTopicController@view'
 ]);
 
+Route::get('aboutus',[
+	'as' => 'aboutUs',
+	'uses' => 'HomeController@aboutUs'
+]);
+
+Route::get('personalinfomation/{id}','HomeController@personalInfomation')->name('personalInfomation');
 
 /*Start middleware check sigin*/
 Route::middleware(['checkSignIn'])->group(function () {
     Route::prefix('profile')->group(function () {
        	Route::get('information', [
 			'as' => 'information',
-			'uses' => 'ProfileController@indexInformation'
+			'uses' => 'UserController@indexInformation'
 		]);
 
        	Route::post('updateinformation', [
 			'as' => 'updateInformation',
-			'uses' => 'ProfileController@updateInformation'
+			'uses' => 'UserController@updateInformation'
 		]);
        	Route::get('changepassword', [
 			'as' => 'changePassword',
-			'uses' => 'ProfileController@indexChangePassword'
+			'uses' => 'UserController@indexChangePassword'
 		]);
 
 		Route::post('changepassword', [
 			'as' => 'storeChangePassword',
-			'uses' => 'ProfileController@storeChangePassword'
+			'uses' => 'UserController@storeChangePassword'
 		]);
 
-		Route::get('managequestion', 'ProfileController@indexManageQuestion')->name('manageQuestion');
-		Route::get('manageanswer', 'ProfileController@indexManageAnswer')->name('manageAnswer');
-		Route::post('changeavatar', 'ProfileController@changeAvatar')->name('changeAvatar');
+		Route::get('managequestion', 'UserController@indexManageQuestion')->name('manageQuestion');
+		Route::post('removequestion', 'UserController@removeQuestion')->name('removeQuestion');
+		Route::get('manageanswer', 'UserController@indexManageAnswer')->name('manageAnswer');
+		Route::post('changeavatar', 'UserController@changeAvatar')->name('changeAvatar');
 
     });
 
@@ -127,9 +134,10 @@ Route::middleware(['checkSignIn'])->group(function () {
 		'as' => 'dislike',
 		'uses' => 'ViewTopicController@dislike'
 	]);
+	
+	Route::get('removenotification/{id}','UserController@removeNotification')->name('removeNotification');
 
-
+	Route::get('readnotification','UserController@readNotification')->name('readNotification');
 });
 
 /*End middleware check sign in*/
-

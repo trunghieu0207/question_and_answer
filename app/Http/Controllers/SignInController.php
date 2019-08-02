@@ -28,7 +28,6 @@ class SignInController extends Controller
         }
         else
         {
-
             return redirect()->route('homePage');            
         }
     }
