@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
     <div class="container">
         <a class="navbar-brand" href="{{ route('homePage') }}"><b style="font-size:20px">
@@ -38,10 +39,13 @@
                             <i id="notification_bell" class="fa fa-bell" style="font-size: 18px"></i>
                             @endif
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="notify" style="width: 300px">
-                            @foreach(Auth::user()->notifications()->orderBy('created_at', 'DESC')->get() as
+                        <div class="scrollbar scrollbar-lady-lips dropdown-menu" aria-labelledby="notify" style="width: 300px">
+                            <div style="text-align: center;s">
+                                <h4>Notifications</h4>
+                            </div>
+                            @foreach($noti =Auth::user()->notifications()->orderBy('created_at', 'DESC')->get() as
                             $notification)
-                            <div class="row">
+                            <div class="row" >
                                 <div class="col-sm-10">
                                     <div class=" ml-2">
                                         <a href="/viewtopic/{{ $notification->question_id }}">

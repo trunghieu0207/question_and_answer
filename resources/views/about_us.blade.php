@@ -59,7 +59,7 @@
 			<br>
 
 			<h3 class="text-center font-weight-bold" style="color:#fcbf10;">Why is Ant man?</h3>
-			<p class="text-justify px-3" style="font-size:20px;color: white;">Ants are a pack animal habitat, relying on hard strength to do things that seem impossible to them. Ant man team learns how to work like ants, relying on the strength of the collective to conquer challenges even the most difficult</p>
+			<p class="text-justify px-3" style="font-size:20px;color: white;">Ants are a pack animal habitat, relying on herd strength to do things that seem impossible to them. Ant man team learns how to work with ants, relying on the strength of the collective to conquer challenges even the most difficult</p>
 			<br>
 			<br>
 			<h3 class="text-center font-weight-bold" style="color:#fcbf10;">Members</h3>

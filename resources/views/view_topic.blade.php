@@ -195,15 +195,15 @@
                 </div>
 
                 @if (Auth::check())
-                @if (Auth::user()->id==$best_answer->user_id)
-                <a href="{{asset('editanswer')}}/{{ $best_answer->id }}"><i class="float-right fa fa-pencil-square-o ml-2"
-                        aria-hidden="true" style="font-size:30px"></i> </a>
+                    @if (Auth::user()->id==$best_answer->user_id)
+                    <a href="{{asset('editanswer')}}/{{ $best_answer->id }}"><i class="float-right fa fa-pencil-square-o ml-2"
+                            aria-hidden="true" style="font-size:30px"></i> </a>
+                    @endif
                 @endif
-                @endif
                 <br>
                 <br>
                 <br>
-                <div class="image-markdown">{!! $best_answer->content !!}</div>
+                <div class="image-markdown" style="padding-right: 58px;">{!! $best_answer->content !!}</div>
                 @if($best_answer->attachment_path)
                     <b class="badge badge-warning">Attachments:</b>
                     <a target="blank"
@@ -229,13 +229,12 @@
                         @endif
                     </div>
                     @if (Auth::check())
-                    @if (Auth::user()->id==$question->user_id)
-                    <div class="col-10 justify-content-sm-end">
-                        <a href="{{asset('removebestanswer')}}/{{$best_answer->_id}}"><button type="button"
-                                class="float-right btn btn-warning">Remove Best Answer</button></a>
-                    </div>
-                    @else
-                    @endif
+                        @if (Auth::user()->id==$question->user_id)
+                        <div class="col-10 justify-content-sm-end">
+                            <a href="{{asset('removebestanswer')}}/{{$best_answer->_id}}"><button type="button"
+                                    class="float-right btn btn-warning">Remove Best Answer</button></a>
+                        </div>
+                        @endif
                     @endif
                 </div>
             </div>
@@ -277,7 +276,7 @@
                 <br>
                 <br>
                 <br>
-                <div class="image-markdown">{!! $answer->content !!}</div>
+                <div class="image-markdown" style="padding-right: 58px;">{!! $answer->content !!}</div>
                 @if($answer->attachment_path)
                     <b class="badge badge-warning">Attachments:</b>
                     <a target="blank"
