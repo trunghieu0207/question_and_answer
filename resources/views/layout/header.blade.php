@@ -39,7 +39,7 @@
                             <i id="notification_bell" class="fa fa-bell" style="font-size: 18px"></i>
                             @endif
                         </button>
-                        <div class="scrollbar scrollbar-lady-lips dropdown-menu" aria-labelledby="notify" style="width: 300px">
+                        <div class="scrollbar scrollbar-lady-lips dropdown-menu pl-4" aria-labelledby="notify" style="width: 350px">
                             <div style="text-align: center;s">
                                 <h4>Notifications</h4>
                             </div>
