@@ -50,7 +50,7 @@
 
             <!-- Start Username, Date, Edit, Delete Block -->
             <div class="col-sm-11">
-                <div class="font-weight-bold" style="color:#787878; font-size: 25px">{{$question->user->fullname}}
+                <div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$question->user->fullname}}
                     <!-- Button HTML (to Trigger Modal) -->
                     @if(Auth::check())
                     @if($question->user_id==Auth::user()->id)
