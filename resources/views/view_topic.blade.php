@@ -176,7 +176,7 @@
         <!-- Start Best Answer Block -->
         @if ($best_answer!=null)
         <div class="row px-3 pt-3">
-            <div class="col-sm-1">
+            <div class="col-1">
                 <img src="{{asset('images/avatars')}}/{{$best_answer->user->avatar}}"
                     class="test rounded-circle align-middle">
                 <br>
@@ -185,7 +185,7 @@
                     <i class="fa fa-check" aria-hidden="true"></i>
                 </div>
             </div>
-            <div class="col-sm-11">
+            <div class="col-11">
             <div class="float-left">
                 <div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$best_answer->user->fullname}}</div>
                     <small class="text-muted" style="color:#5488c7;">
