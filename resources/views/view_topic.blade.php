@@ -48,38 +48,39 @@
 
             <!-- Start Username, Date, Edit, Delete Block -->
             <div class="col-sm-11">
-                <div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$question->user->fullname}}
+                <div class="font-weight-bold">
+                    <a href="/personalinfomation/{{ $question->user->_id }}" style="color:#787878; font-size: 20px">{{$question->user->fullname}}</a>
                     <!-- Button HTML (to Trigger Modal) -->
                     @if(Auth::check())
-                        @if($question->user_id==Auth::user()->id)
-                        <a href="#myModal" data-toggle="modal">
-                            <i class="float-right fa fa-trash" aria-hidden="true"
-                                style="margin-right:10px; font-size: 120%; "></i></a>
-                        <!-- Modal HTML -->
-                        <div id="myModal" class="modal fade" tabindex="-1">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Confirmation</h5>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Are you sure you want to delete this topic?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <form action="{{route('deleteTopic')}}" method="post">
-                                            @csrf
-                                            <input type="text" name="_id" value="{{$question->id}}" hidden>
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
-                                    </div>
+                    @if($question->user_id==Auth::user()->id)
+                    <a href="#myModal" data-toggle="modal">
+                        <i class="float-right fa fa-trash" aria-hidden="true"
+                            style="margin-right:10px; font-size: 30px; "></i></a>
+                    <!-- Modal HTML -->
+                    <div id="myModal" class="modal fade" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Confirmation</h5>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete this topic?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <form action="{{route('deleteTopic')}}" method="post">
+                                        @csrf
+                                        <input type="text" name="_id" value="{{$question->id}}" hidden>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <a href="{{asset('edittopic')}}/{{ $question->id }}"><i class="float-right fa fa-pencil-square-o"
-                                aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>
-                        @endif
+                    </div>
+                    <a href="{{asset('edittopic')}}/{{ $question->id }}"><i class="float-right fa fa-pencil-square-o"
+                            aria-hidden="true" style="margin-right:10px; font-size:30px"></i></a>
+                    @endif
                     @endif
 
                 </div>
@@ -106,9 +107,9 @@
             <div class="col-sm-12 px-3">
                 <div class="image-markdown">{!! $question->content !!}</div>
                 @if($question->attachment_path)
-                    <b class="badge badge-warning">Attachment:</b>
-                    <a target="blank"
-                        href="{{asset('files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limitCharacter)}}</i></a>
+                <b class="badge badge-warning">Attachment:</b>
+                <a target="blank"
+                    href="{{asset('files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limitCharacter)}}</i></a>
                 @endif
                 <div class="row"
                     style="width: 500px; color:#787878; font-size: 20px; margin-bottom: 10px; margin-left: 5px;">
@@ -117,7 +118,7 @@
                         <a href="{{asset('like')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$question->total_like}}
                         @else
-                        <a href="{{route('signInIndex')}} " style="color:#787878"><i class="fa fa-thumbs-up"></i></a>
+                        <i class="fa fa-thumbs-up" style="color:#787878"></i>
                         {{$question->total_like}}
                         @endif
                     </div>
@@ -126,7 +127,7 @@
                         <a href="{{asset('dislike')}}/{{$question->_id}}/Question/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-down"></i></a> {{$question->total_dislike}}
                         @else
-                        <a href="{{route('signInIndex')}}" style="color:#787878"><i class="fa fa-thumbs-down"></i></a>
+                        <i class="fa fa-thumbs-down" style="color:#787878"></i>
                         {{$question->total_dislike}}
                         @endif
                     </div>
@@ -186,8 +187,9 @@
                 </div>
             </div>
             <div class="col-sm-11">
-            <div class="float-left">
-                <div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$best_answer->user->fullname}}</div>
+                <div class="float-left">
+                <a href="/personalinfomation/{{ $best_answer->user->_id }}" style="color:#787878; font-size: 20px">{{$best_answer->user->fullname}}</a>
+                <br>
                     <small class="text-muted" style="color:#5488c7;">
                         <i class="fa fa-clock-o" aria-hidden="true"> </i>
                         {{$best_answer->date_convert}}
@@ -196,8 +198,9 @@
 
                 @if (Auth::check())
                 @if (Auth::user()->id==$best_answer->user_id)
-                <a href="{{asset('editanswer')}}/{{ $best_answer->id }}"><i class="float-right fa fa-pencil-square-o ml-2"
-                        aria-hidden="true" style="font-size:30px"></i> </a>
+                <a href="{{asset('editanswer')}}/{{ $best_answer->id }}"><i
+                        class="float-right fa fa-pencil-square-o ml-2" aria-hidden="true" style="font-size:30px"></i>
+                </a>
                 @endif
                 @endif
                 <br>
@@ -205,9 +208,9 @@
                 <br>
                 <div class="image-markdown">{!! $best_answer->content !!}</div>
                 @if($best_answer->attachment_path)
-                    <b class="badge badge-warning">Attachments:</b>
-                    <a target="blank"
-                        href="{{asset('files/'.$best_answer->attachment_path)}}"><i>{{substr($best_answer->attachment_path,strlen($best_answer->attachment_path)-$limitCharacter)}}</i></a>
+                <b class="badge badge-warning">Attachments:</b>
+                <a target="blank"
+                    href="{{asset('files/'.$best_answer->attachment_path)}}"><i>{{substr($best_answer->attachment_path,strlen($best_answer->attachment_path)-$limitCharacter)}}</i></a>
                 @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-1">
@@ -215,7 +218,7 @@
                         <a href="{{asset('like')}}/{{$best_answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$best_answer->total_like}}
                         @else
-                        <a href="{{route('signInIndex')}}"><i class="fa fa-thumbs-up" style="color:#787878"></i></a>
+                        <i class="fa fa-thumbs-up" style="color:#787878"></i>
                         {{$best_answer->total_like}}
                         @endif
                     </div>
@@ -224,7 +227,7 @@
                         <a href="{{asset('dislike')}}/{{$best_answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-down"></i></a> {{$best_answer->total_dislike}}
                         @else
-                        <a href="{{route('signInIndex')}}"><i class="fa fa-thumbs-down" style="color:#787878"></i></a>
+                        <i class="fa fa-thumbs-down" style="color:#787878"></i>
                         {{$best_answer->total_dislike}}
                         @endif
                     </div>
@@ -261,7 +264,8 @@
             </div>
             <div class="col-sm-11">
                 <div class="float-left">
-                    <div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$answer->user->fullname}}</div>
+                    <a href="/personalinfomation/{{ $answer->user->_id }}" style="color:#787878; font-size: 20px">{{$answer->user->fullname}}</a>
+                    <br>
                     <small class="text-muted" style="color:#5488c7;">
                         <i class="fa fa-clock-o" aria-hidden="true"> </i>
                         {{$answer->date_convert}}
@@ -279,9 +283,9 @@
                 <br>
                 <div class="image-markdown">{!! $answer->content !!}</div>
                 @if($answer->attachment_path)
-                    <b class="badge badge-warning">Attachments:</b>
-                    <a target="blank"
-                        href="{{asset('files/'.$answer->attachment_path)}}"><i>{{substr($answer->attachment_path,strlen($answer->attachment_path)-$limitCharacter)}}</i></a>
+                <b class="badge badge-warning">Attachments:</b>
+                <a target="blank"
+                    href="{{asset('files/'.$answer->attachment_path)}}"><i>{{substr($answer->attachment_path,strlen($answer->attachment_path)-$limitCharacter)}}</i></a>
                 @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-1">
@@ -289,7 +293,7 @@
                         <a href="{{asset('like')}}/{{$answer->_id}}/Answer/{{Auth::user()->id}}">
                             <i class="fa fa-thumbs-up"></i></a> {{$answer->total_like}}
                         @else
-                        <a href="{{ route('signInIndex') }} " style="color:#787878"><i class="fa fa-thumbs-up"></i></a>
+                        <i class="fa fa-thumbs-up"></i>
                         {{$answer->total_like}}
                         @endif
                     </div>
@@ -299,7 +303,7 @@
                             <i class="fa fa-thumbs-down"></i></a>
                         {{$answer->total_dislike}}
                         @else
-                        <a href="{{ route('signInIndex') }}" style="color:#787878"><i class="fa fa-thumbs-down"></i></a>
+                        <i class="fa fa-thumbs-down"></i>
                         {{$answer->total_dislike}}
                         @endif
                     </div>

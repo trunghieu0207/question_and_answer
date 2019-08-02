@@ -1,6 +1,6 @@
 @extends('layout.profile')
 
-@section('title', 'Profile - Information')
+@section('title', 'Information')
 
 @section('script')
     <script>

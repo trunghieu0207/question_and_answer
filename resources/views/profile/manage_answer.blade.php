@@ -1,6 +1,6 @@
 @extends('layout.profile')
 
-@section('title', 'Profile - Manage answer')
+@section('title', 'Manage answer')
 
 @section('contentprofile')
 <h2 class="text-primary text-center">MANAGE ANSWERS</h2>

@@ -12,10 +12,10 @@ class User_Question_Answer extends Eloquent
     	return $this->belongsTo('App\User', 'user_id', '_id');
     }
     public function question() {
-    	return $this->belongsTo('App\User', 'post_id', '_id');
+    	return $this->belongsTo('App\Question', 'post_id', '_id');
     }
     public function answer() {
-    	return $this->belongsTo('App\User', 'post_id', '_id');
+    	return $this->belongsTo('App\Answer', 'post_id', '_id');
     }
 
 }

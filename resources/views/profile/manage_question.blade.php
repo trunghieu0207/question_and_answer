@@ -1,6 +1,6 @@
 @extends('layout.profile')
 
-@section('title', 'Profile - Manage question')
+@section('title', 'Manage question')
 
 @section('script')
 <script>
@@ -45,7 +45,7 @@ function confirmRemove(btn){
 </table>
 
 <div class="row px-3 pt-3 justify-content-sm-center">{!! $questions->links() !!}</div>
-<form id="deleteform" action="{{route('deleteTopic')}}" method="post">
+<form id="deleteform" action="{{route('removeQuestion')}}" method="post">
 
     {{csrf_field()}}
     <input hidden type="text" name="_id" id="question_id">
