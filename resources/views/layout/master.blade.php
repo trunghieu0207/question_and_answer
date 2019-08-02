@@ -12,7 +12,7 @@
 
     @include('layout.header')
 
-    <a href="{{route('aboutUs')}}" type="button" class="btn btn-outline-danger btn-about-us">About us</a>
+        <a href="{{route('aboutUs')}}" type="button" class="btn btn-outline-danger btn-about-us">About us</a>
     
     @yield('content')
 
