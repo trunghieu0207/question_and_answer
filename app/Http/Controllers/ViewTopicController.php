@@ -109,7 +109,6 @@ class ViewTopicController extends Controller
             }            
             $this->addUserQuestionAnswer($post_id,$post_type,$user_id,"Like");            
             if ($user_disliked)
-
             {   
 
                 if ($post_type =='Question')
@@ -124,25 +123,26 @@ class ViewTopicController extends Controller
                 }
                 $user_disliked->delete();
             }
-            else
-            {
-                if ($post_type =='Question')
-                {
-                    $question= Question::find($post_id);    
-                    $question->total_like -= 1;
-                    $question->save();
-                }
-                else
-                {   
-                    $answer= Answer::find($post_id);       
-                    $answer->total_like -= 1;
-                    $answer->save();
-                }                
-                $user_liked->delete();
-            }
-
-            return redirect()->back();
         }
+        else
+        {
+            if ($post_type =='Question')
+            {
+                $question= Question::find($post_id);    
+                $question->total_like -= 1;
+                $question->save();
+            }
+            else
+            {   
+                $answer= Answer::find($post_id);       
+                $answer->total_like -= 1;
+                $answer->save();
+            }                
+            $user_liked->delete();
+        }
+
+        return redirect()->back();
+        
 
     }
     public function dislike($post_id,$post_type,$user_id)
