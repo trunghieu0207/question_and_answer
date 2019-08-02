@@ -29,18 +29,17 @@ class ViewTopicController extends Controller
             $question->save(); 
             $parsedown = new \Parsedown();
             $question->content = $parsedown->setMarkupEscaped(true)->text($question->content);
-            $now = Carbon::now();
-            $question->date_convert = $question->created_at->diffForHumans($now);
+            $question->date_convert = $question->created_at->diffForHumans();
             foreach ($answers as $answer) 
             {
                 $answer->content = $parsedown->setMarkupEscaped(true)->text($answer->content);
-                $answer->date_convert = $answer->created_at->diffForHumans($now);
+                $answer->date_convert = $answer->created_at->diffForHumans();
             }
             if(!empty($question->best_answer_id)) 
             {
                 $best_answer= Answer::find($question->best_answer_id);
                 $best_answer->content = $parsedown->setMarkupEscaped(true)->text($best_answer->content);
-                $best_answer->date_convert = $best_answer->created_at->diffForHumans($now);
+                $best_answer->date_convert = $best_answer->created_at->diffForHumans();
             }
             $limitCharacter = \Config::get('constants.options.limitCharacterAttachmentName');
             return view('view_topic',compact('question','answers','best_answer','limitCharacter'));

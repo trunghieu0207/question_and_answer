@@ -2,8 +2,6 @@
 
 @section('title','View topic')
 
-
-
 @section('js')
 <script>
     $('#fuMain').fileinput({
@@ -50,39 +48,38 @@
 
             <!-- Start Username, Date, Edit, Delete Block -->
             <div class="col-sm-11">
-                <div class="font-weight-bold" style="color:#787878; font-size: 25px">{{$question->user->fullname}}
+                <div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$question->user->fullname}}
                     <!-- Button HTML (to Trigger Modal) -->
                     @if(Auth::check())
-                    @if($question->user_id==Auth::user()->id)
-                    <a href="#myModal" data-toggle="modal">
-                        <i class="float-right fa fa-trash" aria-hidden="true"
-                            style="margin-right:10px; font-size: 120%; "></i></a>
-                    <!-- Modal HTML -->
-                    <div id="myModal" class="modal fade" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Confirmation</h5>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Are you sure you want to delete this topic?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <form action="{{route('deleteTopic')}}" method="post">
-                                        @csrf
-                                        <input type="text" name="_id" value="{{$question->id}}" hidden>
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
+                        @if($question->user_id==Auth::user()->id)
+                        <a href="#myModal" data-toggle="modal">
+                            <i class="float-right fa fa-trash" aria-hidden="true"
+                                style="margin-right:10px; font-size: 120%; "></i></a>
+                        <!-- Modal HTML -->
+                        <div id="myModal" class="modal fade" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Confirmation</h5>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to delete this topic?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <form action="{{route('deleteTopic')}}" method="post">
+                                            @csrf
+                                            <input type="text" name="_id" value="{{$question->id}}" hidden>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <a href="{{asset('edittopic')}}/{{ $question->id }}"><i class="float-right fa fa-pencil-square-o"
-                            aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>
-                    @else
-                    @endif
+                        <a href="{{asset('edittopic')}}/{{ $question->id }}"><i class="float-right fa fa-pencil-square-o"
+                                aria-hidden="true" style="margin-right:10px; font-size:120%"></i></a>
+                        @endif
                     @endif
 
                 </div>
@@ -109,12 +106,9 @@
             <div class="col-sm-12 px-3">
                 <div class="image-markdown">{!! $question->content !!}</div>
                 @if($question->attachment_path)
-                <div class="float-right">
                     <b class="badge badge-warning">Attachment:</b>
                     <a target="blank"
                         href="{{asset('files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limitCharacter)}}</i></a>
-                </div>
-                @else
                 @endif
                 <div class="row"
                     style="width: 500px; color:#787878; font-size: 20px; margin-bottom: 10px; margin-left: 5px;">

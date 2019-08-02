@@ -81,7 +81,7 @@ class QuestionController extends Controller
 
 		$question->delete();
 		
-		return redirect()->back();
+		return redirect()->route('homePage');
 	}
 	
 }
