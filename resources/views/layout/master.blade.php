@@ -12,6 +12,8 @@
 
     @include('layout.header')
 
+    <a href="{{route('aboutUs')}}" type="button" class="btn btn-outline-danger btn-about-us">About us</a>
+    
     @yield('content')
 
     @include('layout.js')
@@ -32,11 +34,17 @@
 							$('#result_list').html(data);
 							$('#result_list').show();
 						}
-						else $('#result_list').hide();
+						else{
+                            $('#result_list').hide();
+                            $('#result_list').empty();
+                        }
                     }
                 })
             }
-			else $('#result_list').hide();
+			else{
+                $('#result_list').hide();
+                $('#result_list').empty();
+            }
         });
         function submit_search(){
             if($('#search').val()!='') $('#searchform').submit();
@@ -48,6 +56,7 @@
                     method: "GET"
                 })
             $("#notification_bell").removeClass("text-danger");
+            $("#unread_notification").remove();
         }
         @endif
     </script>

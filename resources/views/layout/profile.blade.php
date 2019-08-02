@@ -19,8 +19,8 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-sm-3  sidebar-sticky" style="margin-top: 32px">
+        <div class="row mt-5">
+            <div class="col-sm-3">
                 <div class="card shadow bg-light">
                     <div class="card-body text-center">
                         <img src="{{ asset('images/avatars').'/'.Auth::user()->avatar }}" class="avatar">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9 mt-5">
+            <div class="col-sm-9">
             <div class="card shadow bg-light">
                     <div class="card-body">
                        @yield('contentprofile')

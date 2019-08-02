@@ -26,10 +26,12 @@
         }
     }
 
-
-    var imgs = document.getElementsByTagName("IMG");
-    for (i = 0; i < imgs.length; i++) {
-        imgs[i].setAttribute("style", "max-height: 600px;max-width: 800px;");
+    var containers = document.getElementsByClassName("image-markdown");
+    for (index_container = 0; index_container < containers.length; index_container++) {
+        var imgs = containers[index_container].getElementsByTagName("IMG");
+        for (index_img = 0; index_img < imgs.length; index_img++) {
+            imgs[index_img].setAttribute("class", "h-100 w-100");
+        }
     }
 
 </script>
@@ -95,20 +97,22 @@
             <!-- End Username, Date, Edit, Delete Block -->
 
             <!-- Start Question Title Block -->
-            <div class="col-sm-12 d-flex justify-content-sm-between">
-                <h3 class="text-primary font-weight-bold">{{$question->title}}</h3>
-                <span class="badge badge-info" style="height: 20px">{{$question->category->name}}</span>
+            <div class="col-sm-12">
+                <h3 class="text-primary font-weight-bold d-flex justify-content-sm-between">
+                    {{$question->title}}
+                    <span class="badge badge-info d-flex" style="height: 32px">{{$question->category->name}}</span>
+                </h3>
             </div>
             <!-- End Question Title Block -->
 
             <!-- Start Question Content Block -->
-            <div class="col-sm-12" style="margin-left: 10px">
-                <p>{!! $question->content !!}</p>
+            <div class="col-sm-12 px-3">
+                <div class="image-markdown">{!! $question->content !!}</div>
                 @if($question->attachment_path)
                 <div class="float-right">
-                    <b class="badge badge-warning">Attachments:</b>
+                    <b class="badge badge-warning">Attachment:</b>
                     <a target="blank"
-                        href="{{asset('files/'.$question->attachment_path)}}"><i>{{$question->attachment_path}}</i></a>
+                        href="{{asset('files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limitCharacter)}}</i></a>
                 </div>
                 @else
                 @endif
@@ -188,30 +192,31 @@
                 </div>
             </div>
             <div class="col-sm-11">
-                <div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$best_answer->user->fullname}}
-                    @if (Auth::check())
-                    @if($best_answer->user_id==Auth::user()->id)
-                    <a href="{{asset('editanswer')}}/{{ $best_answer->id }}">
-                        <i class="float-right fa fa-pencil-square-o" aria-hidden="true"
-                            style="margin-right:10px; font-size:120%"></i></a>
-                    @endif
-                    @endif
-                </div>
-                <div>
+            <div class="float-left">
+                <div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$best_answer->user->fullname}}</div>
                     <small class="text-muted" style="color:#5488c7;">
                         <i class="fa fa-clock-o" aria-hidden="true"> </i>
                         {{$best_answer->date_convert}}
                     </small>
                 </div>
-                <br>
-                <p>{!! $best_answer->content !!}</p>
+
+                @if (Auth::check())
+                @if (Auth::user()->id==$best_answer->user_id)
+                <a href="{{asset('editanswer')}}/{{ $best_answer->id }}"><i class="float-right fa fa-pencil-square-o ml-2"
+                        aria-hidden="true" style="font-size:30px"></i> </a>
+                @endif
+                @endif
                 @if($best_answer->attachment_path)
                 <div class="float-right">
                     <b class="badge badge-warning">Attachments:</b>
                     <a target="blank"
-                        href="{{asset('files/'.$best_answer->attachment_path)}}"><i>{{$best_answer->attachment_path}}</i></a>
+                        href="{{asset('files/'.$best_answer->attachment_path)}}"><i>{{substr($best_answer->attachment_path,strlen($best_answer->attachment_path)-$limitCharacter)}}</i></a>
                 </div>
                 @endif
+                <br>
+                <br>
+                <br>
+                <div class="image-markdown">{!! $best_answer->content !!}</div>
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-1">
                         @if(Auth::check())
@@ -263,30 +268,31 @@
                 @endif
             </div>
             <div class="col-sm-11">
-                <div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$answer->user->fullname}}
-                    @if (Auth::check())
-                    @if (Auth::user()->id==$answer->user_id)
-                    <a href="{{asset('editanswer')}}/{{ $answer->id }}"><i class="float-right fa fa-pencil-square-o"
-                            aria-hidden="true" style="margin-right:10px; font-size:120%"></i> </a>
-                    @endif
-                    @endif
-                </div>
-                <div>
+                <div class="float-left">
+                    <div class="font-weight-bold" style="color:#787878; font-size: 20px">{{$answer->user->fullname}}</div>
                     <small class="text-muted" style="color:#5488c7;">
                         <i class="fa fa-clock-o" aria-hidden="true"> </i>
                         {{$answer->date_convert}}
                     </small>
                 </div>
-                <br>
-                <p>{!! $answer->content !!}</p>
+
+                @if (Auth::check())
+                @if (Auth::user()->id==$answer->user_id)
+                <a href="{{asset('editanswer')}}/{{ $answer->id }}"><i class="float-right fa fa-pencil-square-o ml-2"
+                        aria-hidden="true" style="font-size:30px"></i> </a>
+                @endif
+                @endif
                 @if($answer->attachment_path)
                 <div class="float-right">
                     <b class="badge badge-warning">Attachments:</b>
                     <a target="blank"
-                        href="{{asset('files/'.$answer->attachment_path)}}"><i>{{$answer->attachment_path}}</i></a>
+                        href="{{asset('files/'.$answer->attachment_path)}}"><i>{{substr($answer->attachment_path,strlen($answer->attachment_path)-$limitCharacter)}}</i></a>
                 </div>
-                @else
                 @endif
+                <br>
+                <br>
+                <br>
+                <div class="image-markdown">{!! $answer->content !!}</div>
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-1">
                         @if(Auth::check())

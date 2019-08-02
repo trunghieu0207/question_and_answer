@@ -60,7 +60,7 @@ class UserController extends Controller
     public function readNotification()
     {
         $user = Auth::user();
-        $user->read_notification=true;
+        $user->new_notification=0;
         $user->save();
     }
 
@@ -75,10 +75,9 @@ class UserController extends Controller
         $notification->save();
         
         $user = User::find($user_id);
-        if($user->read_notification){
-            $user->read_notification=false;
-            $user->save();
-        }
+
+        $user->new_notification++;
+        $user->save();
     }
 
     public function indexInformation () {

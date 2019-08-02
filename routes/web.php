@@ -44,7 +44,7 @@ Route::get('viewtopic/{id}',[
 
 Route::get('aboutus',[
 	'as' => 'aboutUs',
-	'uses' => 'AboutUsController@index'
+	'uses' => 'HomeController@aboutUs'
 ]);
 
 /*Start middleware check sigin*/
@@ -131,7 +131,7 @@ Route::middleware(['checkSignIn'])->group(function () {
 		'as' => 'dislike',
 		'uses' => 'ViewTopicController@dislike'
 	]);
-
+	
 	Route::get('removenotification/{id}','UserController@removeNotification')->name('removeNotification');
 
 	Route::get('readnotification','UserController@readNotification')->name('readNotification');

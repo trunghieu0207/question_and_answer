@@ -24,23 +24,31 @@ class HomeController extends Controller
 		$questions = $this->runSearch($request->keyword);
 		if($questions->count()<=0) return "";
 
+		$havingInput = false;
 		foreach($questions as $question){
 			echo '<a id="result_id" href="/viewtopic/'.$question->_id.'" class="dropdown-item"><small>'.htmlspecialchars($question->title).'</small></a>';
+			if(!$havingInput){
+				echo '<input type="text" name="question_id" value="'.$question->_id.'" hidden>';
+				$havingInput=true;
+			}
 		}
 	}
 
 	public function submitSearch(Request $request){
-		$questions = $this->runSearch($request->keyword);
+		if($request->question_id) return redirect()->route('viewTopic',['id'=>$request->question_id]);
 
-		if($questions->count()==0) return "not found!";
-
-		return redirect()->route('viewTopic',['id'=>$questions[0]]);
+		return redirect()->back();
 	}
 
 	public function runSearch($keyword){
 		$full_text_search = Question::whereRaw(array('$text'=>array('$search'=> $keyword)))->get();
-		$normal_search = Question::where('title','like',"%$keyword%")->get();
+		$normal_search = Question::where('title','like',"%$keyword%")->orwhere('content','like',"%$keyword%")->get();
 
 		return $normal_search->merge($full_text_search);
+	}
+
+	public function aboutUs()
+	{
+		return view('about_us');
 	}
 }

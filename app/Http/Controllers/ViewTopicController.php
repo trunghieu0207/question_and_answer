@@ -22,7 +22,7 @@ class ViewTopicController extends Controller
         $question = Question::find($id);
         if(empty($question))
         {
-            return redirect()->route('homePage');
+            return redirect()->back();
         } 
         else 
         {
@@ -44,8 +44,8 @@ class ViewTopicController extends Controller
                 $best_answer->content = $parsedown->setMarkupEscaped(true)->text($best_answer->content);
                 $best_answer->date_convert = $best_answer->created_at->diffForHumans();
             }
-
-            return view('view_topic',compact('question','answers','best_answer'));
+            $limitCharacter = \Config::get('constants.options.limitCharacterAttachmentName');
+            return view('view_topic',compact('question','answers','best_answer','limitCharacter'));
         } 
     }
 

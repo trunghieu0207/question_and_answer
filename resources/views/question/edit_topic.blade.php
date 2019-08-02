@@ -65,6 +65,13 @@
 						@endif
 						@endforeach
 					</select>
+
+					@if($question->attachment_path)
+						<div class="float-right">
+						<b class="badge badge-warning">Attachment:</b>
+						<a target="blank" href="{{asset('files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-\Config::get('constants.options.limitCharacterAttachmentName'))}}</i></a>
+						</div>
+					@endif
 				</div>
 				<!-- End category-->
 
@@ -84,10 +91,6 @@
 						</div>
 					</div>
 				</div>
-				@if(!file_exists(public_path().'files/{{ $question->attachment_path }}'))
-				<h6>Attachments</h6>
-				<a target="blank" href="{{asset('files/'.$question->attachment_path)}}"><i>{{$question->attachment_path}}</i></a>
-				@endif
 				<!-- End content-->
 
 				<button type="button" onclick="checkContent()" class="btn btn-primary float-right">Save changes</button>

@@ -44,9 +44,11 @@
                 </div>
                 <br>
             </div>
-            <div class="col-sm-12 d-flex justify-content-sm-between">
-                <h3>{{$val->title}}</h3>
-                <span class="badge badge-info" style="height: 20px">{{$val->category->name}}</span>
+            <div class="col-sm-12">
+            <h3 class="text-primary font-weight-bold d-flex justify-content-sm-between">
+                    {{$val->title}}
+                    <span class="badge badge-info d-flex" style="height: 32px">{{$val->category->name}}</span>
+                </h3>
             </div>
             <div class="col-sm-12">
                 <p>{!! $val->content !!}</p>
@@ -88,9 +90,9 @@
                         </div>
                     </div>
                 </div>
-                @if(!file_exists(public_path().'files/{{ $answer->attachment_path }}'))
-                <h6>Attachments</h6>
-                <a target="blank" href="{{asset('files/'.$answer->attachment_path)}}"><i>{{$answer->attachment_path}}</i></a>
+                @if($answer->attachment_path)
+					<b class="badge badge-warning">Attachment:</b>
+					<a target="blank" href="{{asset('files/'.$answer->attachment_path)}}"><i>{{substr($answer->attachment_path,strlen($answer->attachment_path)-\Config::get('constants.options.limitCharacterAttachmentName'))}}</i></a>
                 @endif
                 <button type="submit" class="btn btn-primary float-right" onclick="checkContent()">Save changes</button>
             </form>

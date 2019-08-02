@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $user->fullname = 'Antman';
         $user->avatar = 'antman_avatar.png';
         $user->about_me = 'We are antman team!';
-        $user->read_notification = true;
+        $user->new_notification = 0;
         $user->save();
 
         $category_name = array('Frontend', 'Backend', 'Mobile', 'Fullstack', 'Other');
