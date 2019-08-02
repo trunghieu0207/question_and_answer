@@ -20,6 +20,7 @@
     </style>
 </head>
 
+
 <body>
     @include('layout.header')
     <div style="background-image: url('{{asset('images/resource/Downhill.jpg')}}');background-repeat: no-repeat;background-size: 100%;height:650px">

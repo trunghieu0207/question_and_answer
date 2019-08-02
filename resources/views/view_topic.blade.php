@@ -177,7 +177,7 @@
         <!-- Start Best Answer Block -->
         @if ($best_answer!=null)
         <div class="row px-3 pt-3">
-            <div class="col-sm-1">
+            <div class="col-1">
                 <img src="{{asset('images/avatars')}}/{{$best_answer->user->avatar}}"
                     class="test rounded-circle align-middle">
                 <br>
@@ -206,7 +206,7 @@
                 <br>
                 <br>
                 <br>
-                <div class="image-markdown">{!! $best_answer->content !!}</div>
+                <div class="image-markdown" style="padding-right: 58px;">{!! $best_answer->content !!}</div>
                 @if($best_answer->attachment_path)
                 <b class="badge badge-warning">Attachments:</b>
                 <a target="blank"
@@ -232,13 +232,12 @@
                         @endif
                     </div>
                     @if (Auth::check())
-                    @if (Auth::user()->id==$question->user_id)
-                    <div class="col-10 justify-content-sm-end">
-                        <a href="{{asset('removebestanswer')}}/{{$best_answer->_id}}"><button type="button"
-                                class="float-right btn btn-warning">Remove Best Answer</button></a>
-                    </div>
-                    @else
-                    @endif
+                        @if (Auth::user()->id==$question->user_id)
+                        <div class="col-10 justify-content-sm-end">
+                            <a href="{{asset('removebestanswer')}}/{{$best_answer->_id}}"><button type="button"
+                                    class="float-right btn btn-warning">Remove Best Answer</button></a>
+                        </div>
+                        @endif
                     @endif
                 </div>
             </div>
@@ -281,7 +280,7 @@
                 <br>
                 <br>
                 <br>
-                <div class="image-markdown">{!! $answer->content !!}</div>
+                <div class="image-markdown" style="padding-right: 58px;">{!! $answer->content !!}</div>
                 @if($answer->attachment_path)
                 <b class="badge badge-warning">Attachments:</b>
                 <a target="blank"
