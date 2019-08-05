@@ -118,14 +118,14 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-1"></div>
-                                <div class="col-sm-9">
-                                    {!! app('captcha')->display() !!}
-                                    @if (count($errors)>0)
-                                            @foreach($errors->all() as $error)
-                                                <div class="alert alert-danger">{{ $error }}</div>
-                                            @endforeach
-                                    @endif
-                                </div>
+                            <div class="col-sm-9">
+                                {!! app('captcha')->display() !!}
+                                @if (count($errors)>0)
+                                    @foreach($errors->all() as $error)
+                                        <div class="alert alert-danger">{{ $error }}</div>
+                                    @endforeach
+                                @endif
+                            </div>
                         </div>    
                     </div>
                     <div class="form-group">

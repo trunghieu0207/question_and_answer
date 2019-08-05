@@ -4,7 +4,6 @@
 @section('script')
     <script>
         $(function () {
-
             jQuery.validator.addMethod("validpass", function (value, element) {
                 return this.optional(element) || /^\S+$/i.test(value);
             }, "Password can't contain space.");
@@ -76,25 +75,25 @@
 						@if(Session::has('error'))
 							<div class="alert alert-danger">{{ Session::get('error') }}</div>
 						@endif
-					<form action="{{ route('storeChangePassword') }}" method="post" id="changepass">
-						<input type="hidden" name="_token" value="{{csrf_token()}}">
-						<div class="form-group">
-					    	<label for="curentpassword" class="font-weight-bold">Current password</label>
-					    	<input type="password" class="form-control"  name="curentpassword">
-						</div>
-						<div class="form-group">
-					    	<label for="newpassword" class="font-weight-bold">New password</label>
-					    	<input type="password" class="form-control" name="newpassword">
-						</div>
-						<div class="form-group">
-					    	<label for="confirmpass" class="font-weight-bold">Confirm password</label>
-					    	<input type="password" class="form-control" name="confirmpass">
-						</div>
-					  	<div class="d-flex justify-content-center">
-					  		<button type="submit" class="btn btn-primary">Save</button>
-					  		<button type="reset" class="btn btn-outline-primary " style="margin-left: 10px; ">Reset</button>
-						</div>
-					</form>
+    					<form action="{{ route('storeChangePassword') }}" method="post" id="changepass">
+    						<input type="hidden" name="_token" value="{{csrf_token()}}">
+    						<div class="form-group">
+    					    	<label for="curentpassword" class="font-weight-bold">Current password</label>
+    					    	<input type="password" class="form-control"  name="curentpassword">
+    						</div>
+    						<div class="form-group">
+    					    	<label for="newpassword" class="font-weight-bold">New password</label>
+    					    	<input type="password" class="form-control" name="newpassword">
+    						</div>
+    						<div class="form-group">
+    					    	<label for="confirmpass" class="font-weight-bold">Confirm password</label>
+    					    	<input type="password" class="form-control" name="confirmpass">
+    						</div>
+    					  	<div class="d-flex justify-content-center">
+    					  		<button type="submit" class="btn btn-primary">Save</button>
+    					  		<button type="reset" class="btn btn-outline-primary " style="margin-left: 10px; ">Reset</button>
+    						</div>
+    					</form>
 					</div>
 				</div>
 			</div>

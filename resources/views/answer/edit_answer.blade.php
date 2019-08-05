@@ -30,11 +30,9 @@
 <div class="container mt-5">
     <div class="card shadow">
         <div class="row px-3 pt-3">
-            <div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}"
-                    class="test rounded-circle align-middle"></div>
+            <div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}"class="test rounded-circle align-middle"></div>
             <div class="col-sm-11">
-
-            <a href="/personalinfomation/{{ $question->user->_id }}" style="color:#787878; font-size: 20px">{{$question->user->fullname}}</a>
+                <a href="/personalinfomation/{{ $question->user->_id }}" style="color:#787878; font-size: 20px">{{$question->user->fullname}}</a>
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
                         <i class="fa fa-calendar" aria-hidden="true"> </i> {{$question->date_convert}}
@@ -43,7 +41,7 @@
                 <br>
             </div>
             <div class="col-sm-12">
-            <h3 class="text-primary font-weight-bold d-flex justify-content-sm-between">
+                <h3 class="text-primary font-weight-bold d-flex justify-content-sm-between">
                     {{$question->title}}
                     <span class="badge badge-info d-flex" style="height: 32px">{{$question->category->name}}</span>
                 </h3>
@@ -51,9 +49,9 @@
             <div class="col-sm-12">
                 <p>{!! $question->content !!}</p>
                 @if($question->attachment_path)
-                <b class="badge badge-warning">Attachment:</b>
-                <a target="blank"
-                    href="{{asset('files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limit)}}</i></a>
+                    <b class="badge badge-warning">Attachment:</b>
+                    <a target="blank"
+                        href="{{asset('files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limit)}}</i></a>
                 @endif
                 <div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
                     <div class="col-sm">
@@ -74,7 +72,6 @@
     </div>
 
     <div class="card shadow" style="margin-top: 20px; margin-bottom: 20px;">
-
         <div class="card-body">
             <form id="editanswer" method="post" action="{{ url('editanswer') }}" enctype="multipart/form-data">
                 @csrf
@@ -100,6 +97,5 @@
             </form>
         </div>
     </div>
-
 </div>
 @endsection

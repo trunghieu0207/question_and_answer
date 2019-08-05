@@ -45,7 +45,6 @@
 					students from many universities in Ho Chi Minh City, Vietnam. We join internship program of cybozu 2019.
 					In there our team are founded randomly. Together we build this system for experence, for our passion...
 				</p>
-
             </div>
             <div class="col-sm-3">
                 <img src="{{asset('images/resource/2525012-256.png')}}">
@@ -65,7 +64,7 @@
         <div class="d-flex justify-content-center">
 			<img src="{{asset('images/resource/mrlong.png')}}"
                 class="avt-mem rounded-circle align-middle">
-		<h3 class="ml-2 d-flex align-items-center" style="color:white;">Mr. Truong Quoc Long <br>(Mentor)</h3>
+		    <h3 class="ml-2 d-flex align-items-center" style="color:white;">Mr. Truong Quoc Long <br>(Mentor)</h3>
 		</div>
         <br>
         <br>
@@ -110,10 +109,6 @@
 
             </div>
         </div>
-    </div>
-
-    </div>
-    </div>
     </div>
 
     @include('layout.js')
