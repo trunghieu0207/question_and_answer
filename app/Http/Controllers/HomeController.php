@@ -32,12 +32,13 @@ class HomeController extends Controller
 	}
 
 	public function searchIndex(Request $request){
-		$questions = $this->runSearch($request->keyword);
+		$keyword = $request->keyword;
+		$questions = $this->runSearch($keyword);
 		foreach($questions as $question){
 			$question->date = $question->created_at->diffForHumans();
 		}
 		
-		return view('search_result',compact('questions'));
+		return view('search_result',compact('questions','keyword'));
 	}
 
 	public function runSearch($keyword){

@@ -6,7 +6,7 @@
 	<div class="container mt-5">
 		<div class="card shadow">
 			<div class="card-header text-center">
-				<h3><i class="fa fa-angle-double-left"></i> Search result <i class="fa fa-angle-double-right"></i></h3>
+				<h3>Search result for "{{$keyword}}"</h3>
 			</div>
 			<div class="card-body p-0">
 				@foreach($questions as $question)
