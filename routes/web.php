@@ -47,6 +47,10 @@ Route::get('aboutus',[
 	'uses' => 'HomeController@aboutUs'
 ]);
 
+Route::get('test',function(){
+	return \Config::get('constants.options.ItemNumberPerPage');
+});
+
 Route::get('personalinfomation/{id}','HomeController@personalInfomation')->name('personalInfomation');
 
 /*Start middleware check sigin*/

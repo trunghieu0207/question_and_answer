@@ -7,11 +7,13 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class Notification extends Eloquent
 {
     /**
+     * Array contain actions below:
      * answer like dislike vote
      */
     static public $action = array('answer','like','dislike','accept');
 
     /**
+     * Array of targets:
      * question answer
      */
     static public $target = array('question','answer');

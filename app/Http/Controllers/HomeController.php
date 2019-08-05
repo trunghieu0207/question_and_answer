@@ -6,13 +6,12 @@ use App\User;
 use App\User_Question_Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-//use Carbon\Carbon;
 
 class HomeController extends Controller
 {
 	public function index()
 	{
-		$questions = Question::orderBy('created_at', 'desc')->paginate(5);
+		$questions = Question::orderBy('created_at', 'desc')->paginate(\Config::get('constants.options.ItemNumberPerPage'));
 		$questions->setPath('/');
 		foreach($questions as $question){
 
@@ -38,13 +37,11 @@ class HomeController extends Controller
 			$question->date = $question->created_at->diffForHumans();
 		}
 		
-		return view('search_result',compact('questions','keyword'));
+		return view('question.search_result',compact('questions','keyword'));
 	}
 
 	public function runSearch($keyword){
 		$full_text_search = Question::whereRaw(array('$text'=>array('$search'=> $keyword)))->get();
-		//$normal_search = Question::where('title','like',"%$keyword%")->orwhere('content','like',"%$keyword%")->get();
-		//return $normal_search->merge($full_text_search);
 
 		return $full_text_search;
 	}
@@ -73,6 +70,6 @@ class HomeController extends Controller
 			if($answer->question->best_answer_id==$answer->_id) $totalAccepted++;
 		}
 
-		return view('personal_infomation',compact('user','totalLike','totalDislike','totalAccepted'));
+		return view('profile.personal_infomation',compact('user','totalLike','totalDislike','totalAccepted'));
 	}
 }
