@@ -4,7 +4,7 @@
 @section('content')
 
 <main>
-	<div class="container mt-5">
+	<div class="container mt-5 word-wrap">
 		<div class="card shadow">
 			<div class="card-header text-center">
 				<h3><i class="fa fa-angle-double-left"></i> Newest questions <i class="fa fa-angle-double-right"></i></h3>
@@ -22,7 +22,7 @@
 						</small>
 						<br>
 
-						<div class="float-left"><a href="viewtopic/{{ $question->id }}"><h5>{{$question->title}}</h5></a></div>
+						<div class="float-left "><a href="viewtopic/{{ $question->id }}"><h5>{{$question->title}}</h5></a></div>
 						<small class="float-right border rounded-pill text-primary bg-light p-2 font-weight-bold">{{$question->category->name}}</small>
 
 						<br>

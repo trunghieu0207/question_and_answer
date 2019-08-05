@@ -6,8 +6,6 @@
 <script>
     $('#fuMain').fileinput({
         theme: 'fa',
-        //allowedFileExtensions: ['png', 'jpg'],
-        //uploadUrl: '/upload_article_poster',
         uploadAsync: false,
         showUpload: false,
         maxFileSize: 5120,
@@ -40,7 +38,7 @@
 
 <div class="container mt-5">
     <!-- Start Question Block -->
-    <div class="card shadow">
+    <div class="card shadow word-wrap">
         <div class="row px-3 pt-3">
 
             <div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}"
