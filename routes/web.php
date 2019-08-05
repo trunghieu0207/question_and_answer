@@ -21,14 +21,14 @@ Route::get('signin',[
 	'as' => 'signInIndex',
 	'uses' => 'SignInController@view'
 ]);
-Route::get('submitSearch',[
-	'as' => 'submitSearch',
-	'uses' => 'HomeController@submitSearch'
+Route::get('searchresult',[
+	'as' => 'searchIndex',
+	'uses' => 'HomeController@searchIndex'
 ]);
 
-Route::get('search',[
-	'as' => 'search',
-	'uses' => 'HomeController@search'
+Route::get('ajaxsearch',[
+	'as' => 'ajaxSearch',
+	'uses' => 'HomeController@ajaxSearch'
 ]);
 
 Route::post('signin',[

@@ -13,13 +13,21 @@
             <div class="col-sm-7 py-5">
                 <h1 class="text-primary font-weight-bold">{{ $user->fullname }}</h1>
                 <p>{{ $user->about_me }}</p>
-                <ul>
-                    <li>Total question: <div class="badge badge-info">{{ $user->questions->count() }}</div></li>
-                    <li>Total answer: <div class="badge badge-info">{{ $user->answers->count() }}</div></li>
-                    <li>Total like: <div class="badge badge-info">{{ $totalLike }}</div></li>
-                    <li>Total dislike: <div class="badge badge-info">{{ $totalDislike }}</div></li>
-                    <li>Total accepted answer: <div class="badge badge-info">{{ $totalAccepted }}</div></li>
-                </ul>
+                <div class="row">
+                    <div class="col-sm">
+                        <ul>
+                            <li>Total question: {{ $user->questions->count() }}</li>
+                            <li>Total answer: {{ $user->answers->count() }}</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm">
+                        <ul>
+                            <li>Total like: {{ $totalLike }}</li>
+                            <li>Total dislike: {{ $totalDislike }}</li>
+                            <li>Total accepted answer: {{ $totalAccepted }}</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div> 

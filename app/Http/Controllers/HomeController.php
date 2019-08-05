@@ -22,31 +22,30 @@ class HomeController extends Controller
 		return view('home',compact('questions'));
 	}
 
-	public function search(Request $request){
+	public function ajaxSearch(Request $request){
 		$questions = $this->runSearch($request->keyword);
 		if($questions->count()<=0) return "";
 
-		$havingInput = false;
 		foreach($questions as $question){
 			echo '<a id="result_id" href="/viewtopic/'.$question->_id.'" class="dropdown-item"><small>'.htmlspecialchars($question->title).'</small></a>';
-			if(!$havingInput){
-				echo '<input type="text" name="question_id" value="'.$question->_id.'" hidden>';
-				$havingInput=true;
-			}
 		}
 	}
 
-	public function submitSearch(Request $request){
-		if($request->question_id) return redirect()->route('viewTopic',['id'=>$request->question_id]);
-
-		return redirect()->back();
+	public function searchIndex(Request $request){
+		$questions = $this->runSearch($request->keyword);
+		foreach($questions as $question){
+			$question->date = $question->created_at->diffForHumans();
+		}
+		
+		return view('search_result',compact('questions'));
 	}
 
 	public function runSearch($keyword){
 		$full_text_search = Question::whereRaw(array('$text'=>array('$search'=> $keyword)))->get();
-		$normal_search = Question::where('title','like',"%$keyword%")->orwhere('content','like',"%$keyword%")->get();
+		//$normal_search = Question::where('title','like',"%$keyword%")->orwhere('content','like',"%$keyword%")->get();
+		//return $normal_search->merge($full_text_search);
 
-		return $normal_search->merge($full_text_search);
+		return $full_text_search;
 	}
 
 	public function aboutUs()

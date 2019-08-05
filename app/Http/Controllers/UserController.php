@@ -16,7 +16,10 @@ class UserController extends Controller
 {
     public function indexManageQuestion()
 	{
-		$questions = Auth::user()->questions()->paginate(5);
+        $questions = Auth::user()->questions()->paginate(5);
+        //foreach($questions as $question){
+		//	$question->date = $question->created_at->diffForHumans();
+		//}
 		$active_manage_question = true;
 
 		return view('profile.manage_question',compact('questions','active_manage_question'));
@@ -24,7 +27,10 @@ class UserController extends Controller
 
 	public function indexManageAnswer()
 	{
-		$answers = Auth::user()->answers()->paginate(5);
+        $answers = Auth::user()->answers()->paginate(5);
+        //foreach($answers as $answer){
+		//	$answer->date = $answer->created_at->diffForHumans();
+		//}
 		$active_manage_answer = 'active';
 
 		return view('profile.manage_answer',compact('answers','active_manage_answer'));
@@ -35,7 +41,7 @@ class UserController extends Controller
 		if ($request->hasFile('avatar')) {
             $user = Auth::user();
 
-            $filename = $user->_id.$request->avatar->getClientOriginalName();
+            $filename = $user->_id.'.'.$request->avatar->getClientOriginalExtension();
 
             if($user->avatar!='default_avatar.png') File::delete('images/avatars/'.$user->avatar);
             $request->avatar->move('images/avatars/', $filename);

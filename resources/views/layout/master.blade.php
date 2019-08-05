@@ -8,9 +8,9 @@
     <style type="text/css" media="screen">
         .scrollbar {
             float: left;
-            height: 400px;
+            max-height: 400px;
             background: #fff;
-            overflow-y: scroll;
+            overflow-y: auto;
             overflow-x: hidden;
             margin-bottom: 50px;
             }
@@ -32,7 +32,7 @@
             var keyword = $(this).val();
             if (keyword != '') {
                 $.ajax({
-                    url: "{{ route('search') }}",
+                    url: "{{ route('ajaxSearch') }}",
                     method: "GET",
                     data: {
                         keyword

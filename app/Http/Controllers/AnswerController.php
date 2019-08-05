@@ -32,7 +32,7 @@ class AnswerController extends Controller
 		$answer->attachment_path = null;
 		$answer->save();
 		if($request->hasFile('attachment')) {
-			$filename = $answer->_id.$request->attachment->getClientOriginalName();
+			$filename = $answer->_id.'.'.$request->attachment->getClientOriginalExtension();
 			$answer->attachment_path = $filename;
 			$request->attachment->move('files/', $filename);
 		}
@@ -65,7 +65,7 @@ class AnswerController extends Controller
 		$answer->content = $request->get('content');
 		if($request->hasFile('attachment')) {
 			File::delete('files/'.$answer->attachment_path);
-			$filename = $answer->_id.$request->attachment->getClientOriginalName();
+			$filename = $answer->_id.'.'.$request->attachment->getClientOriginalExtension();
 			$answer->attachment_path = $filename;
 			$request->attachment->move('files/', $filename);
 		}
