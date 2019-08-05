@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>About us</title>
     <link rel="stylesheet" href="">
     @include('layout.css')
     <style type="text/css" media="screen">

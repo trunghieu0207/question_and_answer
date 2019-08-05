@@ -50,13 +50,10 @@ class AnswerController extends Controller
 		if(empty($answer)) {
 			return redirect()->route('homePage');
 		} 
-		$question = Question::where('_id',$answer->question_id)->get();
+		$question = $answer->question;
 		$parsedown = new \Parsedown();
-		foreach($question as $key)
-		{
-			$key->content = $parsedown->setMarkupEscaped(true)->text($key->content);
-			$key->date_convert = $key->created_at->diffForHumans();
-		}
+		$question->content = $parsedown->setMarkupEscaped(true)->text($question->content);
+		$question->date_convert = $question->created_at->diffForHumans();
 
 		return view('answer.edit_answer',compact('answer','id','question'));
 	}

@@ -7,18 +7,13 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <style type="text/css" media="screen">
         .scrollbar {
-            margin-left: 30px;
             float: left;
-            height: 300px;
-            width: 350px;
+            height: 400px;
             background: #fff;
             overflow-y: scroll;
+            overflow-x: hidden;
             margin-bottom: 50px;
             }
-
-
-
-
     </style>
 </head>
 <body class="main-background">

@@ -75,13 +75,17 @@ class QuestionController extends Controller
 
 	public function destroy(Request $request)
 	{
+		$this->removeQuestion($request);
+		
+		return redirect()->route('homePage');
+	}
+	
+	public function removeQuestion(Request $request)
+	{
 		$question = Question::where('user_id', '=', Auth::user()->id)->where('_id', '=', $request->_id)->first();
 		
 		if(empty($question)) return 'Question not found';
 
 		$question->delete();
-		
-		return redirect()->route('homePage');
 	}
-	
 }

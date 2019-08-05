@@ -80,6 +80,13 @@ class UserController extends Controller
         $user->save();
     }
 
+    public function removeQuestion(Request $request)
+	{
+        (new QuestionController)->removeQuestion($request);
+
+		return redirect()->route('manageQuestion');
+	}
+
     public function indexInformation () {
         $user = Auth::user();
         $active_personal_info = true;

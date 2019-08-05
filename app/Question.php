@@ -26,5 +26,10 @@ class Question extends Eloquent
 
     	return $this->hasMany('App\Answer', 'question_id', '_id');
     }
+
+    public function user_question_answers() {
+
+    	return $this->hasMany('App\User_Question_Answer', 'post_id', '_id');
+    }
 }
 

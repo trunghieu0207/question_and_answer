@@ -7,14 +7,16 @@
 	<div class="container mt-5">
 		<div class="card shadow">
 			<div class="card-header text-center">
-				<h3>Newest questions</h3>
+				<h3><< Newest questions >></h3>
 			</div>
 			<div class="card-body p-0">
 				@foreach($questions as $question)
 				<div class="row px-3 pt-3">
 					<div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}" class="test rounded-circle align-middle"></div>
 					<div class="col-sm-11">
-						<small class="font-weight-bold" style="color:#5488c7;">{{$question->user->fullname}}</small>
+							<a href="/personalinfomation/{{ $question->user->_id }}">
+								<small class="font-weight-bold" style="color:#5488c7;">{{$question->user->fullname}}</small>
+							</a>
 						<small class="text-muted" style="color:#5488c7;">
 							{{$question->date}}
 						</small>

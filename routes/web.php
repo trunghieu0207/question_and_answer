@@ -47,6 +47,8 @@ Route::get('aboutus',[
 	'uses' => 'HomeController@aboutUs'
 ]);
 
+Route::get('personalinfomation/{id}','HomeController@personalInfomation')->name('personalInfomation');
+
 /*Start middleware check sigin*/
 Route::middleware(['checkSignIn'])->group(function () {
     Route::prefix('profile')->group(function () {
@@ -70,6 +72,7 @@ Route::middleware(['checkSignIn'])->group(function () {
 		]);
 
 		Route::get('managequestion', 'UserController@indexManageQuestion')->name('manageQuestion');
+		Route::post('removequestion', 'UserController@removeQuestion')->name('removeQuestion');
 		Route::get('manageanswer', 'UserController@indexManageAnswer')->name('manageAnswer');
 		Route::post('changeavatar', 'UserController@changeAvatar')->name('changeAvatar');
 
