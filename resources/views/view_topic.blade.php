@@ -171,7 +171,7 @@
     <!-- Start Answer Block -->
     <div class="card shadow" style="margin-top: 20px; margin-bottom: 20px; ">
         <div class="card-header">
-            <h3><i class="fa fa-angle-double-right"></i> Answers</h3>
+            <h3><i class="fa fa-angle-double-right"></i> Answers:</h3>
         </div>
 
         <!-- Start Best Answer Block -->

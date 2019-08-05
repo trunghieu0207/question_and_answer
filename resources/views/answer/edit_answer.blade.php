@@ -53,7 +53,7 @@
                 @if($question->attachment_path)
                 <b class="badge badge-warning">Attachment:</b>
                 <a target="blank"
-                    href="{{asset('files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-\Config::get('constants.options.limitCharacterAttachmentName'))}}</i></a>
+                    href="{{asset('files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limit)}}</i></a>
                 @endif
                 <div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
                     <div class="col-sm">
