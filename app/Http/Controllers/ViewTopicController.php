@@ -23,7 +23,7 @@ class ViewTopicController extends Controller
         } 
         else 
         {
-            $answers = Answer::where('question_id',$id)->orderBy('total_like','desc')->paginate(5);
+            $answers = Answer::where('question_id',$id)->orderBy('total_like','desc')->paginate(\Config::get('constants.options.ItemNumberPerPage'));
             $best_answer=null;
             $question->total_answer = $answers->count();
             $question->save(); 
@@ -42,7 +42,7 @@ class ViewTopicController extends Controller
                 $best_answer->date_convert = $best_answer->created_at->diffForHumans();
             }
             $limitCharacter = \Config::get('constants.options.limitCharacterAttachmentName');
-            return view('view_topic',compact('question','answers','best_answer','limitCharacter'));
+            return view('question.view_topic',compact('question','answers','best_answer','limitCharacter'));
         } 
     }
 

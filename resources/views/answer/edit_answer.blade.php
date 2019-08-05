@@ -41,8 +41,10 @@
                 <br>
             </div>
             <div class="col-sm-12">
+
                 <h3 class="text-primary font-weight-bold d-flex justify-content-sm-between">
                     {{$question->title}}
+
                     <span class="badge badge-info d-flex" style="height: 32px">{{$question->category->name}}</span>
                 </h3>
             </div>

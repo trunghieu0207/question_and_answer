@@ -22,7 +22,9 @@
 						</small>
 						<br>
 
+
 						<div class="float-left "><a href="viewtopic/{{ $question->id }}"><h5>{{$question->title}}</h5></a></div>
+
 						<small class="float-right border rounded-pill text-primary bg-light p-2 font-weight-bold">{{$question->category->name}}</small>
 
 						<br>
