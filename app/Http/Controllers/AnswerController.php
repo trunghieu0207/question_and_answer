@@ -45,7 +45,7 @@ class AnswerController extends Controller
 
 	public function edit($id)
 	{
-
+		$limit = \Config::get('constants.options.limitCharacterAttachmentName');
 		$answer = Answer::find($id);
 		if(empty($answer)) {
 			return redirect()->route('homePage');
@@ -55,7 +55,7 @@ class AnswerController extends Controller
 		$question->content = $parsedown->setMarkupEscaped(true)->text($question->content);
 		$question->date_convert = $question->created_at->diffForHumans();
 
-		return view('answer.edit_answer',compact('answer','id','question'));
+		return view('answer.edit_answer',compact('answer','id','question','limit'));
 	}
 
 	public function update(Request $request)
