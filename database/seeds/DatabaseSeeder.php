@@ -4,10 +4,9 @@ use Illuminate\Database\Seeder;
 use App\User;
 use App\Category;
 use App\Question;
-use App\Answer;
-use App\Attachment;
-use App\Notification;
-use App\User_Question_Answer;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -26,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $user->new_notification = 0;
         $user->save();
 
-        $category_name = array('Frontend', 'Backend', 'Mobile', 'Fullstack', 'Other');
+        $category_name = array('Software', 'Website app', 'Window app', 'Mobile app', 'MacOS app', 'Linux app', 'Other');
         $cat_id = 'none';
         foreach($category_name as $name){
             $category = new Category();
@@ -49,5 +48,10 @@ class DatabaseSeeder extends Seeder
         $question->total_dislike=0;
         $question->total_answer=0;
         $question->save();
+
+        // create index for full text search
+        Schema::connection('mongodb')->table('antman_questions', function (Blueprint $collection) {
+            $collection->index([ "title" => "text","content" => "text" ]);
+        });
     }
 }

@@ -1,20 +1,27 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
     <div class="container">
+
+        <!-- start logo block -->
         <a class="navbar-brand" href="{{ route('homePage') }}"><b style="font-size:20px">
                 <img src="{{ asset('images/resource/logo2a.png') }}" width="40px"> TechSolution</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- end logo block -->
+
+        <!-- start collapse block -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="row" style="width:100%">
                 <div class="col-4">
-                    <form id="searchform" class="form-inline-xs" action="{{ route('submitSearch') }}" method="get">
+
+                    <!-- start search block -->
+                    <form id="searchform" class="form-inline-xs" action="{{ route('searchIndex') }}" method="get">
                         <div class="input-group">
                             <input id="search" name="keyword" class="form-control" type="search" placeholder="Search"
                                 title="enter your keyword" autocomplete="off">
-                            <div id="result_list" class="dropdown-menu"></div>
+                            <div id="result_list" class="scrollbar scrollbar-lady-lips dropdown-menu"></div>
                             <div class="input-group-prepend">
                                 <button class="btn btn-outline-dark font-weight-bold" type="button"
                                     onclick="submit_search()">
@@ -23,12 +30,17 @@
                             </div>
                         </div>
                     </form>
+                    <!-- end search block -->
+
                 </div>
                 @if(Auth::check())
                 <div class="col-0.5">
+                    <!-- start add button block -->
                     <a href="{{route('addTopic')}}" class="btn btn-outline-secondary"><i class="fa fa-plus"></i></a>
+                    <!-- end add button block -->
                 </div>
                 <div class="col-0.5">
+                    <!-- start notification block -->
                     <div class="nav-item dropright">
                         <button class="btn btn-link" id="notify" role="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false" onclick="read_notification()">
@@ -39,12 +51,11 @@
                             <i id="notification_bell" class="fa fa-bell" style="font-size: 18px"></i>
                             @endif
                         </button>
-                        <div class="scrollbar scrollbar-lady-lips dropdown-menu pl-4" aria-labelledby="notify" style="width: 350px">
-                            <div style="text-align: center;s">
+                        <div class="scrollbar scrollbar-lady-lips dropdown-menu" aria-labelledby="notify" style="width: 350px">
+                            <div style="text-align: center;">
                                 <h4>Notifications</h4>
                             </div>
-                            @foreach($noti =Auth::user()->notifications()->orderBy('created_at', 'DESC')->get() as
-                            $notification)
+                            @foreach($noti=Auth::user()->notifications()->orderBy('created_at', 'DESC')->get() as $notification)
                             <div class="row" >
                                 <div class="col-sm-10">
                                     <div class=" ml-2">
@@ -65,10 +76,12 @@
                             @endforeach
                         </div>
                     </div>
+                    <!-- end notification block -->
                 </div>
-
+                
                 <ul class="navbar-nav mr-auto"></ul>
 
+                <!-- start user menu block -->
                 <div class="col-0.5 pt-2">
                     <b class="text-dark">{{ Auth::user()->fullname }}</b>
                 </div>
@@ -98,10 +111,13 @@
                         </div>
                     </div>
                 </div>
+                <!-- end user menu block -->
                 @else
+                <!-- start sign in or sign up block -->
                 <ul class="navbar-nav mr-auto"></ul>
                 <a href="{{route('signInIndex')}}" class="btn btn-success">Sign in</a>
                 <a href="{{route('signUp')}}" class="btn btn-primary ml-2">Sign up</a>
+                <!-- end sign in or sign up block -->
                 @endif
 
             </div>
