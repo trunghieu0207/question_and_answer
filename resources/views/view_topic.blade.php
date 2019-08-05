@@ -42,7 +42,7 @@
         <div class="row px-3 pt-3">
 
             <div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}"
-                    class="test rounded-circle align-middle"></div>
+                    class="user-avatar rounded-circle align-middle img-fluid"></div>
 
             <!-- Start Username, Date, Edit, Delete Block -->
             <div class="col-sm-11">
@@ -180,7 +180,7 @@
         <div class="row px-3 pt-3">
             <div class="col-1">
                 <img src="{{asset('images/avatars')}}/{{$best_answer->user->avatar}}"
-                    class="test rounded-circle align-middle">
+                    class="user-avatar rounded-circle align-middle">
                 <br>
                 <br>
                 <div class="d-flex" style="justify-content :center; align-items:center;  font-size:200%; color:#66ad1f">
@@ -253,7 +253,7 @@
         <div class="row px-3 pt-3">
             <div class="col-sm-1">
                 <img src="{{asset('images/avatars')}}/{{$answer->user->avatar}}"
-                    class="test rounded-circle align-middle">
+                    class="user-avatar rounded-circle align-middle">
                 <br>
                 <br>
                 @if ($question->best_answer_id == $answer->_id)
