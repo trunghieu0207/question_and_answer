@@ -8,17 +8,12 @@ use App\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 use File;
-
+use App\Http\Requests\AnswerRequest;
 class AnswerController extends Controller
 {
 
-	public function store(Request $request)
+	public function store(AnswerRequest $request)
 	{
-		// $validatedData = $request->validate([
-		// 	'title' => 'required|max:255',
-		// 	'content' => 'required',
-		// ]);
-
 		$answer = new Answer();
 		$answer->content = $request->get('content');
 		$answer->user_id = Auth::user()->_id;
@@ -58,7 +53,7 @@ class AnswerController extends Controller
 		return view('answer.edit_answer',compact('answer','id','question','limit'));
 	}
 
-	public function update(Request $request)
+	public function update(AnswerRequest $request)
 	{
 
 		$answer = Answer::find($request->get('id'));

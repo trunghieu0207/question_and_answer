@@ -10,7 +10,7 @@ use App\Notification;
 use App\user;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
-
+use App\Http\Requests\AnswerRequest;
 class ViewTopicController extends Controller
 {
 

@@ -144,6 +144,9 @@
     @if (Auth::check())
     <div class="card shadow" style="margin-top: 20px;">
         <div class="card-body">
+            @foreach($errors->all() as $error)
+                <div class="alert alert-danger">{{ $error }}</div>
+            @endforeach
             <form id="addanswer" method="post" action="{{route('addAnswer')}}" enctype="multipart/form-data">
                 @csrf
                 <input type="text" name="question_id" hidden value="{{$question->_id}}">

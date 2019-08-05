@@ -69,6 +69,9 @@
 				<div class="row">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
+                        @foreach($errors->all() as $error)
+                            <div class="alert alert-danger">{{ $error }}</div>
+                        @endforeach
 						@if(Session::has('message'))
 							<div class="alert alert-success">{{ Session::get('message') }}</div>
 						@endif

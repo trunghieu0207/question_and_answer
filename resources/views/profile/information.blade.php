@@ -5,9 +5,6 @@
 @section('script')
     <script>
         $(function () {
-            jQuery.validator.addMethod("validname", function (value, element) {
-                return this.optional(element) || /^[\w ]+$/i.test(value);
-            }, "Alphabet, number, underscore, spaces only.");
 
             jQuery.validator.addMethod("validpass", function (value, element) {
                 return this.optional(element) || /^\S+$/i.test(value);
@@ -16,7 +13,6 @@
             $('#information').validate({
                 rules: {
                     fullname: {
-                        validname: true,
                         required: true
                     },
                 },
@@ -50,6 +46,9 @@
 				<div class="row">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
+					@foreach($errors->all() as $error)
+						<div class="alert alert-danger">{{ $error }}</div>
+					@endforeach
 						<form action="{{ route('updateInformation') }}" method="post" id="information">
 							<input type="hidden" name="_token" value="{{csrf_token()}}">
 							@if(Session::has('message'))

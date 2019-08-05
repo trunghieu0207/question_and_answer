@@ -73,6 +73,9 @@
 
     <div class="card shadow" style="margin-top: 20px; margin-bottom: 20px;">
         <div class="card-body">
+            @foreach($errors->all() as $error)
+                <div class="alert alert-danger">{{ $error }}</div>
+            @endforeach
             <form id="editanswer" method="post" action="{{ url('editanswer') }}" enctype="multipart/form-data">
                 @csrf
                 <input type="text" name="id" hidden value="{{$answer->id}}">
