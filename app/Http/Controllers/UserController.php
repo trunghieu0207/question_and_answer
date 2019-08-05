@@ -16,7 +16,7 @@ class UserController extends Controller
 {
     public function indexManageQuestion()
 	{
-        $questions = Auth::user()->questions()->paginate(5);
+        $questions = Auth::user()->questions()->paginate(\Config::get('constants.options.ItemNumberPerPage'));
         //foreach($questions as $question){
 		//	$question->date = $question->created_at->diffForHumans();
 		//}
@@ -27,7 +27,7 @@ class UserController extends Controller
 
 	public function indexManageAnswer()
 	{
-        $answers = Auth::user()->answers()->paginate(5);
+        $answers = Auth::user()->answers()->paginate(\Config::get('constants.options.ItemNumberPerPage'));
         //foreach($answers as $answer){
 		//	$answer->date = $answer->created_at->diffForHumans();
 		//}
