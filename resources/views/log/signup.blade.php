@@ -5,9 +5,6 @@
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <script>
         $(function () {
-            jQuery.validator.addMethod("validname", function (value, element) {
-                return this.optional(element) || /^[\w ]+$/i.test(value);
-            }, "Alphabet, number, underscore, spaces only.");
 
             jQuery.validator.addMethod("validpass", function (value, element) {
                 return this.optional(element) || /^\S+$/i.test(value);
@@ -16,8 +13,7 @@
             $('#registerform').validate({
                 rules: {
                     fullname: {
-                        required: true,
-                        validname: true
+                        required: true
                     },
                     email: {
                         required: true,
