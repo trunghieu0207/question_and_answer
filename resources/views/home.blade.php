@@ -12,37 +12,26 @@
 			<div class="card-body p-0">
 				@foreach($questions as $question)
 				<div class="row px-3 pt-3">
-					<div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}" class="test rounded-circle align-middle"></div>
+					<div class="col-sm-1"><img src="{{ asset('storage/avatars')}}/{{$question->user->avatar}}" class="img-fluid rounded-circle align-middle user-avatar" ></div>
 					<div class="col-sm-11">
 							<a href="/personalinfomation/{{ $question->user->_id }}">
 								<small class="font-weight-bold" style="color:#5488c7;">{{$question->user->fullname}}</small>
 							</a>
 						<small class="text-muted" style="color:#5488c7;">
-							{{$question->date}}
+							{{$question->created_at->diffForHumans()}}
 						</small>
 						<br>
-
-						<div class="float-left" style="max-width:900px"><a href="viewtopic/{{ $question->id }}"><h5>{{$question->title}}</h5></a></div>
-						<small class="float-right border rounded-pill text-primary bg-light p-2 font-weight-bold">{{$question->category->name}}</small>
-
-						<br>
-						<br>
-						<p class="pv-archiveText">{{$question->content}}</p>
-						<div class="row" style="width: 250px; color:gray;">
-							<div class="col-3">
-								<i class="fa fa-thumbs-up"></i>
-								{{$question->total_like}}
+						<div class="row">
+							<div class="col-10">
+								<div class="word-wrap"><a href="viewtopic/{{ $question->id }}"><h5>{{$question->title}}</h5></a></div>
 							</div>
-							<div class="col-3">
-								<i class="fa fa-thumbs-down"></i>
-								{{$question->total_dislike}}
-							</div>
-							<div class="col-3">
-								<i class="fa fa-reply"></i>
-								{{$question->total_answer}}
-
+							<div class="col-2">
+								<small class="float-right border rounded-pill text-primary bg-light p-2 font-weight-bold">{{$question->category->name}}</small>
 							</div>
 						</div>
+
+						<p class="pv-archiveText">{{$question->content}}</p>
+						@include('layout.like_dislike')
 					</div>
 
 				</div>

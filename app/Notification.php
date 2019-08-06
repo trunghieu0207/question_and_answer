@@ -10,13 +10,13 @@ class Notification extends Eloquent
      * Array contain actions below:
      * answer like dislike vote
      */
-    static public $action = array('answer','like','dislike','accept');
+    static public $action = array('answer'=>'answer','like'=>'like','dislike'=>'dislike','accept'=>'accept');
 
     /**
      * Array of targets:
      * question answer
      */
-    static public $target = array('question','answer');
+    static public $target = array('question'=>'question','answer'=>'answer');
 
     protected $connection = 'mongodb';
     protected $collection = 'antman_notifications';
@@ -27,3 +27,6 @@ class Notification extends Eloquent
     	return $this->belongsTo('App\User', 'actor_id', '_id');
     }
 }
+
+
+

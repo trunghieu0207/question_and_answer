@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
         $user->fullname = 'Antman';
         $user->avatar = 'antman_avatar.png';
         $user->about_me = 'We are antman team!';
-        $user->new_notification = 0;
         $user->save();
 
         $category_name = array('Software', 'Website app', 'Window app', 'Mobile app', 'MacOS app', 'Linux app', 'Other');
@@ -53,5 +52,7 @@ class DatabaseSeeder extends Seeder
         Schema::connection('mongodb')->table('antman_questions', function (Blueprint $collection) {
             $collection->index([ "title" => "text","content" => "text" ]);
         });
+
+
     }
 }

@@ -32,7 +32,7 @@
                 <div class="col-sm-9">
                     <h1 class="text-primary font-weight-bold bg-light" style="max-width:225px">Our mission</h1>
                     <p class="font-weight-bold text-justify text-light bg-dark p-3" style="font-size:20px;">TechSolution was born with the mission
-                        to bring technology enthusiasts an open environment to exchange, develop together, share difficulties and find solutions.</p>
+                        to bring technology enthusiasts an open environment to exchange ideas, develop together, share difficulties and find solutions.</p>
                 </div>
             </div>
         </div>
@@ -42,10 +42,8 @@
             <div class="col-sm-9">
                 <h3 class="font-weight-bold" style="color:#fcbf10;">We are Antman team</h3>
                 <p class="text-justify" style="font-size:20px; color: white;">Antman team is a group of young people,
-					students from many universities in Ho Chi Minh City, Vietnam. We join internship program of cybozu 2019.
-					In there our team are founded randomly. Together we build this system for experence, for our passion...
+					students from many universities in Ho Chi Minh City, Vietnam. We join internship program of Cybozu 2019 in which our team was founded randomly. Together we build this system for experience, for our passion...
 				</p>
-
             </div>
             <div class="col-sm-3">
                 <img src="{{asset('images/resource/2525012-256.png')}}">
@@ -55,9 +53,8 @@
         <br>
 
         <h3 class="text-center font-weight-bold" style="color:#fcbf10;">Why is Antman?</h3>
-		<p class="text-center text-justify px-3" style="font-size:20px;color: white;">Ant is the bigest community in the world, 
-		relying on herd strength to do things that seem impossible to them
-		.We want to have their power, but we still want to be a human so Antman team were born.</p>
+		<p class="text-center text-justify px-3" style="font-size:20px;color: white;">Ant is the biggest community in the world, 
+		relying on hard strength to do things that seems impossible to them. Moreover, the key for them to get so much done is teamwork. We want to have their power, but we still want to be a human so, Antman team were born.</p>
         <br>
         <br>
         <h3 class="font-weight-bold" style="color:#fcbf10;">Members</h3>
@@ -65,7 +62,7 @@
         <div class="d-flex justify-content-center">
 			<img src="{{asset('images/resource/mrlong.png')}}"
                 class="avt-mem rounded-circle align-middle">
-		<h3 class="ml-2 d-flex align-items-center" style="color:white;">Mr. Truong Quoc Long <br>(Mentor)</h3>
+		    <h3 class="ml-2 d-flex align-items-center" style="color:white;">Mr. Truong Quoc Long <br>(Mentor)</h3>
 		</div>
         <br>
         <br>
@@ -110,10 +107,6 @@
 
             </div>
         </div>
-    </div>
-
-    </div>
-    </div>
     </div>
 
     @include('layout.js')

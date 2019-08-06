@@ -17,36 +17,39 @@ function confirmRemove(btn){
 @section('contentprofile')
 <h2 class="text-primary text-center">MANAGE QUESTIONS</h2>
 <hr class="my-3">
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Category</th>
-            <th scope="col" class="text-right">Edit</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($questions as $question)
-        <tr style="line-height: 20px;">
-            <th style="max-width: 350px;">
-                {{$question->title}}<br>
-                <small class="text-muted">{{$question->created_at}}</small>
-            </th>
-            <td><span class="badge badge-info">{{$question->category->name}}</span></td>
-            <td class="text-right">
-                <a href="{{asset('edittopic')}}/{{ $question->id }}" class="btn btn-sm btn-outline-dark" title="Edit question"><i class="fa fa-pencil"></i></a>
-                <button tag="{{$question->_id}}" onclick="confirmRemove(this)" class="btn btn-sm btn-outline-danger" title="Remove question"><i
-                        class="fa fa-trash"></i></button>
-            </td>
-        </tr>
-        @endforeach
+<div class="table-responsive">
+    @if(Session::has('errorsAvatar'))
+        <div class="alert alert-danger">{{ Session::get('errorsAvatar') }}</div>
+    @endif
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Category</th>
+                <th scope="col" class="text-right">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($questions as $question)
+                <tr style="line-height: 20px;">
+                    <th style="max-width: 350px;">
+                        {{$question->title}}<br>
+                        <small class="text-muted">{{$question->created_at}}</small>
+                    </th>
+                    <td><span class="badge badge-info">{{$question->category->name}}</span></td>
+                    <td class="text-right">
+                        <a href="{{asset('edittopic')}}/{{ $question->id }}" class="btn btn-sm btn-outline-dark" title="Edit question"><i class="fa fa-pencil"></i></a>
+                        <button tag="{{$question->_id}}" onclick="confirmRemove(this)" class="btn btn-sm btn-outline-danger" title="Remove question"><i
+                                class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            @endforeach
 
-    </tbody>
-</table>
-
+        </tbody>
+    </table>
+</div>
 <div class="row px-3 pt-3 justify-content-sm-center">{!! $questions->links() !!}</div>
 <form id="deleteform" action="{{route('removeQuestion')}}" method="post">
-
     {{csrf_field()}}
     <input hidden type="text" name="_id" id="question_id">
 </form>

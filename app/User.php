@@ -54,9 +54,9 @@ class User extends Authenticatable
     }
 
 
-    public function user_question_answer()
+    public function likeDislike()
     {
-        return $this->hasMany('App\User_Question_Answer','user_id','_id');
+        return $this->hasMany('App\LikeDislike','user_id','_id');
     }
 
     public function do_notifications() {

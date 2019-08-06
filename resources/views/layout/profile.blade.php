@@ -1,16 +1,14 @@
 @extends('layout.master')
 
-
-
 @section('js')
 	<script>
-        $('#fuMain').fileinput({
+        $('#fileUpload').fileinput({
             theme: 'fa',
-            allowedFileExtensions: ['png', 'jpg', 'ico'],
+            allowedFileExtensions: ['png', 'jpg','jpeg'],
             //uploadUrl: '/upload_article_poster',
             uploadAsync: false,
             showUpload: false,
-            maxFileSize: 5120,
+            maxFileSize: 1024,
             removeClass: 'btn btn-warning'
         });
 	</script>
@@ -23,7 +21,7 @@
             <div class="col-sm-3">
                 <div class="card shadow bg-light">
                     <div class="card-body text-center">
-                        <img src="{{ asset('images/avatars').'/'.Auth::user()->avatar }}" class="avatar">
+                        <img src="{{ asset('storage/avatars').'/'.Auth::user()->avatar }}" class="img-fluid" style="width: 200px;">    
                         <h4 class="mt-2 text-primary font-weight-bold">{{ Auth::user()->fullname }}</h4>
                         <button class="badge btn btn-warning" data-toggle="modal" data-target="#exampleModal">Change
                             avatar</button>
@@ -38,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-9 w-100">
             <div class="card shadow bg-light">
                     <div class="card-body">
                        @yield('contentprofile')
@@ -63,7 +61,7 @@
                         </div>
                         <div class="card-body">
                             <div class="file-loading">
-                                <input required id="fuMain" name="avatar" type="file">
+                                <input required id="fileUpload" name="avatar" type="file">
                             </div>
                         </div>
                     </div>

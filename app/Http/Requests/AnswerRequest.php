@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddTopicRequest extends FormRequest
+class AnswerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,9 +13,7 @@ class AddTopicRequest extends FormRequest
      */
     public function authorize()
     {
-
         return true;
-
     }
 
     /**
@@ -26,18 +24,14 @@ class AddTopicRequest extends FormRequest
     public function rules()
     {
         return [
-
-            'title' => 'required|max:100',
-            'content' => 'required',
+            'content' => 'required'
         ];
     }
 
     public function messages() {
-        
+
         return [
-            'title.required' => 'Please enter a title.',
-            'title.max' => 'The title is up to 100 characters.',
-            'content.required' => 'Please enter a content.'
+            'content.required' => 'Please enter answer content'
         ];
     }
 }

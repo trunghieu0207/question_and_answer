@@ -4,7 +4,6 @@
 @section('script')
     <script>
         $(function () {
-
             jQuery.validator.addMethod("validpass", function (value, element) {
                 return this.optional(element) || /^\S+$/i.test(value);
             }, "Password can't contain space.");
@@ -70,31 +69,37 @@
 				<div class="row">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
+                        @foreach($errors->all() as $error)
+                            <div class="alert alert-danger">{{ $error }}</div>
+                        @endforeach
 						@if(Session::has('message'))
 							<div class="alert alert-success">{{ Session::get('message') }}</div>
 						@endif
 						@if(Session::has('error'))
 							<div class="alert alert-danger">{{ Session::get('error') }}</div>
 						@endif
-					<form action="{{ route('storeChangePassword') }}" method="post" id="changepass">
-						<input type="hidden" name="_token" value="{{csrf_token()}}">
-						<div class="form-group">
-					    	<label for="curentpassword" class="font-weight-bold">Current password</label>
-					    	<input type="password" class="form-control"  name="curentpassword">
-						</div>
-						<div class="form-group">
-					    	<label for="newpassword" class="font-weight-bold">New password</label>
-					    	<input type="password" class="form-control" name="newpassword">
-						</div>
-						<div class="form-group">
-					    	<label for="confirmpass" class="font-weight-bold">Confirm password</label>
-					    	<input type="password" class="form-control" name="confirmpass">
-						</div>
-					  	<div class="d-flex justify-content-center">
-					  		<button type="submit" class="btn btn-primary">Save</button>
-					  		<button type="reset" class="btn btn-outline-primary " style="margin-left: 10px; ">Reset</button>
-						</div>
-					</form>
+                        @if(Session::has('errorsAvatar'))
+                            <div class="alert alert-danger">{{ Session::get('errorsAvatar') }}</div>
+                        @endif
+    					<form action="{{ route('storeChangePassword') }}" method="post" id="changepass">
+    						<input type="hidden" name="_token" value="{{csrf_token()}}">
+    						<div class="form-group">
+    					    	<label for="curentpassword" class="font-weight-bold">Current password</label>
+    					    	<input id="currentpassword" type="password" class="form-control"  name="curentpassword">
+    						</div>
+    						<div class="form-group">
+    					    	<label for="newpassword" class="font-weight-bold">New password</label>
+    					    	<input id="newpassword" type="password" class="form-control" name="newpassword">
+    						</div>
+    						<div class="form-group">
+    					    	<label for="confirmpass" class="font-weight-bold">Confirm password</label>
+    					    	<input id="confirmpass" type="password" class="form-control" name="confirmpass">
+    						</div>
+    					  	<div class="d-flex justify-content-center">
+    					  		<button type="submit" class="btn btn-primary">Save</button>
+    					  		<button type="reset" class="btn btn-outline-primary " style="margin-left: 10px; ">Reset</button>
+    						</div>
+    					</form>
 					</div>
 				</div>
 			</div>

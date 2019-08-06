@@ -44,9 +44,9 @@
                     <div class="nav-item dropright">
                         <button class="btn btn-link" id="notify" role="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false" onclick="read_notification()">
-                            @if(Auth::user()->new_notification>0)
+                            @if(Auth::user()->notifications()->where('is_read',false)->count())
                             <i id="notification_bell" class="fa fa-bell text-danger" style="font-size: 18px"></i>
-                            <div id="unread_notification" class="text-danger float-right ml-1 font-weight-bold">{{Auth::user()->new_notification}}</div>
+                            <div id="unread_notification" class="text-danger float-right ml-1 font-weight-bold">{{Auth::user()->notifications->where('is_read',false)->count()}}</div>
                             @else
                             <i id="notification_bell" class="fa fa-bell" style="font-size: 18px"></i>
                             @endif
@@ -55,7 +55,7 @@
                             <div style="text-align: center;">
                                 <h4>Notifications</h4>
                             </div>
-                            @foreach($noti=Auth::user()->notifications()->orderBy('created_at', 'DESC')->get() as $notification)
+                            @foreach(Auth::user()->notifications()->orderBy('created_at', 'DESC')->get() as $notification)
                             <div class="row" >
                                 <div class="col-sm-10">
                                     <div class=" ml-2">

@@ -10,16 +10,15 @@ use File;
 use Illuminate\Support\Facades\Hash;
 use App\Notification;
 use Illuminate\Support\Facades\Auth;
-
-
+use App\Http\Requests\InformationRequest;
+use App\Http\Requests\ChangePasswordRequest;
+use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
     public function indexManageQuestion()
 	{
-        $questions = Auth::user()->questions()->paginate(\Config::get('constants.options.ItemNumberPerPage'));
-        //foreach($questions as $question){
-		//	$question->date = $question->created_at->diffForHumans();
-		//}
+        $limit = \Config::get('constants.options.ItemNumberPerPage');
+        $questions = Auth::user()->questions()->paginate($limit);
 		$active_manage_question = true;
 
 		return view('profile.manage_question',compact('questions','active_manage_question'));
@@ -27,10 +26,8 @@ class UserController extends Controller
 
 	public function indexManageAnswer()
 	{
-        $answers = Auth::user()->answers()->paginate(\Config::get('constants.options.ItemNumberPerPage'));
-        //foreach($answers as $answer){
-		//	$answer->date = $answer->created_at->diffForHumans();
-		//}
+        $limit = \Config::get('constants.options.ItemNumberPerPage');
+        $answers = Auth::user()->answers()->paginate($limit);
 		$active_manage_answer = 'active';
 
 		return view('profile.manage_answer',compact('answers','active_manage_answer'));
@@ -42,47 +39,55 @@ class UserController extends Controller
             $user = Auth::user();
 
             $filename = $user->_id.'.'.$request->avatar->getClientOriginalExtension();
+            $typeAvatar = $request->avatar->getMimeType();
 
-            if($user->avatar!='default_avatar.png') File::delete('images/avatars/'.$user->avatar);
-            $request->avatar->move('images/avatars/', $filename);
-            
-            $user->avatar=$filename;
-            $user->save();
+            if( $typeAvatar == 'image/png' || 
+                $typeAvatar == 'image/jpg' || 
+                $typeAvatar == 'image/jpeg') {
 
-            Auth::user()->avatar = $filename;
+                if($user->avatar!='default_avatar.png') Storage::delete('public/avatars/'.$user->avatar);
+                    $request->avatar->storeAs('public/avatars/', $filename);
+                    $user->avatar=$filename;
+                    $user->save();
+                    Auth::user()->avatar = $filename;
+            } else {
+                session()->flash('errorsAvatar','Images only support JPG, PNG, and JPEG formats');
+            }
         }
-        
+
         return redirect()->back();
     }
     
     public function removeNotification($id)
     {
         $notification = Notification::find($id);
-        if(Auth::user()->_id==$notification->user_id) $notification->delete();
+        if(Auth::user()->_id==$notification->user_id) 
+            $notification->delete();
 
         return redirect()->back();
     }
 
     public function readNotification()
     {
-        $user = Auth::user();
-        $user->new_notification=0;
-        $user->save();
+        foreach(Auth::user()->notifications as $notification){
+            if(!$notification->is_read){
+                $notification->is_read = true;
+                $notification->save();
+            }
+        }
     }
 
-    public function createNotification($user_id, $target, $action, $question_id)
+    public function createNotification($user, $target, $action, $question_id)
     {
         $notification = new Notification();
-        $notification->user_id = $user_id;
-        $notification->actor_id = Auth::user()->_id;
+        $notification->user()->associate($user);
+        $notification->actor()->associate(Auth::user());
         $notification->target = $target;
         $notification->action = $action;
+        $notification->is_read = false;
         $notification->question_id = $question_id;
         $notification->save();
-        
-        $user = User::find($user_id);
 
-        $user->new_notification++;
         $user->save();
     }
 
@@ -100,39 +105,52 @@ class UserController extends Controller
         return view('profile.information',compact('user','active_personal_info'));
     }
 
-    public function updateInformation (Request $request) {
+    public function updateInformation (InformationRequest $request) {
         $user = Auth::user();
         $user->fullname = $request->fullname;
         $user->about_me = $request->aboutme;
         $user->save();
-        Session()->put('username',$request->fullname);
         Session()->flash('message', 'Complete!');
 
         return redirect()->back();
     }
 
     public function indexChangePassword () {
-        $id = Session()->get('id');
         $user = Auth::user();
         $active_change_pass = true;
 
         return view('profile.change_password',compact('user','active_change_pass'));
     }
 
-    public function storeChangePassword(Request $request) {
+    public function storeChangePassword(ChangePasswordRequest $request) {
         $user = Auth::user();
         $curentpassword = $user->password;
         if (!Hash::check($request->curentpassword, $curentpassword)) {
-
             Session()->flash('error', 'Current password is not correct!');
             
             return redirect()->back();       
-        } else {
+        } 
+        else {
             $user->password = bcrypt($request->newpassword);
             $user->save();
             Session()->flash('message', 'Change password complete!');
 
             return redirect()->back();
         }  
+    }
+    
+    public function personalInfomation($id)
+	{
+		$user = User::find($id);
+		$questions = $user->questions;
+		$answers = $user->answers;
+		$totalLike = $questions->sum('total_like')+$answers->sum('total_like');
+		$totalDislike = $questions->sum('total_dislike')+$answers->sum('total_dislike');
+		$totalAccepted = 0;
+		foreach($answers as $answer){
+			if($answer->question->best_answer_id==$answer->_id) $totalAccepted++;
+		}
+
+		return view('profile.personal_infomation',compact('user','totalLike','totalDislike','totalAccepted'));
 	}
 }
