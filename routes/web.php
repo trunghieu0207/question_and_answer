@@ -44,7 +44,7 @@ Route::get('viewtopic/{id}',[
 
 Route::get('aboutus',[
 	'as' => 'aboutUs',
-	'uses' => 'HomeController@aboutUs'
+	'uses' => 'AboutUsController@aboutUs'
 ]);
 
 Route::get('test',function(){
@@ -128,13 +128,13 @@ Route::middleware(['checkSignIn'])->group(function () {
 		'uses' => 'ViewTopicController@removeBestAnswer'
 	]);
 
-	Route::get('like/{post_id}/{post_type}/{user_id}',[
+	Route::get('like/{post_id}/{post_type}',[
 		'as' => 'like',
 		'uses' => 'ViewTopicController@like'
 	]);
 
 
-	Route::get('dislike/{post_id}/{post_type}/{user_id}',[
+	Route::get('dislike/{post_id}/{post_type}',[
 		'as' => 'dislike',
 		'uses' => 'ViewTopicController@dislike'
 	]);

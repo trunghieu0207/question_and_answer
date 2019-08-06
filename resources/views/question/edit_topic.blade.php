@@ -5,9 +5,9 @@
 
 @section('js')
 <script>
-	$('#fuMain').fileinput({
+	$('#fileUpload').fileinput({
 		theme: 'fa',
-	            //allowedFileExtensions: ['png', 'jpg'],
+	            allowedFileExtensions: ['zip', 'rar'],
 	            //uploadUrl: '/upload_article_poster',
 	            uploadAsync: false,
 	            showUpload: false,
@@ -15,7 +15,7 @@
 	            removeClass: 'btn btn-warning'
 	        });
 	var simplemde = new SimpleMDE({
-		element: document.getElementById("MyID")
+		element: document.getElementById("markdown")
 	});
 
 	function checkContent() {
@@ -45,8 +45,8 @@
 				<!-- Start topic title -->
 				<input type="text" name="id" hidden value="{{$question->id}}">
 				<div class="form-group">
-					<h5>Topic title</h5>
-					<input type="text" class="form-control" id="exampleFormControlInput1" name="title" required
+					<label for="title">Topic title</label>
+					<input type="text" class="form-control" id="title" name="title" required
 					placeholder="Subject of your topic (limit of 100 characters)" maxlength="100" value="{{ $question->title }}">
 				</div>
 				<!-- End topic title-->
@@ -58,39 +58,38 @@
 						<div class="alert alert-danger">{{ $error }}</div>
 					@endforeach
 
-					<h5>Category</h5>
-					<select class="form-control col-sm-3" id="exampleFormControlSelect1" name="category">
+					<label for="category">Category</label>
+					<select class="form-control col-sm-3" id="category" name="category">
 						@foreach($categories as $category)
-						@if($question->category_id==$category->_id)
-						<option value="{{$category->_id}}" selected="selected">{{$category->name}}</option>
-						@else
-						<option value="{{$category->_id}}">{{$category->name}}</option>
-						@endif
+							@if($question->category_id==$category->_id)
+								<option value="{{$category->_id}}" selected="selected">{{$category->name}}</option>
+							@else
+								<option value="{{$category->_id}}">{{$category->name}}</option>
+							@endif
 						@endforeach
 					</select>
 
 					@if($question->attachment_path)
 						<div class="float-right">
 						<b class="badge badge-warning">Attachment:</b>
-						<a target="blank" href="{{asset('storage/files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limit)}}</i></a>
+						<a target="blank" href="{{asset('storage/files/'.$question->attachment_path)}}"><i>{{$question->attachment_path}}</i></a>
+
 						</div>
 					@endif
 				</div>
 				<!-- End category-->
 
 				<!-- Content -->
-				<label for="exampleFormControlInput1">
-					<h5>Content</h5>
-				</label>
+				<label for="markdown">Content</label>
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="file-loading">
-							<input id="fuMain" name="attachment" type="file">
+							<input id="fileUpload" name="attachment" type="file">
 						</div>
 					</div>
 					<div class="col-sm-8">
 						<div class="form-group">
-							<textarea id="MyID" rows="3" name="content">{{ $question->content }}</textarea>
+							<textarea id="markdown" rows="3" name="content">{{ $question->content }}</textarea>
 						</div>
 					</div>
 				</div>

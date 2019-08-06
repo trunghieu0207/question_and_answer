@@ -59,15 +59,15 @@
 							@endif
 							<div class="form-group">
 						    	<label for="email" class="font-weight-bold">Email</label>
-						    	<input type="email" class="form-control" value="{{ $user->email }}" name="email" disabled>
+						    	<input id="email" type="email" class="form-control" value="{{ $user->email }}" name="email" disabled>
 							</div>
 							<div class="form-group">
 						    	<label for="fullname" class="font-weight-bold">Fullname</label>
-						    	<input type="text" class="form-control" value="{{ $user->fullname }}" name="fullname">
+						    	<input id="fullname" type="text" class="form-control" value="{{ $user->fullname }}" name="fullname">
 							</div>
 							<div class="form-group">
 								<label for="aboutme" class="font-weight-bold">About me</label>
-								<textarea class="form-control" rows="5" name="aboutme">{{ $user->about_me }}</textarea>
+								<textarea id="aboutme" class="form-control" rows="5" name="aboutme">{{ $user->about_me }}</textarea>
 							</div>
 						  	<div class="d-flex justify-content-center">
 						  		<button type="submit" class="btn btn-primary ">Save</button>

@@ -5,7 +5,6 @@
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <script>
         $(function () {
-
             jQuery.validator.addMethod("validpass", function (value, element) {
                 return this.optional(element) || /^\S+$/i.test(value);
             }, "Password can't contain space.");
@@ -94,21 +93,21 @@
                 <form id="registerform" action="{{ route('signUpStore') }}" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label class="font-weight-bold">Email address:</label>
+                        <label class="font-weight-bold" for="email">Email address:</label>
                         <input id="email" name="email" type="email" class="form-control" aria-describedby="emailHelp"
                             placeholder="Enter email">
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold">Password:</label>
-                        <input name="password" type="password" class="form-control" placeholder="Password">
+                        <label class="font-weight-bold" for="password">Password:</label>
+                        <input id="password" name="password" type="password" class="form-control" placeholder="Password">
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold">Confirm password:</label>
-                        <input name="confirm" type="password" class="form-control" placeholder="Confirm password">
+                        <label class="font-weight-bold" for="confirm">Confirm password:</label>
+                        <input id="confirm" name="confirm" type="password" class="form-control" placeholder="Confirm password">
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold">Full name:</label>
-                        <input name="fullname" type="text" class="form-control" aria-describedby="emailHelp"
+                        <label class="font-weight-bold" for="fullname">Full name:</label>
+                        <input id="fullname" name="fullname" type="text" class="form-control" aria-describedby="emailHelp"
                             placeholder="Your Fullname">
                     </div>
                     <div class="form-group">

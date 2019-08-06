@@ -4,9 +4,9 @@
 
 @section('js')
     <script>
-        $('#fuMain').fileinput({
+        $('#fileUpload').fileinput({
         theme: 'fa',
-                //allowedFileExtensions: ['png', 'jpg'],
+                allowedFileExtensions: ['zip', 'rar'],
                 //uploadUrl: '/upload_article_poster',
                 uploadAsync: false,
                 showUpload: false,
@@ -14,7 +14,7 @@
                 removeClass: 'btn btn-warning'
             });
     var simplemde = new SimpleMDE({
-        element: document.getElementById("MyID")
+        element: document.getElementById("markdown")
     });
 
     function checkContent() {
@@ -35,7 +35,7 @@
                 <a href="/personalinfomation/{{ $question->user->_id }}" style="color:#787878; font-size: 20px">{{$question->user->fullname}}</a>
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
-                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{$question->date_convert}}
+                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{$question->created_at->diffForHumans()}}
                     </small>
                 </div>
                 <br>
@@ -51,7 +51,8 @@
                 @if($question->attachment_path)
                     <b class="badge badge-warning">Attachment:</b>
                     <a target="blank"
-                        href="{{asset('storage/files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limit)}}</i></a>
+                        href="{{asset('storage/files/'.$question->attachment_path)}}"><i>{{$question->attachment_path}}</i></a>
+
                 @endif
                 <div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
                     <div class="col-sm">
@@ -85,12 +86,12 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="file-loading">
-                            <input id="fuMain" name="attachment" type="file">
+                            <input id="fileUpload" name="attachment" type="file">
                         </div>
                     </div>
                     <div class="col-sm-8">
                         <div class="form-group">
-                            <textarea id="MyID" rows="2" name="content">{{$answer->content}}</textarea>
+                            <textarea id="markdown" rows="2" name="content">{{$answer->content}}</textarea>
                             <div id="required_content" style="font-size: 14px;color: red;"></div>
                         </div>
                     </div>

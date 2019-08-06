@@ -27,9 +27,14 @@ class Question extends Eloquent
     	return $this->hasMany('App\Answer', 'question_id', '_id');
     }
 
-    public function user_question_answers() {
+    public function likeDislike() {
 
-    	return $this->hasMany('App\User_Question_Answer', 'post_id', '_id');
+    	return $this->hasMany('App\LikeDislike', 'post_id', '_id');
+    }
+
+    public function bestAnswer() {
+
+        return $this->hasOne('App\Answer', '_id', 'best_answer_id');
     }
 }
 

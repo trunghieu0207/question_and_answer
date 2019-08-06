@@ -16,14 +16,15 @@ class AnswerController extends Controller
 
 	public function store(AnswerRequest $request)
 	{
-		$answer = new Answer();
-		$answer->content = $request->get('content');
-		$answer->user_id = Auth::user()->_id;
-		$answer->question_id = $request->get('question_id');
-		$id_question = $answer->question_id;
-		$question = Question::find($id_question);
+
+		$question= Question::find("$request->question_id");
 		$question->total_answer+=1;
 		$question->save();
+
+		$answer = new Answer();		
+		$answer->content = $request->get('content');
+		$answer->user()->associate(Auth::user());
+		$answer->question()->associate($question);
 		$answer->total_like = 0;
 		$answer->total_dislike = 0;
 		$answer->attachment_path = null;
@@ -45,24 +46,23 @@ class AnswerController extends Controller
 				}
 		}
 
-		(new UserController)->createNotification($question->user_id, Notification::$target[0], Notification::$action[0],  $question->_id);
+		(new UserController)->createNotification($question->user, Notification::$target['question'], Notification::$action['answer'],  $question->_id);
 
 		return redirect()->route('viewTopic', ['id' => $answer->question_id]);
 	}
 
 	public function edit($id)
 	{
-		$limit = \Config::get('constants.options.limitCharacterAttachmentName');
-		$answer = Answer::find($id);
+	
+		$answer = Auth::user()->answers()->find($id);
 		if(empty($answer)) {
-			return redirect()->route('homePage');
+			return redirect()->back();
 		} 
 		$question = $answer->question;
 		$parsedown = new \Parsedown();
 		$question->content = $parsedown->setMarkupEscaped(true)->text($question->content);
-		$question->date_convert = $question->created_at->diffForHumans();
 
-		return view('answer.edit_answer',compact('answer','id','question','limit'));
+		return view('answer.edit_answer',compact('answer','id','question'));
 	}
 
 	public function update(AnswerRequest $request)

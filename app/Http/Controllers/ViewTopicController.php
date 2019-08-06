@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Question;
 use App\Answer;
-use App\User_Question_Answer;
+use App\LikeDislike;
 use App\Notification;
 use App\user;
 use Illuminate\Support\Collection;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ViewTopicController extends Controller
 {
@@ -20,48 +20,43 @@ class ViewTopicController extends Controller
         if(empty($question))
         {
             return redirect()->back();
-        } 
-        else 
+        }         
+        $limit=\Config::get('constants.options.ItemNumberPerPage');
+        $answers = Answer::where('question_id',$id)->orderBy('total_like','desc')->paginate($limit);
+        $bestAnswer=null;
+        $parsedown = new \Parsedown();
+        $question->content = $parsedown->setMarkupEscaped(true)->text($question->content);
+        
+        foreach ($answers as $answer) 
         {
-            $answers = Answer::where('question_id',$id)->orderBy('total_like','desc')->paginate(\Config::get('constants.options.ItemNumberPerPage'));
-            $best_answer=null;
-            $question->total_answer = $answers->count();
-            $question->save(); 
-            $parsedown = new \Parsedown();
-            $question->content = $parsedown->setMarkupEscaped(true)->text($question->content);
-            $question->date_convert = $question->created_at->diffForHumans();
-            foreach ($answers as $answer) 
-            {
-                $answer->content = $parsedown->setMarkupEscaped(true)->text($answer->content);
-                $answer->date_convert = $answer->created_at->diffForHumans();
-            }
-            if(!empty($question->best_answer_id)) 
-            {
-                $best_answer= Answer::find($question->best_answer_id);
-                $best_answer->content = $parsedown->setMarkupEscaped(true)->text($best_answer->content);
-                $best_answer->date_convert = $best_answer->created_at->diffForHumans();
-            }
-            $limitCharacter = \Config::get('constants.options.limitCharacterAttachmentName');
-            return view('question.view_topic',compact('question','answers','best_answer','limitCharacter'));
-        } 
+            $answer->content = $parsedown->text($answer->content);
+        }
+        if(!empty($question->bestAnswer)) 
+        {
+            $bestAnswer= $question->bestAnswer;
+            $bestAnswer->content = $parsedown->setMarkupEscaped(true)->text($bestAnswer->content);
+        }
+        
+        
+        return view('question.view_topic',compact('question','answers','bestAnswer'));
+    
     }
 
     public function bestAnswer($id_answer)
     {
-    	$answer = Answer::find($id_answer);
-        $question = Question::find($answer->question_id);
+        $question = Answer::find($id_answer)->question;
         $question->best_answer_id = $id_answer;
         $question->save();
 
-        (new UserController)->createNotification($answer->user_id, Notification::$target[1], Notification::$action[3],  $question->_id);
+        (new UserController)->createNotification($answer->user, Notification::$target['answer'], Notification::$action['accept'],  $question->_id);
 
         return redirect()->back();
     }
 
     public function removeBestAnswer($id_answer)
     {
-        $answer = Answer::find($id_answer);
-        $question = Question::find($answer->question_id);
+        
+        $question = Answer::find($id_answer)->question;
         $question->best_answer_id = null;
         $question->save();
 
@@ -70,31 +65,31 @@ class ViewTopicController extends Controller
     
     public function checkLike($post_id,$post_type,$user_id)
     {
-        $user_liked=User_Question_Answer::where('user_id',$user_id)->where('post_id', $post_id)->where('action', "Like")->where('post_type',$post_type)->first();
+        $user_liked=LikeDislike::where('user_id',$user_id)->where('post_id', $post_id)->where('action', "Like")->where('post_type',$post_type)->first();
 
         return $user_liked;
     }
 
     public function checkDislike($post_id,$post_type,$user_id)
     {
-        $user_disliked=User_Question_Answer::where('user_id',$user_id)->where('post_id', $post_id)->where('action', "Dislike")->where('post_type',$post_type)->first();
+        $user_disliked=LikeDislike::where('user_id',$user_id)->where('post_id', $post_id)->where('action', "Dislike")->where('post_type',$post_type)->first();
 
         return $user_disliked;
     }
 
-    public function like($post_id,$post_type,$user_id)
+    public function like($post_id,$post_type)
     {
-        $user_liked    =$this->checkLike($post_id,$post_type,$user_id);
-        $user_disliked =$this->checkDislike($post_id,$post_type,$user_id);
+        $user_liked    =$this->checkLike($post_id,$post_type,Auth::user()->id);
+        $user_disliked =$this->checkDislike($post_id,$post_type,Auth::user()->id);
         
         if (!$user_liked){
+
             if ($post_type =='Question')
             {
                 $question= Question::find($post_id);    
                 $question->total_like += 1;
                 $question->save();
-
-                (new UserController)->createNotification($question->user_id, Notification::$target[0], Notification::$action[1],  $question->_id);
+                (new UserController)->createNotification($question->user, Notification::$target['question'], Notification::$action['like'],  $question->_id);
                 
             }
             else
@@ -102,9 +97,9 @@ class ViewTopicController extends Controller
                 $answer= Answer::find($post_id);       
                 $answer->total_like += 1;
                 $answer->save();
-                (new UserController)->createNotification($answer->user_id, Notification::$target[1], Notification::$action[1],  $answer->question_id);            
+                (new UserController)->createNotification($answer->user, Notification::$target['answer'], Notification::$action['like'],  $answer->question_id);            
             }            
-            $this->addUserQuestionAnswer($post_id,$post_type,$user_id,"Like");            
+            $this->addLikeDislike($post_id,$post_type,Auth::user(),"Like");            
             if ($user_disliked)
             {   
 
@@ -140,10 +135,11 @@ class ViewTopicController extends Controller
 
         return redirect()->back();  
     }
-    public function dislike($post_id,$post_type,$user_id)
+
+    public function dislike($post_id,$post_type)
     {
-        $user_liked=$this->checkLike($post_id,$post_type,$user_id);
-        $user_disliked=$this->checkDislike($post_id,$post_type,$user_id);
+        $user_liked=$this->checkLike($post_id,$post_type,Auth::user()->id);
+        $user_disliked=$this->checkDislike($post_id,$post_type,Auth::user()->id);
         if (!$user_disliked)
         {
             if ($post_type =='Question')
@@ -151,16 +147,16 @@ class ViewTopicController extends Controller
                 $question= Question::find($post_id);          
                 $question->total_dislike += 1;
                 $question->save();
-                (new UserController)->createNotification($question->user_id, Notification::$target[0], Notification::$action[2],  $question->_id);
+                (new UserController)->createNotification($question->user, Notification::$target['question'], Notification::$action['dislike'],  $question->_id);
             }
             else
             {
                 $answer= Answer::find($post_id);              
                 $answer->total_dislike += 1;
                 $answer->save();
-                (new UserController)->createNotification($answer->user_id, Notification::$target[1], Notification::$action[2],  $answer->question_id);
+                (new UserController)->createNotification($answer->user, Notification::$target['answer'], Notification::$action['dislike'],  $answer->question_id);
             }
-            $this->addUserQuestionAnswer($post_id,$post_type,$user_id,"Dislike");
+            $this->addLikeDislike($post_id,$post_type,Auth::user(),"Dislike"); 
             if ($user_liked)
             {   
                 if ($post_type =='Question')
@@ -197,14 +193,14 @@ class ViewTopicController extends Controller
         return redirect()->back();        
     }
 
-    public function addUserQuestionAnswer($post_id,$post_type,$user_id,$action)
+    public function addLikeDislike($post_id,$post_type,$user,$action)
     {
-        $post=new User_Question_Answer();
-        $post->user_id=$user_id;
-        $post->post_id=$post_id;
-        $post->post_type=$post_type;
-        $post->action=$action;
-        $post->save();
+        $likeDislike=new LikeDislike();
+        $likeDislike->user()->associate($user);
+        $likeDislike->post_id=$post_id;
+        $likeDislike->post_type=$post_type;
+        $likeDislike->action=$action;
+        $likeDislike->save();
     }
 
 }

@@ -5,16 +5,6 @@
     @yield('css')
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <style type="text/css" media="screen">
-        .scrollbar {
-            float: left;
-            max-height: 400px;
-            background: #fff;
-            overflow-y: auto;
-            overflow-x: hidden;
-            margin-bottom: 50px;
-            }
-    </style>
 </head>
 <body class="main-background">
 

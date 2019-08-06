@@ -2,13 +2,13 @@
 
 @section('js')
 	<script>
-        $('#fuMain').fileinput({
+        $('#fileUpload').fileinput({
             theme: 'fa',
-            allowedFileExtensions: ['png', 'jpg', 'ico'],
+            allowedFileExtensions: ['png', 'jpg','jpeg'],
             //uploadUrl: '/upload_article_poster',
             uploadAsync: false,
             showUpload: false,
-            maxFileSize: 5120,
+            maxFileSize: 1024,
             removeClass: 'btn btn-warning'
         });
 	</script>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="card-body">
                             <div class="file-loading">
-                                <input required id="fuMain" name="avatar" type="file">
+                                <input required id="fileUpload" name="avatar" type="file">
                             </div>
                         </div>
                     </div>

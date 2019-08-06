@@ -54,6 +54,15 @@ body{
 	word-break: break-all;
 }
 
+ .scrollbar {
+            float: left;
+            max-height: 400px;
+            background: #fff;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin-bottom: 50px;
+            }
+
 @media (max-width: 576px){
 	.col-sm-3 {
 		flex: none !important;

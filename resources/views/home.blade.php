@@ -18,7 +18,7 @@
 								<small class="font-weight-bold" style="color:#5488c7;">{{$question->user->fullname}}</small>
 							</a>
 						<small class="text-muted" style="color:#5488c7;">
-							{{$question->date}}
+							{{$question->created_at->diffForHumans()}}
 						</small>
 						<br>
 						<div class="row">
@@ -29,22 +29,9 @@
 								<small class="float-right border rounded-pill text-primary bg-light p-2 font-weight-bold">{{$question->category->name}}</small>
 							</div>
 						</div>
-						<p class="pv-archiveText">{{$question->content}}</p>
-						<div class="row" style="width: 250px; color:gray;">
-							<div class="col-3">
-								<i class="fa fa-thumbs-up"></i>
-								{{$question->total_like}}
-							</div>
-							<div class="col-3">
-								<i class="fa fa-thumbs-down"></i>
-								{{$question->total_dislike}}
-							</div>
-							<div class="col-3">
-								<i class="fa fa-reply"></i>
-								{{$question->total_answer}}
 
-							</div>
-						</div>
+						<p class="pv-archiveText">{{$question->content}}</p>
+						@include('layout.like_dislike')
 					</div>
 
 				</div>

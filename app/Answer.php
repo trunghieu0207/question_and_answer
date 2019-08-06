@@ -22,8 +22,9 @@ class Answer extends Eloquent
     	return $this->belongsTo('App\Question', 'question_id', '_id');
     }
 
-    public function user_question_answers() {
+    public function likeDislike() {
 
-    	return $this->hasMany('App\User_Question_Answer', 'post_id', '_id');
+    	return $this->hasMany('App\LikeDislike', 'post_id', '_id');
     }
+
 }
