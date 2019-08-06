@@ -8,7 +8,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-5">
-            <img src="{{ asset('images/avatars') }}/{{ $user->avatar }}" class="w-100" alt="">
+            <img src="{{ asset('storage/avatars') }}/{{ $user->avatar }}" class="w-100" alt="">
             </div>
             <div class="col-sm-7 py-5">
                 <h1 class="text-primary font-weight-bold">{{ $user->fullname }}</h1>
