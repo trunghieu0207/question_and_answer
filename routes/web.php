@@ -44,7 +44,7 @@ Route::get('viewtopic/{id}',[
 
 Route::get('aboutus',[
 	'as' => 'aboutUs',
-	'uses' => 'HomeController@aboutUs'
+	'uses' => 'AboutUsController@aboutUs'
 ]);
 
 Route::get('test',function(){
