@@ -105,7 +105,7 @@
                 <div class="image-markdown">{!! $question->content !!}</div>
                 @if($question->attachment_path)
                 <b class="badge badge-warning">Attachment:</b>
-                <a target="blank"
+                <a
                     href="{{asset('storage/files/'.$question->attachment_path)}}"><i>{{$question->attachment_path}}</i></a>
 
                 @endif
@@ -182,7 +182,7 @@
         @if ($bestAnswer!=null)
         <div class="row px-3 pt-3">
             <div class="col-1">
-                <img src="{{ asset('storage/avatars')}}/{{$best_answer->user->avatar}}"
+                <img src="{{ asset('storage/avatars')}}/{{$bestAnswer->user->avatar}}"
 
                     class="user-avatar rounded-circle align-middle">
                 <br>
@@ -212,8 +212,8 @@
                 <div class="image-markdown" style="padding-right: 58px;">{!! $bestAnswer->content !!}</div>
                 @if($bestAnswer->attachment_path)
                 <b class="badge badge-warning">Attachments:</b>
-                <a target="blank"
-                    href="{{asset('storage/files/'.$best_answer->attachment_path)}}"><i>{{$bestAnswer->attachment_path}}</i></a>
+                <a
+                    href="{{asset('storage/files/'.$bestAnswer->attachment_path)}}"><i>{{$bestAnswer->attachment_path}}</i></a>
                 @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-1">
@@ -285,7 +285,7 @@
                         <div class="image-markdown" style="padding-right: 58px;">{!! $answer->content !!}</div>
                         @if($answer->attachment_path)
                             <b class="badge badge-warning">Attachments:</b>
-                            <a target="blank"
+                            <a
                                 href="{{asset('storage/files/'.$answer->attachment_path)}}"><i>{{$answer->attachment_path}}</i></a>
                         @endif
                         <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">

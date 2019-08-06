@@ -44,7 +44,8 @@ class ViewTopicController extends Controller
 
     public function bestAnswer($id_answer)
     {
-        $question = Answer::find($id_answer)->question;
+        $answer = Answer::find($id_answer);
+        $question = $answer->question;
         $question->best_answer_id = $id_answer;
         $question->save();
 
