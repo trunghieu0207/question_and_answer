@@ -17,8 +17,8 @@ class UserController extends Controller
 {
     public function indexManageQuestion()
 	{
-
-        $questions = Auth::user()->questions()->paginate(\Config::get('constants.options.ItemNumberPerPage'));
+        $limit = \Config::get('constants.options.ItemNumberPerPage');
+        $questions = Auth::user()->questions()->paginate($limit);
 		$active_manage_question = true;
 
 		return view('profile.manage_question',compact('questions','active_manage_question'));
@@ -26,7 +26,8 @@ class UserController extends Controller
 
 	public function indexManageAnswer()
 	{
-        $answers = Auth::user()->answers()->paginate(\Config::get('constants.options.ItemNumberPerPage'));
+        $limit = \Config::get('constants.options.ItemNumberPerPage');
+        $answers = Auth::user()->answers()->paginate($limit);
 		$active_manage_answer = 'active';
 
 		return view('profile.manage_answer',compact('answers','active_manage_answer'));
@@ -39,7 +40,8 @@ class UserController extends Controller
 
             $filename = $user->_id.'.'.$request->avatar->getClientOriginalExtension();
 
-            if($user->avatar!='default_avatar.png') File::delete('images/avatars/'.$user->avatar);
+            if($user->avatar!='default_avatar.png') 
+                File::delete('images/avatars/'.$user->avatar);
             $request->avatar->move('images/avatars/', $filename);
             
             $user->avatar=$filename;
@@ -54,7 +56,8 @@ class UserController extends Controller
     public function removeNotification($id)
     {
         $notification = Notification::find($id);
-        if(Auth::user()->_id==$notification->user_id) $notification->delete();
+        if(Auth::user()->_id==$notification->user_id) 
+            $notification->delete();
 
         return redirect()->back();
     }
@@ -66,17 +69,15 @@ class UserController extends Controller
         $user->save();
     }
 
-    public function createNotification($user_id, $target, $action, $question_id)
+    public function createNotification($user, $target, $action, $question_id)
     {
         $notification = new Notification();
-        $notification->user_id = $user_id;
-        $notification->actor_id = Auth::user()->_id;
+        $notification->user()->associate($user);
+        $notification->actor()->associate(Auth::user());
         $notification->target = $target;
         $notification->action = $action;
         $notification->question_id = $question_id;
         $notification->save();
-        
-        $user = User::find($user_id);
 
         $user->new_notification++;
         $user->save();
@@ -101,14 +102,12 @@ class UserController extends Controller
         $user->fullname = $request->fullname;
         $user->about_me = $request->aboutme;
         $user->save();
-        Session()->put('username',$request->fullname);
         Session()->flash('message', 'Complete!');
 
         return redirect()->back();
     }
 
     public function indexChangePassword () {
-        $id = Session()->get('id');
         $user = Auth::user();
         $active_change_pass = true;
 
@@ -122,7 +121,8 @@ class UserController extends Controller
             Session()->flash('error', 'Current password is not correct!');
             
             return redirect()->back();       
-        } else {
+        } 
+        else {
             $user->password = bcrypt($request->newpassword);
             $user->save();
             Session()->flash('message', 'Change password complete!');

@@ -30,7 +30,7 @@
 <div class="container mt-5">
     <div class="card shadow">
         <div class="row px-3 pt-3">
-            <div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}"class="test rounded-circle align-middle"></div>
+            <div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}"class="rounded-circle align-middle"></div>
             <div class="col-sm-11">
                 <a href="/personalinfomation/{{ $question->user->_id }}" style="color:#787878; font-size: 20px">{{$question->user->fullname}}</a>
                 <div>

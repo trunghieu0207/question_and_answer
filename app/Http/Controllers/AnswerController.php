@@ -36,7 +36,7 @@ class AnswerController extends Controller
 		$answer->save();
 		
 
-		(new UserController)->createNotification($question->user_id, Notification::$target['question'], Notification::$action['answer'],  $question->_id);
+		(new UserController)->createNotification($question->user, Notification::$target['question'], Notification::$action['answer'],  $question->_id);
 
 		return redirect()->route('viewTopic', ['id' => $answer->question_id]);
 	}
