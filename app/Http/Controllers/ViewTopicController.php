@@ -46,20 +46,27 @@ class ViewTopicController extends Controller
     {
         $answer = Answer::find($id_answer);
         $question = $answer->question;
-        $question->best_answer_id = $id_answer;
-        $question->save();
+        if (Auth::user()->id==$question->user_id) 
+        {
+            $question->best_answer_id = $id_answer;
+            $question->save();
 
-        (new UserController)->createNotification($answer->user, Notification::$target['answer'], Notification::$action['accept'],  $question->_id);
+            (new UserController)->createNotification($answer->user, Notification::$target['answer'], Notification::$action['accept'],  $question->_id);
+
+        }       
 
         return redirect()->back();
     }
 
     public function removeBestAnswer($id_answer)
     {
-        
         $question = Answer::find($id_answer)->question;
-        $question->best_answer_id = null;
-        $question->save();
+        if (Auth::user()->id==$question->user_id)
+        {            
+            $question->best_answer_id = null;
+            $question->save();
+        }
+        
 
         return redirect()->back();        
     }
