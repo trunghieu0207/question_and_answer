@@ -40,7 +40,7 @@ class AddTopicRequest extends FormRequest
         return [
             'title.required' => 'Please enter a title.',
             'title.max' => 'The title is up to 100 characters.',
-            'content.required' => 'Please enter a content.'
+            'content.required' => 'Please enter a content.',
         ];
     }
 
