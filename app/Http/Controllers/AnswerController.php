@@ -43,7 +43,7 @@ class AnswerController extends Controller
 
 	public function edit($id)
 	{
-		$limit = \Config::get('constants.options.limitCharacterAttachmentName');
+	
 		$answer = Auth::user()->answers()->find($id);
 		if(empty($answer)) {
 			return redirect()->back();
@@ -52,7 +52,7 @@ class AnswerController extends Controller
 		$parsedown = new \Parsedown();
 		$question->content = $parsedown->setMarkupEscaped(true)->text($question->content);
 
-		return view('answer.edit_answer',compact('answer','id','question','limit'));
+		return view('answer.edit_answer',compact('answer','id','question'));
 	}
 
 	public function update(AnswerRequest $request)

@@ -47,12 +47,11 @@ class QuestionController extends Controller
 
 		$categories = Category::all();
 		$question = Auth::user()->questions()->find($id);
-		$limit = \Config::get('constants.options.limitCharacterAttachmentName');
 		if(empty($question)){
 			return redirect()->back();
 		} 
 
-		return view('question.edit_topic',compact('question','id','categories','limit'));
+		return view('question.edit_topic',compact('question','id','categories'));
 	}
 	
 	public function update(AddTopicRequest $request)

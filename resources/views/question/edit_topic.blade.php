@@ -69,7 +69,7 @@
 					@if($question->attachment_path)
 						<div class="float-right">
 						<b class="badge badge-warning">Attachment:</b>
-						<a target="blank" href="{{asset('files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limit)}}</i></a>
+						<a target="blank" href="{{asset('files/'.$question->attachment_path)}}"><i>{{$question->attachment_path}}</i></a>
 						</div>
 					@endif
 				</div>
