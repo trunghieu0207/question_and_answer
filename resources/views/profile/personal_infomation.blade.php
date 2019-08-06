@@ -1,6 +1,6 @@
 
 @extends('layout.master')
-@section('title','Homepage')
+@section('title','Personal information')
 @section('content')
 
 <div class="container mt-5">
