@@ -35,7 +35,7 @@
                 <a href="/personalinfomation/{{ $question->user->_id }}" style="color:#787878; font-size: 20px">{{$question->user->fullname}}</a>
                 <div>
                     <small class="text-muted" style="color:#5488c7;">
-                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{$question->date_convert}}
+                        <i class="fa fa-calendar" aria-hidden="true"> </i> {{$question->created_at->diffForHumans()}}
                     </small>
                 </div>
                 <br>

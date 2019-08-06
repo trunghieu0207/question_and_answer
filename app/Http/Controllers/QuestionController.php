@@ -25,8 +25,8 @@ class QuestionController extends Controller
 		$question = new Question();
 		$question->title = $request->get('title');
 		$question->content = $request->get('content');
-		$question->user_id = Auth::user()->_id;
-		$question->category_id = $request->get('category');
+		$question->user()->associate(Auth::user());
+		$question->category()->associate($request->get('category'));
 		$question->total_like = 0;
 		$question->total_dislike = 0;
 		$question->total_answer = 0;
@@ -46,11 +46,10 @@ class QuestionController extends Controller
 	{
 
 		$categories = Category::all();
-		$question = Question::find($id);
+		$question = Auth::user()->questions()->find($id);
 		$limit = \Config::get('constants.options.limitCharacterAttachmentName');
 		if(empty($question)){
-
-			return redirect()->route('homePage');
+			return redirect()->back();
 		} 
 
 		return view('question.edit_topic',compact('question','id','categories','limit'));
@@ -62,7 +61,7 @@ class QuestionController extends Controller
 		$question = Question::find($request->get('id'));
 		$question->title = $request->get('title');
 		$question->content = $request->get('content');
-		$question->category_id = $request->get('category');
+		$question->category()->associate($request->get('category'));
 		if($request->hasFile('attachment')) {
 			File::delete('files/'.$question->attachment_path);
 			$filename = $question->_id.'.'.$request->attachment->getClientOriginalExtension();
@@ -83,8 +82,8 @@ class QuestionController extends Controller
 	
 	public function removeQuestion(Request $request)
 	{
-		$question = Question::where('user_id', '=', Auth::user()->id)->where('_id', '=', $request->_id)->first();
-		
+		$question = Auth::user()->questions()->find($request->_id);
+
 		if(empty($question)) return 'Question not found';
 
 		$question->delete();

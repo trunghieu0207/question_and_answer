@@ -25,14 +25,12 @@ class ViewTopicController extends Controller
         {
             $answers = Answer::where('question_id',$id)->orderBy('total_like','desc')->paginate(\Config::get('constants.options.ItemNumberPerPage'));
             $best_answer=null;
-            $question->total_answer = $answers->count();
-            $question->save(); 
             $parsedown = new \Parsedown();
             $question->content = $parsedown->setMarkupEscaped(true)->text($question->content);
             $question->date_convert = $question->created_at->diffForHumans();
             foreach ($answers as $answer) 
             {
-                $answer->content = $parsedown->setMarkupEscaped(true)->text($answer->content);
+                $answer->content = $parsedown->text($answer->content);
                 $answer->date_convert = $answer->created_at->diffForHumans();
             }
             if(!empty($question->best_answer_id)) 

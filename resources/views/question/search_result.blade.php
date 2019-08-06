@@ -17,7 +17,7 @@
 								<small class="font-weight-bold" style="color:#5488c7;">{{$question->user->fullname}}</small>
 							</a>
 						<small class="text-muted" style="color:#5488c7;">
-							{{$question->date}}
+							{{$question->created_at->diffForHumans()}}
 						</small>
 						<br>
 
