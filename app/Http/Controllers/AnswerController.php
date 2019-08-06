@@ -7,18 +7,13 @@ use App\Question;
 use App\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
-use File;
+use Illuminate\Support\Facades\Storage;
 
 class AnswerController extends Controller
 {
 
 	public function store(Request $request)
 	{
-		// $validatedData = $request->validate([
-		// 	'title' => 'required|max:255',
-		// 	'content' => 'required',
-		// ]);
-
 		$answer = new Answer();
 		$answer->content = $request->get('content');
 		$answer->user_id = Auth::user()->_id;
@@ -33,8 +28,10 @@ class AnswerController extends Controller
 		$answer->save();
 		if($request->hasFile('attachment')) {
 			$filename = $answer->_id.'.'.$request->attachment->getClientOriginalExtension();
-			$answer->attachment_path = $filename;
-			$request->attachment->move('files/', $filename);
+			Storage::put('public/', $fileContents);
+			Storage::disk("local")->put($filename, "$request->attachment");
+			//$answer->attachment_path = $filename;
+			//$request->attachment->move('files/', $filename);
 		}
 		$answer->save();
 
@@ -64,10 +61,12 @@ class AnswerController extends Controller
 		$answer = Answer::find($request->get('id'));
 		$answer->content = $request->get('content');
 		if($request->hasFile('attachment')) {
-			File::delete('files/'.$answer->attachment_path);
+			Storage::delete("app/public/files/$answer->attachment_path");
+			//File::delete('files/'.$answer->attachment_path);
 			$filename = $answer->_id.'.'.$request->attachment->getClientOriginalExtension();
-			$answer->attachment_path = $filename;
-			$request->attachment->move('files/', $filename);
+			Storage::disk("local")->put($filename, $request->attachment);
+			//$answer->attachment_path = $filename;
+			//$request->attachment->move('files/', $filename);
 		}
 		$answer->save();
 
