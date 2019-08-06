@@ -37,6 +37,9 @@
 		</div>
 
 		<div class="card-body">
+			 @if(Session::has('errorUpload'))
+                <div class="alert alert-danger">{{ Session::get('errorUpload') }}</div>
+            @endif
 			<form method="post" action="{{url('edittopic')}}" id="addquestion" enctype="multipart/form-data">
 				@csrf
 				<!-- Start topic title -->
@@ -69,7 +72,7 @@
 					@if($question->attachment_path)
 						<div class="float-right">
 						<b class="badge badge-warning">Attachment:</b>
-						<a target="blank" href="{{asset('files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limit)}}</i></a>
+						<a target="blank" href="{{asset('storage/files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limit)}}</i></a>
 						</div>
 					@endif
 				</div>

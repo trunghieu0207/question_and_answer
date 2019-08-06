@@ -41,7 +41,7 @@
     <div class="card shadow word-wrap">
         <div class="row px-3 pt-3">
 
-            <div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}"
+            <div class="col-sm-1"><img src="{{ asset('storage/avatars')}}/{{$question->user->avatar}}"
                     class="user-avatar rounded-circle align-middle img-fluid"></div>
 
             <!-- Start Username, Date, Edit, Delete Block -->
@@ -107,7 +107,7 @@
                 @if($question->attachment_path)
                 <b class="badge badge-warning">Attachment:</b>
                 <a target="blank"
-                    href="{{asset('files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limitCharacter)}}</i></a>
+                    href="{{asset('storage/files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limitCharacter)}}</i></a>
                 @endif
                 <div class="row"
                     style="width: 500px; color:#787878; font-size: 20px; margin-bottom: 10px; margin-left: 5px;">
@@ -147,6 +147,9 @@
             @foreach($errors->all() as $error)
                 <div class="alert alert-danger">{{ $error }}</div>
             @endforeach
+            @if(Session::has('errorUpload'))
+                <div class="alert alert-danger">{{ Session::get('errorUpload') }}</div>
+            @endif
             <form id="addanswer" method="post" action="{{route('addAnswer')}}" enctype="multipart/form-data">
                 @csrf
                 <input type="text" name="question_id" hidden value="{{$question->_id}}">
@@ -179,7 +182,7 @@
         @if ($best_answer!=null)
         <div class="row px-3 pt-3">
             <div class="col-1">
-                <img src="{{asset('images/avatars')}}/{{$best_answer->user->avatar}}"
+                <img src="{{ asset('storage/avatars')}}/{{$best_answer->user->avatar}}"
                     class="user-avatar rounded-circle align-middle">
                 <br>
                 <br>
@@ -211,7 +214,7 @@
                 @if($best_answer->attachment_path)
                 <b class="badge badge-warning">Attachments:</b>
                 <a target="blank"
-                    href="{{asset('files/'.$best_answer->attachment_path)}}"><i>{{substr($best_answer->attachment_path,strlen($best_answer->attachment_path)-$limitCharacter)}}</i></a>
+                    href="{{asset('storage/files/'.$best_answer->attachment_path)}}"><i>{{substr($best_answer->attachment_path,strlen($best_answer->attachment_path)-$limitCharacter)}}</i></a>
                 @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-1">
@@ -252,7 +255,7 @@
         @if (($best_answer==null) or (($best_answer!=null) and ($answer->_id!=$best_answer->_id)))
         <div class="row px-3 pt-3">
             <div class="col-sm-1">
-                <img src="{{asset('images/avatars')}}/{{$answer->user->avatar}}"
+                <img src="{{ asset('storage/avatars')}}/{{$answer->user->avatar}}"
                     class="user-avatar rounded-circle align-middle">
                 <br>
                 <br>
@@ -285,7 +288,7 @@
                 @if($answer->attachment_path)
                 <b class="badge badge-warning">Attachments:</b>
                 <a target="blank"
-                    href="{{asset('files/'.$answer->attachment_path)}}"><i>{{substr($answer->attachment_path,strlen($answer->attachment_path)-$limitCharacter)}}</i></a>
+                    href="{{asset('storage/files/'.$answer->attachment_path)}}"><i>{{substr($answer->attachment_path,strlen($answer->attachment_path)-$limitCharacter)}}</i></a>
                 @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-1">

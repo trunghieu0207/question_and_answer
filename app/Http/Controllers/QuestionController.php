@@ -8,9 +8,11 @@ use App\Answer;
 use Illuminate\Support\Facades\Auth;
 use File;
 use App\Http\Requests\AddTopicRequest;
-
+use Illuminate\Support\Facades\Storage;
 class QuestionController extends Controller
 {
+	private $typeFiles = array('application/x-rar-compressed', 'application/octet-stream', 'application/zip', 'application/x-rar', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed');
+
 	public function create()
 	{
 		$categories = Category::all();
@@ -33,13 +35,22 @@ class QuestionController extends Controller
 		$question->attachment_path = null;
 		$question->save();
 		if($request->hasFile('attachment')) {
-			$filename = $question->_id.'.'.$request->attachment->getClientOriginalExtension();
-			$question->attachment_path = $filename;
-			$request->attachment->move('files/', $filename);
+			$typeFiles = $this->typeFiles;
+			$typeFileAttachment = $request->attachment->getMimeType();
+			if(in_array($typeFileAttachment, $typeFiles)) {
+				$filename = $question->_id.'.'.$request->attachment->getClientOriginalExtension();
+				$question->attachment_path = $filename;
+				Storage::putFileAs('public/files/', $request->attachment, $filename);
+				$question->save();
+			} else {
+				session()->flash('errorUpload', 'Files only support ZIP and RAR formats');
+					
+				return redirect()->back();
+			}
 		}
-		$question->save();
+		$id = $question->_id;
 
-		return redirect('/');
+		return redirect()->route('viewTopic', ['id' => $id]);
 	}
 
 	public function edit($id)
@@ -63,11 +74,21 @@ class QuestionController extends Controller
 		$question->title = $request->get('title');
 		$question->content = $request->get('content');
 		$question->category_id = $request->get('category');
+		
 		if($request->hasFile('attachment')) {
-			File::delete('files/'.$question->attachment_path);
-			$filename = $question->_id.'.'.$request->attachment->getClientOriginalExtension();
-			$question->attachment_path = $filename;
-			$request->attachment->move('files/', $filename);
+			Storage::delete('public/files/'.$question->attachment_path);
+			$typeFiles = $this->typeFiles;
+			$typeFileAttachment = $request->attachment->getMimeType();
+			if(in_array($typeFileAttachment, $typeFiles)) {
+
+				$filename = $question->_id.'.'.$request->attachment->getClientOriginalExtension();
+				$question->attachment_path = $filename;
+				Storage::putFileAs('public/files/', $request->attachment, $filename);
+			} else {
+				session()->flash('errorUpload', 'Files only support ZIP and RAR formats');
+					
+				return redirect()->back();
+			}
 		}
 		$question->save();
 

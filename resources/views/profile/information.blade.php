@@ -46,6 +46,9 @@
 				<div class="row">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
+					@if(Session::has('errorsAvatar'))
+                        <div class="alert alert-danger">{{ Session::get('errorsAvatar') }}</div>
+                    @endif
 					@foreach($errors->all() as $error)
 						<div class="alert alert-danger">{{ $error }}</div>
 					@endforeach

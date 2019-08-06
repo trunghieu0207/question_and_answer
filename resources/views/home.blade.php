@@ -12,7 +12,7 @@
 			<div class="card-body p-0">
 				@foreach($questions as $question)
 				<div class="row px-3 pt-3">
-					<div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}" class="img-fluid rounded-circle align-middle user-avatar" ></div>
+					<div class="col-sm-1"><img src="{{ asset('storage/avatars')}}/{{$question->user->avatar}}" class="img-fluid rounded-circle align-middle user-avatar" ></div>
 					<div class="col-sm-11">
 							<a href="/personalinfomation/{{ $question->user->_id }}">
 								<small class="font-weight-bold" style="color:#5488c7;">{{$question->user->fullname}}</small>

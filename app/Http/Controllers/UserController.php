@@ -12,7 +12,7 @@ use App\Notification;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\InformationRequest;
 use App\Http\Requests\ChangePasswordRequest;
-
+use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
     public function indexManageQuestion()
@@ -38,16 +38,22 @@ class UserController extends Controller
             $user = Auth::user();
 
             $filename = $user->_id.'.'.$request->avatar->getClientOriginalExtension();
+            $typeAvatar = $request->avatar->getMimeType();
 
-            if($user->avatar!='default_avatar.png') File::delete('images/avatars/'.$user->avatar);
-            $request->avatar->move('images/avatars/', $filename);
-            
-            $user->avatar=$filename;
-            $user->save();
+            if( $typeAvatar == 'image/png' || 
+                $typeAvatar == 'image/jpg' || 
+                $typeAvatar == 'image/jpeg') {
 
-            Auth::user()->avatar = $filename;
+                if($user->avatar!='default_avatar.png') Storage::delete('public/avatars/'.$user->avatar);
+                    $request->avatar->storeAs('public/avatars/', $filename);
+                    $user->avatar=$filename;
+                    $user->save();
+                    Auth::user()->avatar = $filename;
+            } else {
+                session()->flash('errorsAvatar','Images only support JPG, PNG, and JPEG formats');
+            }
         }
-        
+
         return redirect()->back();
     }
     

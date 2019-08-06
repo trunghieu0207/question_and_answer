@@ -78,6 +78,9 @@
 						@if(Session::has('error'))
 							<div class="alert alert-danger">{{ Session::get('error') }}</div>
 						@endif
+                        @if(Session::has('errorsAvatar'))
+                            <div class="alert alert-danger">{{ Session::get('errorsAvatar') }}</div>
+                        @endif
     					<form action="{{ route('storeChangePassword') }}" method="post" id="changepass">
     						<input type="hidden" name="_token" value="{{csrf_token()}}">
     						<div class="form-group">

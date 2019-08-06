@@ -30,7 +30,7 @@
 <div class="container mt-5">
     <div class="card shadow">
         <div class="row px-3 pt-3">
-            <div class="col-sm-1"><img src="{{asset('images/avatars')}}/{{$question->user->avatar}}"class="test rounded-circle align-middle"></div>
+            <div class="col-sm-1"><img src="{{ asset('storage/avatars')}}/{{$question->user->avatar}}"class="user-avatar rounded-circle align-middle"></div>
             <div class="col-sm-11">
                 <a href="/personalinfomation/{{ $question->user->_id }}" style="color:#787878; font-size: 20px">{{$question->user->fullname}}</a>
                 <div>
@@ -51,7 +51,7 @@
                 @if($question->attachment_path)
                     <b class="badge badge-warning">Attachment:</b>
                     <a target="blank"
-                        href="{{asset('files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limit)}}</i></a>
+                        href="{{asset('storage/files/'.$question->attachment_path)}}"><i>{{substr($question->attachment_path,strlen($question->attachment_path)-$limit)}}</i></a>
                 @endif
                 <div class="row" style="width: 300px; color:#787878; font-size: 20px; margin-bottom: 10px">
                     <div class="col-sm">
@@ -76,6 +76,9 @@
             @foreach($errors->all() as $error)
                 <div class="alert alert-danger">{{ $error }}</div>
             @endforeach
+            @if(Session::has('errorUpload'))
+                <div class="alert alert-danger">{{ Session::get('errorUpload') }}</div>
+            @endif
             <form id="editanswer" method="post" action="{{ url('editanswer') }}" enctype="multipart/form-data">
                 @csrf
                 <input type="text" name="id" hidden value="{{$answer->id}}">
@@ -94,7 +97,7 @@
                 </div>
                 @if($answer->attachment_path)
 					<b class="badge badge-warning">Attachment:</b>
-					<a target="blank" href="{{asset('files/'.$answer->attachment_path)}}"><i>{{substr($answer->attachment_path,strlen($answer->attachment_path)-\Config::get('constants.options.limitCharacterAttachmentName'))}}</i></a>
+					<a target="blank" href="{{asset('storage/files/'.$answer->attachment_path)}}"><i>{{substr($answer->attachment_path,strlen($answer->attachment_path)-\Config::get('constants.options.limitCharacterAttachmentName'))}}</i></a>
                 @endif
                 <button type="submit" class="btn btn-primary float-right" onclick="checkContent()">Save changes</button>
             </form>
