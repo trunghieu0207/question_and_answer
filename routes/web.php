@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,10 +45,6 @@ Route::get('aboutus',[
 	'as' => 'aboutUs',
 	'uses' => 'AboutUsController@aboutUs'
 ]);
-
-Route::get('test',function(){
-	return \Config::get('constants.options.ItemNumberPerPage');
-});
 
 Route::get('personalinfomation/{id}','UserController@personalInfomation')->name('personalInfomation');
 

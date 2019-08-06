@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Category;
 
 class AddTopicRequest extends FormRequest
 {
@@ -24,11 +25,13 @@ class AddTopicRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
+    {   
+        $categories = $this->arrayToString(Category::get(['_id']));
         return [
 
             'title' => 'required|max:100',
             'content' => 'required',
+            'category' => "in:$categories",
         ];
     }
 
@@ -39,5 +42,13 @@ class AddTopicRequest extends FormRequest
             'title.max' => 'The title is up to 100 characters.',
             'content.required' => 'Please enter a content.'
         ];
+    }
+
+    public function arrayToString($array){
+        $string = "";
+        foreach($array as $item){
+            $string = $string."$item->_id,";
+        }
+        return $string;
     }
 }
