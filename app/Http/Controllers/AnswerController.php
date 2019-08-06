@@ -8,12 +8,13 @@ use App\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 use File;
-
+use App\Http\Requests\AnswerRequest;
 class AnswerController extends Controller
 {
 
-	public function store(Request $request)
+	public function store(AnswerRequest $request)
 	{
+
 		$question= Question::find("$request->question_id");
 		$question->total_answer+=1;
 		$question->save();
@@ -54,7 +55,7 @@ class AnswerController extends Controller
 		return view('answer.edit_answer',compact('answer','id','question','limit'));
 	}
 
-	public function update(Request $request)
+	public function update(AnswerRequest $request)
 	{
 
 		$answer = Answer::find($request->get('id'));

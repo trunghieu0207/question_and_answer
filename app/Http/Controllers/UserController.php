@@ -10,16 +10,15 @@ use File;
 use Illuminate\Support\Facades\Hash;
 use App\Notification;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\InformationRequest;
+use App\Http\Requests\ChangePasswordRequest;
 
 class UserController extends Controller
 {
     public function indexManageQuestion()
 	{
+
         $questions = Auth::user()->questions()->paginate(\Config::get('constants.options.ItemNumberPerPage'));
-        //foreach($questions as $question){
-		//	$question->date = $question->created_at->diffForHumans();
-		//}
 		$active_manage_question = true;
 
 		return view('profile.manage_question',compact('questions','active_manage_question'));
@@ -28,9 +27,6 @@ class UserController extends Controller
 	public function indexManageAnswer()
 	{
         $answers = Auth::user()->answers()->paginate(\Config::get('constants.options.ItemNumberPerPage'));
-        //foreach($answers as $answer){
-		//	$answer->date = $answer->created_at->diffForHumans();
-		//}
 		$active_manage_answer = 'active';
 
 		return view('profile.manage_answer',compact('answers','active_manage_answer'));
@@ -100,7 +96,7 @@ class UserController extends Controller
         return view('profile.information',compact('user','active_personal_info'));
     }
 
-    public function updateInformation (Request $request) {
+    public function updateInformation (InformationRequest $request) {
         $user = Auth::user();
         $user->fullname = $request->fullname;
         $user->about_me = $request->aboutme;
@@ -119,11 +115,10 @@ class UserController extends Controller
         return view('profile.change_password',compact('user','active_change_pass'));
     }
 
-    public function storeChangePassword(Request $request) {
+    public function storeChangePassword(ChangePasswordRequest $request) {
         $user = Auth::user();
         $curentpassword = $user->password;
         if (!Hash::check($request->curentpassword, $curentpassword)) {
-
             Session()->flash('error', 'Current password is not correct!');
             
             return redirect()->back();       

@@ -45,6 +45,7 @@
                 <h3 class="text-primary font-weight-bold d-flex justify-content-sm-between">
                     {{$question->title}}
 
+
                     <span class="badge badge-info d-flex" style="height: 32px">{{$question->category->name}}</span>
                 </h3>
             </div>
@@ -75,6 +76,9 @@
 
     <div class="card shadow" style="margin-top: 20px; margin-bottom: 20px;">
         <div class="card-body">
+            @foreach($errors->all() as $error)
+                <div class="alert alert-danger">{{ $error }}</div>
+            @endforeach
             <form id="editanswer" method="post" action="{{ url('editanswer') }}" enctype="multipart/form-data">
                 @csrf
                 <input type="text" name="id" hidden value="{{$answer->id}}">

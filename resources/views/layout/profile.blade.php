@@ -1,7 +1,5 @@
 @extends('layout.master')
 
-
-
 @section('js')
 	<script>
         $('#fuMain').fileinput({
@@ -23,7 +21,7 @@
             <div class="col-sm-3">
                 <div class="card shadow bg-light">
                     <div class="card-body text-center">
-                        <img src="{{ asset('images/avatars').'/'.Auth::user()->avatar }}" class="avatar">
+                        <img src="{{ asset('images/avatars').'/'.Auth::user()->avatar }}" class="img-fluid" style="width: 200px;">    
                         <h4 class="mt-2 text-primary font-weight-bold">{{ Auth::user()->fullname }}</h4>
                         <button class="badge btn btn-warning" data-toggle="modal" data-target="#exampleModal">Change
                             avatar</button>
@@ -38,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-9 w-100">
             <div class="card shadow bg-light">
                     <div class="card-body">
                        @yield('contentprofile')
