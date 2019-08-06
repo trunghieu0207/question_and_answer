@@ -1,0 +1,1 @@
+<a href="/viewtopic/{{$question->_id}}" class="dropdown-item"><small>{{htmlspecialchars($question->title)}}</small></a>

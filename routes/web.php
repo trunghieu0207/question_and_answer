@@ -51,7 +51,7 @@ Route::get('test',function(){
 	return \Config::get('constants.options.ItemNumberPerPage');
 });
 
-Route::get('personalinfomation/{id}','HomeController@personalInfomation')->name('personalInfomation');
+Route::get('personalinfomation/{id}','UserController@personalInfomation')->name('personalInfomation');
 
 /*Start middleware check sigin*/
 Route::middleware(['checkSignIn'])->group(function () {

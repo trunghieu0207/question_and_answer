@@ -29,19 +29,18 @@
                     },
                     success: function (data) {
 						if(data!=""){
+                            $('#result_list').empty();
 							$('#result_list').html(data);
 							$('#result_list').show();
 						}
 						else{
                             $('#result_list').hide();
-                            $('#result_list').empty();
                         }
                     }
                 })
             }
 			else{
                 $('#result_list').hide();
-                $('#result_list').empty();
             }
         });
         function submit_search(){

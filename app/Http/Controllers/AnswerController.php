@@ -7,16 +7,15 @@ use App\Question;
 use App\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
-use File;
 use App\Http\Requests\AnswerRequest;
 use Illuminate\Support\Facades\Storage;
+
 class AnswerController extends Controller
 {
 	private $typeFiles = array('application/x-rar-compressed', 'application/octet-stream', 'application/zip', 'application/x-rar', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed');
 
 	public function store(AnswerRequest $request)
 	{
-
 		$question= Question::find("$request->question_id");
 		$question->total_answer+=1;
 		$question->save();
@@ -71,7 +70,6 @@ class AnswerController extends Controller
 		$answer = Answer::find($request->get('id'));
 		$answer->content = $request->get('content');
 		if($request->hasFile('attachment')) {
-
 			Storage::delete('public/files/'.$answer->attachment_path);
 			$typeFiles = $this->typeFiles;
 			$typeFileAttachment = $request->attachment->getMimeType();
@@ -84,8 +82,6 @@ class AnswerController extends Controller
 
 				return redirect()->back();
 			}
-
-			
 		}
 		$answer->save();
 

@@ -23,7 +23,7 @@ class HomeController extends Controller
 		if($questions->count()<=0) return "";
 
 		foreach($questions as $question){
-			echo '<a id="result_id" href="/viewtopic/'.$question->_id.'" class="dropdown-item"><small>'.htmlspecialchars($question->title).'</small></a>';
+			echo view('layout.search_link',compact('question'));
 		}
 	}
 
@@ -38,28 +38,5 @@ class HomeController extends Controller
 		$fullText = Question::whereRaw(array('$text'=>array('$search'=> $keyword)))->get();
 
 		return $fullText;
-	}
-
-
-	public function personalInfomation($id)
-	{
-		$user = User::find($id);
-		$totalLike = 0;
-		$totalDislike = 0;
-		$totalAccepted = 0;
-		$questions = $user->questions;
-		foreach($questions as $question){
-			$totalLike += $question->total_like;
-			$totalDislike += $question->total_dislike;
-		}
-		$answers = $user->answers;
-		foreach($answers as $answer){
-			$totalLike += $answer->total_like;
-			$totalDislike += $answer->total_dislike;
-
-			if($answer->question->best_answer_id==$answer->_id) $totalAccepted++;
-		}
-
-		return view('profile.personal_infomation',compact('user','totalLike','totalDislike','totalAccepted'));
 	}
 }

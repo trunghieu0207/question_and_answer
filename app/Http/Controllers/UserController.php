@@ -69,9 +69,12 @@ class UserController extends Controller
 
     public function readNotification()
     {
-        $user = Auth::user();
-        $user->new_notification=0;
-        $user->save();
+        foreach(Auth::user()->notifications as $notification){
+            if(!$notification->is_read){
+                $notification->is_read = true;
+                $notification->save();
+            }
+        }
     }
 
     public function createNotification($user, $target, $action, $question_id)
@@ -81,10 +84,10 @@ class UserController extends Controller
         $notification->actor()->associate(Auth::user());
         $notification->target = $target;
         $notification->action = $action;
+        $notification->is_read = false;
         $notification->question_id = $question_id;
         $notification->save();
 
-        $user->new_notification++;
         $user->save();
     }
 
@@ -134,5 +137,20 @@ class UserController extends Controller
 
             return redirect()->back();
         }  
+    }
+    
+    public function personalInfomation($id)
+	{
+		$user = User::find($id);
+		$questions = $user->questions;
+		$answers = $user->answers;
+		$totalLike = $questions->sum('total_like')+$answers->sum('total_like');
+		$totalDislike = $questions->sum('total_dislike')+$answers->sum('total_dislike');
+		$totalAccepted = 0;
+		foreach($answers as $answer){
+			if($answer->question->best_answer_id==$answer->_id) $totalAccepted++;
+		}
+
+		return view('profile.personal_infomation',compact('user','totalLike','totalDislike','totalAccepted'));
 	}
 }

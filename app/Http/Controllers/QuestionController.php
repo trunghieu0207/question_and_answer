@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Answer;
 use Illuminate\Support\Facades\Auth;
-use File;
 use App\Http\Requests\AddTopicRequest;
 use Illuminate\Support\Facades\Storage;
+
 class QuestionController extends Controller
 {
 	private $typeFiles = array('application/x-rar-compressed', 'application/octet-stream', 'application/zip', 'application/x-rar', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed');
@@ -22,8 +22,6 @@ class QuestionController extends Controller
 
 	public function store(AddTopicRequest $request)
 	{
-
-
 		$question = new Question();
 		$question->title = $request->get('title');
 		$question->content = $request->get('content');
