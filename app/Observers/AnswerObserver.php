@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Answer;
-use File;
+use Illuminate\Support\Facades\Storage;
 
 class AnswerObserver
 {
@@ -37,7 +37,7 @@ class AnswerObserver
      */
     public function deleted(Answer $answer)
     {
-        if(!empty($answer->attachment_path)) File::delete('files/'.$answer->attachment_path);
+        if(!empty($answer->attachment_path)) Storage::delete('public/files/'.$answer->attachment_path);;
     }
 
     /**
