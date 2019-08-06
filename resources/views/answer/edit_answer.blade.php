@@ -4,9 +4,9 @@
 
 @section('js')
     <script>
-        $('#fuMain').fileinput({
+        $('#fileUpload').fileinput({
         theme: 'fa',
-                //allowedFileExtensions: ['png', 'jpg'],
+                allowedFileExtensions: ['zip', 'rar'],
                 //uploadUrl: '/upload_article_poster',
                 uploadAsync: false,
                 showUpload: false,
@@ -14,7 +14,7 @@
                 removeClass: 'btn btn-warning'
             });
     var simplemde = new SimpleMDE({
-        element: document.getElementById("MyID")
+        element: document.getElementById("markdown")
     });
 
     function checkContent() {
@@ -41,11 +41,8 @@
                 <br>
             </div>
             <div class="col-sm-12">
-
                 <h3 class="text-primary font-weight-bold d-flex justify-content-sm-between">
                     {{$question->title}}
-
-
                     <span class="badge badge-info d-flex" style="height: 32px">{{$question->category->name}}</span>
                 </h3>
             </div>
@@ -85,12 +82,12 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="file-loading">
-                            <input id="fuMain" name="attachment" type="file">
+                            <input id="fileUpload" name="attachment" type="file">
                         </div>
                     </div>
                     <div class="col-sm-8">
                         <div class="form-group">
-                            <textarea id="MyID" rows="2" name="content">{{$answer->content}}</textarea>
+                            <textarea id="markdown" rows="2" name="content">{{$answer->content}}</textarea>
                             <div id="required_content" style="font-size: 14px;color: red;"></div>
                         </div>
                     </div>

@@ -58,12 +58,12 @@
             <form id="signinform" action="{{route('signIn')}}" method="post">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">    
                 <div class="form-group">
-                    <label class="font-weight-bold">Email:</label>
-                    <input name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                    <label class="font-weight-bold " for="email">Email:</label>
+                    <input id="email" name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
                 <div class="form-group">
-                    <label class="font-weight-bold">Password:</label>
-                    <input name="password" type="password" class="form-control" placeholder="Password">
+                    <label class="font-weight-bold" for="password">Password:</label>
+                    <input id="password" name="password" type="password" class="form-control" placeholder="Password">
                 </div>
                 @if($errors->any())
                     <div class="alert alert-danger">{{$errors->first()}}</div>

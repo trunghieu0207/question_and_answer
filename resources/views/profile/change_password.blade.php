@@ -82,15 +82,15 @@
     						<input type="hidden" name="_token" value="{{csrf_token()}}">
     						<div class="form-group">
     					    	<label for="curentpassword" class="font-weight-bold">Current password</label>
-    					    	<input type="password" class="form-control"  name="curentpassword">
+    					    	<input id="currentpassword" type="password" class="form-control"  name="curentpassword">
     						</div>
     						<div class="form-group">
     					    	<label for="newpassword" class="font-weight-bold">New password</label>
-    					    	<input type="password" class="form-control" name="newpassword">
+    					    	<input id="newpassword" type="password" class="form-control" name="newpassword">
     						</div>
     						<div class="form-group">
     					    	<label for="confirmpass" class="font-weight-bold">Confirm password</label>
-    					    	<input type="password" class="form-control" name="confirmpass">
+    					    	<input id="confirmpass" type="password" class="form-control" name="confirmpass">
     						</div>
     					  	<div class="d-flex justify-content-center">
     					  		<button type="submit" class="btn btn-primary">Save</button>
