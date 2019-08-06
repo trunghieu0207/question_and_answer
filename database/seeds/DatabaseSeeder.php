@@ -6,6 +6,7 @@ use App\Category;
 use App\Question;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -52,7 +53,5 @@ class DatabaseSeeder extends Seeder
         Schema::connection('mongodb')->table('antman_questions', function (Blueprint $collection) {
             $collection->index([ "title" => "text","content" => "text" ]);
         });
-
-
     }
 }
