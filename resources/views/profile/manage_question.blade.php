@@ -18,9 +18,6 @@ function confirmRemove(btn){
 <h2 class="text-primary text-center">MANAGE QUESTIONS</h2>
 <hr class="my-3">
 <div class="table-responsive">
-    @if(Session::has('errorsAvatar'))
-        <div class="alert alert-danger">{{ Session::get('errorsAvatar') }}</div>
-    @endif
     <table class="table table-hover">
         <thead>
             <tr>

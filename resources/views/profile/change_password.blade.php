@@ -48,10 +48,10 @@
                 errorClass: 'help-block text-danger mt-2',
                 validClass: 'is-valid',
                 highlight: function (e) {
-                    $(e).removeClass('is-valid').addClass('is-invalid');
+                    $(e).addClass('is-invalid');
                 },
                 unhighlight: function (e) {
-                    $(e).removeClass('is-invalid').addClass('is-valid');
+                    $(e).removeClass('is-invalid');
                 }
             });
         })
@@ -78,9 +78,6 @@
 						@if(Session::has('error'))
 							<div class="alert alert-danger">{{ Session::get('error') }}</div>
 						@endif
-                        @if(Session::has('errorsAvatar'))
-                            <div class="alert alert-danger">{{ Session::get('errorsAvatar') }}</div>
-                        @endif
     					<form action="{{ route('storeChangePassword') }}" method="post" id="changepass">
     						<input type="hidden" name="_token" value="{{csrf_token()}}">
     						<div class="form-group">
