@@ -18,9 +18,8 @@ class ViewTopicController extends Controller
     {
         $question = Question::find($id);
         if(empty($question))
-        {
             return redirect()->back();
-        }         
+
         $limit=\Config::get('constants.options.ItemNumberPerPage');
         $answers = Answer::where('question_id',$id)->orderBy('total_like','desc')->paginate($limit);
         $bestAnswer=null;
@@ -91,7 +90,6 @@ class ViewTopicController extends Controller
         $user_disliked =$this->checkDislike($post_id,$post_type,Auth::user()->id);
         
         if (!$user_liked){
-
             if ($post_type =='Question')
             {
                 $question= Question::find($post_id);    
