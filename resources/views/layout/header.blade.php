@@ -106,7 +106,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logOut') }}">
                                 <i class="fa fa-sign-out" style="width:20px"></i>
-                                Logout
+                                Sign Out
                             </a>
                         </div>
                     </div>
