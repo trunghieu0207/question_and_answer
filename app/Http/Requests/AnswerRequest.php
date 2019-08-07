@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Auth;
 class AnswerRequest extends FormRequest
 {
     /**
@@ -24,7 +24,12 @@ class AnswerRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required'
+            'content' => 'required',
+            'id' => function ($attribute, $value, $fail) {
+                    if (Auth::user()->id != $value) {
+                        return $fail('The ' . $attribute . ' not invalid');
+                    }
+                }
         ];
     }
 
