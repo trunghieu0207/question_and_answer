@@ -56,7 +56,7 @@ class UserController extends Controller
             }
         }
 
-        return redirect()->back();
+        return back()->withInput();
     }
     
     public function removeNotification($id)
