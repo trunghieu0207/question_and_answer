@@ -36,7 +36,7 @@ Route::post('signin',[
 ]);
 
 
-Route::get('viewtopic/{id}',[
+Route::get('topic/{id}',[
 		'as' => 'viewTopic',
 		'uses' => 'ViewTopicController@view'
 ]);
