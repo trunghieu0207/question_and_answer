@@ -23,7 +23,7 @@
 						<br>
 						<div class="row">
 							<div class="col-10">
-								<div class="word-wrap"><a href="viewtopic/{{ $question->id }}"><h5>{{$question->title}}</h5></a></div>
+								<div class="word-wrap"><a href="topic/{{ $question->id }}"><h5>{{$question->title}}</h5></a></div>
 							</div>
 							<div class="col-2">
 								<small class="float-right border rounded-pill text-primary bg-light p-2 font-weight-bold">{{$question->category->name}}</small>
