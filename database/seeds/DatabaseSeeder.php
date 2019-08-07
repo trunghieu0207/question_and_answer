@@ -25,13 +25,13 @@ class DatabaseSeeder extends Seeder
         $user->about_me = 'We are antman team!';
         $user->save();
 
-        $category_name = array('Software', 'Website app', 'Window app', 'Mobile app', 'MacOS app', 'Linux app', 'Other');
-        $cat_id = 'none';
+        $category_name = array('C++/C#', 'Database', 'Java', 'Javascript', 'Mobile', 'Python', 'Ruby', 'Software', 'Website', 'Other');
+        $cat = null;
         foreach($category_name as $name){
             $category = new Category();
             $category->name = $name;
             $category->save();
-            $cat_id = $category->_id;
+            $cat = $category;
         }
 
         $question = new Question();
@@ -42,8 +42,8 @@ class DatabaseSeeder extends Seeder
 # What you will do?
 ### Tell me your crazy idea :D.';
         $question->attachment_path=null;
-        $question->user_id=$user->_id;
-        $question->category_id=$cat_id;
+        $question->user()->associate($user);
+        $question->category()->associate($cat);
         $question->total_like=0;
         $question->total_dislike=0;
         $question->total_answer=0;

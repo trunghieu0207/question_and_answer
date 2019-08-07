@@ -59,7 +59,7 @@
                             <div class="row" >
                                 <div class="col-sm-10">
                                     <div class=" ml-2">
-                                        <a href="/viewtopic/{{ $notification->question_id }}">
+                                        <a href="/topic/{{ $notification->question_id }}">
                                             {{ $notification->actor()->first()->fullname.' '.$notification->action.' your '.$notification->target }}
                                         </a>
                                         <br>
