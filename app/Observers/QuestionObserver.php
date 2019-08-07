@@ -3,8 +3,7 @@
 namespace App\Observers;
 
 use App\Question;
-use File;
-
+use Illuminate\Support\Facades\Storage;
 class QuestionObserver
 {
     /**
@@ -40,7 +39,7 @@ class QuestionObserver
         foreach($question->answers()->get() as $single_answer){
 			$single_answer->delete();
 		}
-        if(!empty($question->attachment_path)) File::delete('files/'.$question->attachment_path);
+        if(!empty($question->attachment_path)) Storage::delete('public/files/'.$question->attachment_path);
     }
 
     /**

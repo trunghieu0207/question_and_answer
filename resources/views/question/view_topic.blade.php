@@ -253,7 +253,7 @@
             @if (($bestAnswer==null) or (($bestAnswer!=null) and ($answer->_id!=$bestAnswer->_id)))
                 <div class="row px-3 pt-3">
                     <div class="col-sm-1">
-                        <img src="{{asset('images/avatars')}}/{{$answer->user->avatar}}"
+                        <img src="{{asset('storage/avatars')}}/{{$answer->user->avatar}}"
                             class="user-avatar rounded-circle align-middle">
                         <br>
                         <br>

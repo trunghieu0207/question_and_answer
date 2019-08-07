@@ -14,9 +14,6 @@
             </tr>
         </thead>
         <tbody>
-            @if(Session::has('errorsAvatar'))
-                <div class="alert alert-danger">{{ Session::get('errorsAvatar') }}</div>
-            @endif
             @foreach($answers as $answer)
             <tr style="line-height: 20px;">
                 <th style="max-width: 700px;" class="">

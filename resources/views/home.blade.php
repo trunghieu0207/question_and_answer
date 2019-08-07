@@ -1,6 +1,6 @@
 
 @extends('layout.master')
-@section('title','Homepage')
+@section('title','TechSolution')
 @section('content')
 
 <main>
