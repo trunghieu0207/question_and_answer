@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\InformationRequest;
 use App\Http\Requests\ChangePasswordRequest;
 use Illuminate\Support\Facades\Storage;
+
 class UserController extends Controller
 {
     public function indexManageQuestion()
@@ -146,9 +147,9 @@ class UserController extends Controller
 		$answers = $user->answers;
 		$totalLike = $questions->sum('total_like')+$answers->sum('total_like');
 		$totalDislike = $questions->sum('total_dislike')+$answers->sum('total_dislike');
-		$totalAccepted = 0;
+        $totalAccepted = 0;
 		foreach($answers as $answer){
-			if($answer->question->best_answer_id==$answer->_id) $totalAccepted++;
+			$totalAccepted+=$answer->question->where('best_answer_id',$answer->_id)->count();
 		}
 
 		return view('profile.personal_infomation',compact('user','totalLike','totalDislike','totalAccepted'));

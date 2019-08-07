@@ -26,7 +26,7 @@ class AddTopicRequest extends FormRequest
      */
     public function rules()
     {   
-        $categories = $this->arrayToString(Category::get(['_id']));
+        $categories = Category::getStringId();
         return [
 
             'title' => 'required|max:100',
@@ -42,13 +42,5 @@ class AddTopicRequest extends FormRequest
             'title.max' => 'The title is up to 100 characters.',
             'content.required' => 'Please enter a content.',
         ];
-    }
-
-    public function arrayToString($array){
-        $string = "";
-        foreach($array as $item){
-            $string = $string."$item->_id,";
-        }
-        return $string;
     }
 }
