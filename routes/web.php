@@ -49,14 +49,20 @@ Route::get('aboutus',[
 Route::get('personalinfomation/{id}','UserController@personalInfomation')->name('personalInfomation');
 
 /*Start middleware check sigin*/
-Route::middleware(['checkSignIn'])->group(function () {
+Route::middleware(['auth'])->group(function () {
+	Route::get('profile', [
+		'as' => 'profile',
+		function(){
+			return redirect()->route('information');
+		}
+	]);
     Route::prefix('profile')->group(function () {
        	Route::get('information', [
 			'as' => 'information',
 			'uses' => 'UserController@indexInformation'
 		]);
 
-       	Route::post('updateinformation', [
+       	Route::post('information', [
 			'as' => 'updateInformation',
 			'uses' => 'UserController@updateInformation'
 		]);
@@ -78,7 +84,7 @@ Route::middleware(['checkSignIn'])->group(function () {
     });
 
 
-    Route::get('logout',[
+    Route::post('logout',[
 		'as'=>'logOut',
 		'uses' => 'SignInController@logOut'
 	]);
@@ -140,3 +146,7 @@ Route::middleware(['checkSignIn'])->group(function () {
 });
 
 /*End middleware check sign in*/
+
+Route::fallback(function () {
+    abort(404);
+});	

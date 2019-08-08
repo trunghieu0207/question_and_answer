@@ -30,8 +30,10 @@
                             <a href="{{ route('changePassword') }}" class="btn nav-link @if(!empty($active_change_pass)) active @endif">Change password</a>
                             <a href="{{ route('manageQuestion') }}" class="btn nav-link @if(!empty($active_manage_question)) active @endif">Manage questions</a>
                             <a href="{{ route('manageAnswer') }}" class="btn nav-link @if(!empty($active_manage_answer)) active @endif">Manage answers</a>
-
-                            <a href="{{ route('logOut') }}" class="btn nav-link">Sign out</a>
+                            <form action="{{ route('logOut') }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn nav-link w-100">Sign out</a>
+                            </form>
                         </div>
                     </div>
                 </div>

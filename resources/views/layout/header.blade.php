@@ -104,10 +104,14 @@
                                 Your answers
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('logOut') }}">
+                            <form action="{{ route('logOut') }}" method="post">
+                            @csrf
+                            <button type="submit" class="dropdown-item">
                                 <i class="fa fa-sign-out" style="width:20px"></i>
                                 Logout
-                            </a>
+                            </button>
+                            </form>
+                            
                         </div>
                     </div>
                 </div>
