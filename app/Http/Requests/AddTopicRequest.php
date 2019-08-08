@@ -4,7 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Category;
-
+use Illuminate\Support\Facades\Auth;
+use App\Question;
 class AddTopicRequest extends FormRequest
 {
     /**
@@ -32,6 +33,13 @@ class AddTopicRequest extends FormRequest
             'title' => 'required|max:100',
             'content' => 'required',
             'category' => "in:$categories",
+            'id' => function ($attribute, $value, $fail) {
+                    $question = Question::find($value);
+                    $idUser = Auth::user()->id;
+                    if ($question->user->_id != $idUser) {
+                        return $fail('The ' . $attribute . ' not invalid');
+                    }
+                }
         ];
     }
 

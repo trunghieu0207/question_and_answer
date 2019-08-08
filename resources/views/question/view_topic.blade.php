@@ -202,8 +202,8 @@
                 </div>
 
                 @if (Auth::check() and (Auth::user()->id==$bestAnswer->user_id))
-                    <a href="{{asset('editanswer')}}/{{ $bestAnswer->id }}"><i
-                            class="float-right fa fa-pencil-square-o ml-2" aria-hidden="true" style="font-size:30px"></i>
+                    <a href="{{asset('editanswer')}}/{{ $bestAnswer->id }}">
+                        <i class="float-right fa fa-pencil-square-o ml-2" aria-hidden="true" style="font-size:30px"></i>
                     </a>
                 @endif
                 <br>
@@ -211,9 +211,8 @@
                 <br>
                 <div class="image-markdown" style="padding-right: 58px;">{!! $bestAnswer->content !!}</div>
                 @if($bestAnswer->attachment_path)
-                <b class="badge badge-warning">Attachments:</b>
-                <a
-                    href="{{asset('storage/files/'.$bestAnswer->attachment_path)}}"><i>{{$bestAnswer->attachment_path}}</i></a>
+                    <b class="badge badge-warning">Attachments:</b>
+                    <a href="{{asset('storage/files/'.$bestAnswer->attachment_path)}}"><i>{{$bestAnswer->attachment_path}}</i></a>
                 @endif
                 <div class="row" style=" color:#787878; font-size: 20px ; margin-bottom: 10px">
                     <div class="col-1">

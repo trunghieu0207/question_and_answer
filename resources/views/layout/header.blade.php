@@ -108,7 +108,7 @@
                             @csrf
                             <button type="submit" class="dropdown-item">
                                 <i class="fa fa-sign-out" style="width:20px"></i>
-                                Logout
+                                Sign out
                             </button>
                             </form>
                             
