@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Answer;
+
 class AnswerRequest extends FormRequest
 {
     /**
@@ -26,13 +26,6 @@ class AnswerRequest extends FormRequest
     {
         return [
             'content' => 'required',
-            'id' => function ($attribute, $value, $fail) {
-                    $answer = Answer::find($value);
-                    $idUser = Auth::user()->id;
-                    if ($answer->user->_id != $idUser) {
-                        return $fail('The ' . $attribute . ' not invalid');
-                    }
-                }
         ];
     }
 

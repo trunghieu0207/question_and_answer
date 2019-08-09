@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class QuestionController extends Controller
 {
 	private $typeFiles = array('application/x-rar-compressed', 'application/octet-stream', 'application/zip', 'application/x-rar', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed');
+	private $startIdInUrl = 32;
 
 	public function create()
 	{
@@ -56,17 +57,18 @@ class QuestionController extends Controller
 
 		$categories = Category::all();
 		$question = Auth::user()->questions()->find($id);
+		
 		if(empty($question)){
 			return redirect()->back();
 		} 
-
+		
 		return view('question.edit_topic',compact('question','id','categories'));
 	}
 	
 	public function update(AddTopicRequest $request)
 	{
-
-		$question = Question::find($request->get('id'));
+		$id = substr($request->header('referer'),$this->startIdInUrl);
+		$question = Question::find($id);
 		$question->title = $request->get('title');
 		$question->content = $request->get('content');
 
@@ -88,7 +90,7 @@ class QuestionController extends Controller
 		}
 		$question->save();
 
-		return redirect()->route('viewTopic', ['id' => $request->get('id')]);
+		return redirect()->route('viewTopic', ['id' => $id]);
 	}
 
 	public function destroy(Request $request)

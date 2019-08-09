@@ -13,14 +13,17 @@ use Illuminate\Support\Facades\Storage;
 class AnswerController extends Controller
 {
 	private $typeFiles = array('application/x-rar-compressed', 'application/octet-stream', 'application/zip', 'application/x-rar', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed');
+	private $startIdEdit = 33;
+	private $startIdAdd = 28;
 
 	public function store(AnswerRequest $request)
 	{
-		$question= Question::find("$request->question_id");
+		$id = substr($request->header('referer'),$this->startIdAdd);
+		$question= Question::find("$id");
 		$question->total_answer+=1;
 		$question->save();
 
-		$answer = new Answer();		
+		$answer = new Answer();
 		$answer->content = $request->get('content');
 		$answer->user()->associate(Auth::user());
 		$answer->question()->associate($question);
@@ -66,8 +69,8 @@ class AnswerController extends Controller
 
 	public function update(AnswerRequest $request)
 	{
-
-		$answer = Answer::find($request->get('id'));
+		$id = substr($request->header('referer'),$this->startIdEdit);
+		$answer = Answer::find($id);
 		$answer->content = $request->get('content');
 		if($request->hasFile('attachment')) {
 			Storage::delete('public/files/'.$answer->attachment_path);
