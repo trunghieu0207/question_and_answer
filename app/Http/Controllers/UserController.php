@@ -142,7 +142,9 @@ class UserController extends Controller
     
     public function personalInfomation($id)
 	{
-		$user = User::find($id);
+        $user = User::find($id);
+        if(empty($user)) return back();
+
 		$questions = $user->questions;
 		$answers = $user->answers;
 		$totalLike = $questions->sum('total_like')+$answers->sum('total_like');

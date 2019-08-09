@@ -59,7 +59,7 @@ class QuestionController extends Controller
 		$question = Auth::user()->questions()->find($id);
 		
 		if(empty($question)){
-			return redirect()->back();
+			return back();
 		} 
 		
 		return view('question.edit_topic',compact('question','id','categories'));

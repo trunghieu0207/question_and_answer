@@ -17,8 +17,7 @@ class ViewTopicController extends Controller
     public function view($id)
     {
         $question = Question::find($id);
-        if(empty($question))
-            return redirect()->back();
+        if(empty($question)) return redirect()->back();
 
         $limit=\Config::get('constants.options.ItemNumberPerPage');
         $answers = Answer::where('question_id',$id)->orderBy('total_like','desc')->paginate($limit);
