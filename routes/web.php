@@ -89,7 +89,7 @@ Route::middleware(['auth'])->group(function () {
 		'uses' => 'SignInController@logOut'
 	]);
 
-	
+
 
 	Route::get('addtopic',[
 		'as' => 'addTopic',
@@ -139,14 +139,15 @@ Route::middleware(['auth'])->group(function () {
 		'as' => 'dislike',
 		'uses' => 'ViewTopicController@dislike'
 	]);
-	
+
 	Route::get('removenotification/{id}','UserController@removeNotification')->name('removeNotification');
 
 	Route::get('readnotification','UserController@readNotification')->name('readNotification');
+	Route::get('totalNotification','UserController@totalNotification')->name('totalNotification');
 });
 
 /*End middleware check sign in*/
 
 Route::fallback(function () {
     abort(404);
-});	
+});

@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $user->email = 'antman@mail.com';
         $user->password = bcrypt(123456);
         $user->fullname = 'Antman';
-        $user->avatar = 'antman_avatar.png';
+        $user->avatar = 'default_avatar.png';
         $user->about_me = 'We are antman team!';
         $user->save();
 

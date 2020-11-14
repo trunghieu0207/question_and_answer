@@ -36,14 +36,14 @@ class UserController extends Controller
 
 	public function changeAvatar(Request $request)
 	{
-		if ($request->hasFile('avatar')) {
+		if ($request->hasFile('avatars')) {
             $user = Auth::user();
 
             $filename = $user->_id.'.'.$request->avatar->getClientOriginalExtension();
             $typeAvatar = $request->avatar->getMimeType();
 
-            if( $typeAvatar == 'image/png' || 
-                $typeAvatar == 'image/jpg' || 
+            if( $typeAvatar == 'image/png' ||
+                $typeAvatar == 'image/jpg' ||
                 $typeAvatar == 'image/jpeg') {
 
                 if($user->avatar!='default_avatar.png') Storage::delete('public/avatars/'.$user->avatar);
@@ -58,11 +58,11 @@ class UserController extends Controller
 
         return back()->withInput();
     }
-    
+
     public function removeNotification($id)
     {
         $notification = Notification::find($id);
-        if(Auth::user()->_id==$notification->user_id) 
+        if(Auth::user()->_id==$notification->user_id)
             $notification->delete();
 
         return redirect()->back();
@@ -102,7 +102,7 @@ class UserController extends Controller
     public function indexInformation () {
         $user = Auth::user();
         $active_personal_info = true;
-        
+
         return view('profile.information',compact('user','active_personal_info'));
     }
 
@@ -128,18 +128,18 @@ class UserController extends Controller
         $curentpassword = $user->password;
         if (!Hash::check($request->curentpassword, $curentpassword)) {
             Session()->flash('error', 'Current password is not correct!');
-            
-            return redirect()->back();       
-        } 
+
+            return redirect()->back();
+        }
         else {
             $user->password = bcrypt($request->newpassword);
             $user->save();
             Session()->flash('message', 'Change password complete!');
 
             return redirect()->back();
-        }  
+        }
     }
-    
+
     public function personalInfomation($id)
 	{
         $user = User::find($id);
@@ -156,4 +156,10 @@ class UserController extends Controller
 
 		return view('profile.personal_infomation',compact('user','totalLike','totalDislike','totalAccepted'));
 	}
+
+	public function totalNotification() {
+        $idUserLogin = Auth::user()->_id;
+        $totalNotification = Notification::where('user_id', $idUserLogin)->count();
+        echo $totalNotification;
+    }
 }

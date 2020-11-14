@@ -46,7 +46,7 @@
                             aria-haspopup="true" aria-expanded="false" onclick="read_notification()">
                             @if(Auth::user()->notifications()->where('is_read',false)->count())
                             <i id="notification_bell" class="fa fa-bell text-danger" style="font-size: 18px"></i>
-                            <div id="unread_notification" class="text-danger float-right ml-1 font-weight-bold">{{Auth::user()->notifications->where('is_read',false)->count()}}</div>
+                            <div id="unread_notification" class="text-danger float-right ml-1 font-weight-bold"></div>
                             @else
                             <i id="notification_bell" class="fa fa-bell" style="font-size: 18px"></i>
                             @endif
@@ -78,7 +78,7 @@
                     </div>
                     <!-- end notification block -->
                 </div>
-                
+
                 <ul class="navbar-nav mr-auto"></ul>
 
                 <!-- start user menu block -->
@@ -111,7 +111,7 @@
                                 Sign out
                             </button>
                             </form>
-                            
+
                         </div>
                     </div>
                 </div>

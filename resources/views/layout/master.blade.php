@@ -11,7 +11,7 @@
     @include('layout.header')
 
     <a href="{{route('aboutUs')}}" type="button" class="btn btn-outline-info btn-about-us" style="z-index: 1;">About us</a>
-    
+
     @yield('content')
 
     @include('layout.js')
@@ -55,8 +55,20 @@
             $("#notification_bell").removeClass("text-danger");
             $("#unread_notification").remove();
         }
+
+        const httpRequest = new XMLHttpRequest();
+        httpRequest.open('GET', '{{ route('totalNotification') }}');
+        httpRequest.responseType = 'json';
+        httpRequest.onload = () => {
+            const data = httpRequest.response;
+            document.querySelector('#unread_notification').innerHTML = data;
+        }
+        httpRequest.send();
         @endif
     </script>
+<script src="{{asset('/js/index.js')}}">
+
+</script>
 </body>
 
 </html>
